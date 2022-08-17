@@ -133,6 +133,16 @@ namespace MoviesRental.WindowsApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Devolution_Button {
+            get {
+                object obj = ResourceManager.GetObject("Devolution Button", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Edit_icon {
             get {
                 object obj = ResourceManager.GetObject("Edit icon", resourceCulture);

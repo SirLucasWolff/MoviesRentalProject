@@ -21,28 +21,62 @@ namespace MoviesRental.WindowsApp.Features.RentModule
 {
     public partial class RentForm : Form
     {
-        EmployeAppService? employeAppService = null;
-
         MovieAppService? movieAppService = null;
 
         ClientAppService? clientAppService = null;
 
-        public List<Movie> Movies { get; set; }
+        RentAppService? rentAppService = null;
+
+        public List<Movie> allMovies { get; set; }
+
+        public List<Movie> moviesSelected { get; set; }
 
         public List<Movie> GetAllMoviesAdded { get; set; }
 
-        public RentForm(EmployeAppService employeAppService, MovieAppService movieAppService, ClientAppService clientAppService)
+        public List<Rent> rents { get; set; }
+
+        public string statusApp { get; set; }
+
+        public RentForm(MovieAppService movieAppService, ClientAppService clientAppService, RentAppService rentAppService, string status)
         {
-            this.employeAppService = employeAppService;
+            statusApp = status;
             this.movieAppService = movieAppService;
             this.clientAppService = clientAppService;
+            this.rentAppService = rentAppService;
             InitializeComponent();
             SupplyClients();
+
+            this.allMovies = GetAllMovies();
+
+            if (statusApp == "Devolution")
+                this.moviesSelected = GetMoviesSelected();
+
+            this.GetAllMoviesAdded = new List<Movie>();
+            this.rents = new List<Rent>();
+
             TableMovies.ConfigGridChekered();
             TableMovies.ConfigGridOnlyRead();
             TableMovies.Columns.AddRange(GetColumns());
-            this.Movies = GetMovies();
-            this.GetAllMoviesAdded = new List<Movie>();
+        }
+
+        private List<Movie>? GetMoviesSelected()
+        {
+            List<string> moviesRented = BuildTheStringMoviesToList();
+
+            List<Movie> movies = movieAppService.SelectAllMovies();
+
+            List<Movie> getMovies = new List<Movie>();
+
+            foreach (var itemRented in moviesRented)
+            {
+                foreach (var itemMovie in movies)
+                {
+                    if (itemRented == itemMovie.Name)
+                        getMovies.Add(itemMovie);
+                }
+            }
+
+            return getMovies;
         }
 
         private Rent rent;
@@ -72,20 +106,114 @@ namespace MoviesRental.WindowsApp.Features.RentModule
 
         #region CodeMethods
 
+        public void NewRentScreen()
+        {
+            FineText.Visible = false;
+            FineResultText.Visible = false;
+            FineValueSymbol.Visible = false;
+            FormText.Text = "Rent form";
+            FineDatePicker.Visible = false;
+        }
+
+        public void DevolutionScreen()
+        {
+            List<Rent>? rent = GetCurrentRent();
+
+            string rateDays = null;
+
+            string moviesQuantity = null;
+
+            foreach (var item in rent)
+            {
+                moviesQuantity = item.MoviesQuantity.ToString();
+                rateDays = item.DayValue.ToString();
+            }
+
+            AddButton.Visible = false;
+            TableMovies.Enabled = false;
+            SearchButton.Enabled = false;
+            MovieSelector.Enabled = false;
+            FineResultText.Visible = true;
+            FineText.Visible = true;
+            FineValueSymbol.Visible = true;
+            FormText.Text = "Devolution form";
+            RateDays.Text = rateDays;
+            MoviesQuantity.Text = moviesQuantity;
+            ReturnDatePicker.Text = DateTime.Now.ToString();
+            CalculateTotalValue();
+            DaysValue.Text = DateValue().ToString();
+            TotalValue.Text = GetTotalValue(rent);
+            ClientSelector.Enabled = false;
+            RentalDatePicker.Enabled = false;
+            ReturnDatePicker.Enabled = false;
+            FineResultText.Text = GetFineResult(rent);
+            FineDatePicker.Visible = true;
+        }
+
+        private string GetFineResult(List<Rent> rent)
+        {
+            DateTime getReturnDate = new DateTime();
+
+            foreach (var item in rent)
+                getReturnDate = item.ReturnDate;
+
+            int date = ((TimeSpan)(DateTime.Now - getReturnDate)).Days;
+
+            foreach (var item in rent)
+            {
+                if (item.Status == "Pending")
+                {
+                    FineDatePicker.Text = item.ReturnDate.ToString();
+                    return date.ToString();
+                }
+            }
+
+            return "0";
+        }
+
+        private string GetTotalValue(List<Rent> rent)
+        {
+            int? getMovies = null;
+
+            foreach (var item in rent)
+            {
+                getMovies = item.MoviesQuantity;
+            }
+
+            string getFineResult = GetFineResult(rent);
+
+            int convertFineResult = Convert.ToInt32(getFineResult);
+
+            int getDays = DateValue();
+
+            int? result = getMovies + getDays + convertFineResult;
+
+            return result.ToString();
+        }
+
+        public List<Rent>? GetCurrentRent()
+        {
+            List<Rent> list = rentAppService.SelectAllRents();
+
+            foreach (var item in list)
+            {
+                if (item.ClientName == ClientSelector.Text)
+                {
+                    List<Rent> getListRight = new List<Rent>();
+                    getListRight.Add(item);
+                    return getListRight;
+                }
+            }
+
+            return null;
+        }
+
         public Image GetImage()
         {
             var filePath = @"D:/Movies Rental Project/Status images/Green Status.PNG";
             FileInfo fi = new FileInfo(filePath);
             Image tempImage = Image.FromFile(fi.FullName);
             return tempImage;
-        }
-
-        public void DesableTableMovies()
-        {
-            TableMovies.Enabled = false;
-            AddButton.Enabled = false;
-            SearchButton.Enabled = false;
-            MovieSelector.Enabled = false;
         }
 
         private List<Movie> GetMoviesByName()
@@ -99,11 +227,37 @@ namespace MoviesRental.WindowsApp.Features.RentModule
             return movie;
         }
 
-        private List<Movie>? GetMovies()
+        private List<Movie>? GetAllMovies()
         {
             List<Movie> movies = movieAppService.SelectAllMovies();
-
             return movies;
+        }
+
+        private List<string> BuildTheStringMoviesToList()
+        {
+            rents = rentAppService.SelectAllRents();
+
+            char[] delimeters = new char[] { ',' };
+
+            List<string> movies = new List<string>();
+
+            foreach (var item in rents)
+            {
+                if (item.ClientName == ClientSelector.Text)
+                {
+                    string[] moviesName = item.MovieName.Split(delimeters);
+
+                    foreach (var a in item.MovieName.Split(delimeters))
+                    {
+                        if (a != "")
+                            movies.Add(a);
+                    }
+
+                    return movies;
+                }
+            }
+
+            return null;
         }
 
         public DataGridViewColumn[] GetColumns()
@@ -156,9 +310,10 @@ namespace MoviesRental.WindowsApp.Features.RentModule
 
         private void RentForm_Load(object sender, EventArgs e)
         {
-            var movies = Movies;
-
-            TableMovies.DataSource = movies;
+            if (statusApp == "Devolution")
+                TableMovies.DataSource = moviesSelected;
+            else
+                TableMovies.DataSource = allMovies;
         }
 
         private void CalculateTotalValue()
@@ -238,6 +393,11 @@ namespace MoviesRental.WindowsApp.Features.RentModule
 
         private void EnterButtonRent_Click(object sender, EventArgs e)
         {
+            if (statusApp == "Devolution")
+            {
+                return;
+            }
+
             Random random = new Random();
             int id = random.Next();
 

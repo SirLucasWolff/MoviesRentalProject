@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.FineDatePicker = new System.Windows.Forms.MaskedTextBox();
+            this.FineValueSymbol = new System.Windows.Forms.Label();
+            this.FineResultText = new System.Windows.Forms.Label();
+            this.FineText = new System.Windows.Forms.Label();
             this.MovieValueSymbol = new System.Windows.Forms.Label();
             this.DayValueSymbol = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -59,7 +63,7 @@
             this.MovieSelector = new System.Windows.Forms.TextBox();
             this.SearchButton = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.FormText = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
@@ -72,6 +76,10 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.FineDatePicker);
+            this.panel1.Controls.Add(this.FineValueSymbol);
+            this.panel1.Controls.Add(this.FineResultText);
+            this.panel1.Controls.Add(this.FineText);
             this.panel1.Controls.Add(this.MovieValueSymbol);
             this.panel1.Controls.Add(this.DayValueSymbol);
             this.panel1.Controls.Add(this.panel3);
@@ -86,6 +94,49 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(367, 522);
             this.panel1.TabIndex = 27;
+            // 
+            // FineDatePicker
+            // 
+            this.FineDatePicker.BackColor = System.Drawing.SystemColors.Control;
+            this.FineDatePicker.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.FineDatePicker.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.FineDatePicker.Location = new System.Drawing.Point(166, 117);
+            this.FineDatePicker.Mask = "00/00";
+            this.FineDatePicker.Name = "FineDatePicker";
+            this.FineDatePicker.Size = new System.Drawing.Size(72, 19);
+            this.FineDatePicker.TabIndex = 34;
+            this.FineDatePicker.ValidatingType = typeof(System.DateTime);
+            // 
+            // FineValueSymbol
+            // 
+            this.FineValueSymbol.AutoSize = true;
+            this.FineValueSymbol.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.FineValueSymbol.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.FineValueSymbol.Location = new System.Drawing.Point(320, 118);
+            this.FineValueSymbol.Name = "FineValueSymbol";
+            this.FineValueSymbol.Size = new System.Drawing.Size(17, 20);
+            this.FineValueSymbol.TabIndex = 17;
+            this.FineValueSymbol.Text = "$";
+            // 
+            // FineResultText
+            // 
+            this.FineResultText.AutoSize = true;
+            this.FineResultText.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.FineResultText.Location = new System.Drawing.Point(297, 118);
+            this.FineResultText.Name = "FineResultText";
+            this.FineResultText.Size = new System.Drawing.Size(15, 18);
+            this.FineResultText.TabIndex = 15;
+            this.FineResultText.Text = "0";
+            // 
+            // FineText
+            // 
+            this.FineText.AutoSize = true;
+            this.FineText.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.FineText.Location = new System.Drawing.Point(115, 118);
+            this.FineText.Name = "FineText";
+            this.FineText.Size = new System.Drawing.Size(39, 18);
+            this.FineText.TabIndex = 14;
+            this.FineText.Text = "Fine:";
             // 
             // MovieValueSymbol
             // 
@@ -149,7 +200,7 @@
             this.TotalValue.AutoSize = true;
             this.TotalValue.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.TotalValue.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.TotalValue.Location = new System.Drawing.Point(297, 15);
+            this.TotalValue.Location = new System.Drawing.Point(286, 15);
             this.TotalValue.Name = "TotalValue";
             this.TotalValue.Size = new System.Drawing.Size(17, 20);
             this.TotalValue.TabIndex = 4;
@@ -411,15 +462,15 @@
             this.label6.TabIndex = 43;
             this.label6.Text = "0";
             // 
-            // label5
+            // FormText
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Calibri", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label5.Location = new System.Drawing.Point(331, 9);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(124, 33);
-            this.label5.TabIndex = 44;
-            this.label5.Text = "Rent form";
+            this.FormText.AutoSize = true;
+            this.FormText.Font = new System.Drawing.Font("Calibri", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.FormText.Location = new System.Drawing.Point(320, 9);
+            this.FormText.Name = "FormText";
+            this.FormText.Size = new System.Drawing.Size(124, 33);
+            this.FormText.TabIndex = 44;
+            this.FormText.Text = "Rent form";
             // 
             // label8
             // 
@@ -449,7 +500,7 @@
             this.ClientSize = new System.Drawing.Size(793, 725);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.label5);
+            this.Controls.Add(this.FormText);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.SearchButton);
             this.Controls.Add(this.MovieSelector);
@@ -515,8 +566,12 @@
         private Label TotalValueSymbol;
         private Label label6;
         private Label TotalPriceSymbol;
-        private Label label5;
+        private Label FormText;
         private Label label8;
         private Label label9;
+        private Label FineValueSymbol;
+        private Label FineResultText;
+        private Label FineText;
+        private MaskedTextBox FineDatePicker;
     }
 }

@@ -16,6 +16,10 @@ namespace MoviesRental.WindowsApp
 
         private IRegister operations;
 
+        private IRegisterRent rentOperations;
+
+        public string statusOperation { get; set; }
+
         public MainForm()
         {
             this.WindowState = FormWindowState.Maximized;
@@ -28,6 +32,13 @@ namespace MoviesRental.WindowsApp
 
         #region CodeMethods
 
+        private void CheckStatusRent_Tick(object sender, EventArgs e)
+        {
+            rentOperations = AutoFacBuilder.Container.Resolve<RentOperations>();
+
+            rentOperations.EditStatusRegister();
+        }
+
         public void UpdateFooter(string message)
         {
             StatusText.Text = message;
@@ -38,10 +49,10 @@ namespace MoviesRental.WindowsApp
             UserControl? table = null;
 
             if (status == null)
-                table = operations.GetTable();
+                table = rentOperations.GetTable();
 
             if (status != null)
-                table = operations.GetTableFiltered(status);
+                table = rentOperations.GetTableFiltered(status);
 
             table.Dock = DockStyle.Fill;
 
@@ -51,6 +62,16 @@ namespace MoviesRental.WindowsApp
         }
 
         private void ConfigPanelRegisters(IRegister operations)
+        {
+            UserControl table = operations.GetTable();
+            table.Dock = DockStyle.Fill;
+
+            MainPanel.Controls.Clear();
+
+            MainPanel.Controls.Add(table);
+        }
+
+        private void ConfigPanelRentRegisters(IRegisterRent operations)
         {
             UserControl table = operations.GetTable();
             table.Dock = DockStyle.Fill;
@@ -97,6 +118,8 @@ namespace MoviesRental.WindowsApp
 
             FilterButton.Visible = false;
 
+            DevolutionButton.Visible = false;
+
             toolStripSeparator1.Visible = false;
 
             toolStripSeparator2.Visible = false;
@@ -106,6 +129,8 @@ namespace MoviesRental.WindowsApp
             toolStripSeparator4.Visible = false;
 
             toolStripSeparator5.Visible = false;
+
+            toolStripSeparator6.Visible = false;
 
             RegisterSelectedText.Visible = false;
         }
@@ -124,6 +149,8 @@ namespace MoviesRental.WindowsApp
 
             DeleteButton.Visible = true;
 
+            DevolutionButton.Visible = false;
+
             AddButton.Enabled = true;
 
             EditButton.Enabled = true;
@@ -139,6 +166,8 @@ namespace MoviesRental.WindowsApp
             toolStripSeparator4.Visible = false;
 
             toolStripSeparator5.Visible = false;
+
+            toolStripSeparator6.Visible = false;
         }
 
         public void RentsButtons()
@@ -151,9 +180,11 @@ namespace MoviesRental.WindowsApp
 
             EditButton.Visible = true;
 
-            DeleteButton.Visible = true;
+            DeleteButton.Visible = false;
 
             FilterButton.Visible = true;
+
+            DevolutionButton.Visible = true;
 
             toolStripSeparator1.Visible = true;
 
@@ -163,9 +194,11 @@ namespace MoviesRental.WindowsApp
 
             toolStripSeparator4.Visible = false;
 
-            toolStripSeparator5.Visible = true;
+            toolStripSeparator5.Visible = false;
 
-            EditButton.Enabled = false;
+            toolStripSeparator6.Visible = false;
+
+            EditButton.Visible = false;
         }
 
         #endregion
@@ -174,6 +207,8 @@ namespace MoviesRental.WindowsApp
 
         public void ClientOption_Click(object sender, EventArgs e)
         {
+            statusOperation = "Operation";
+
             RegistersButtons();
 
             PanelHeader.Visible = true;
@@ -191,6 +226,8 @@ namespace MoviesRental.WindowsApp
 
         public void EmployeeOption_Click(object sender, EventArgs e)
         {
+            statusOperation = "Operation";
+
             RegistersButtons();
 
             PanelHeader.Visible = true;
@@ -208,6 +245,8 @@ namespace MoviesRental.WindowsApp
 
         private void MovieOption_Click(object sender, EventArgs e)
         {
+            statusOperation = "Operation";
+
             RegistersButtons();
 
             PanelHeader.Visible = true;
@@ -225,6 +264,8 @@ namespace MoviesRental.WindowsApp
 
         private void RentsMenuItem_Click(object sender, EventArgs e)
         {
+            statusOperation = "";
+
             RentsButtons();
 
             MainPanel.Controls.Clear();
@@ -237,9 +278,9 @@ namespace MoviesRental.WindowsApp
 
             UpdateFooter(configuration.KindRegister);
 
-            operations = AutoFacBuilder.Container.Resolve<RentOperations>();
+            rentOperations = AutoFacBuilder.Container.Resolve<RentOperations>();
 
-            ConfigPanelRegisters(operations);
+            ConfigPanelRentRegisters(rentOperations);
         }
 
         private void AccessMenuItem_Click(object sender, EventArgs e)
@@ -257,7 +298,10 @@ namespace MoviesRental.WindowsApp
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-            operations.InsertNewRegister();
+            if (statusOperation == "Operation")
+                operations.InsertNewRegister();
+            else
+                rentOperations.InsertNewRegister();
         }
 
         private void EditButton_Click(object sender, EventArgs e)
@@ -277,8 +321,6 @@ namespace MoviesRental.WindowsApp
             accountForm.ShowDialog();
         }
 
-        #endregion
-
         private void FilterButton_Click(object sender, EventArgs e)
         {
             FilterRentForm filterRentForm = new FilterRentForm();
@@ -286,11 +328,11 @@ namespace MoviesRental.WindowsApp
             filterRentForm.ShowDialog();
         }
 
-        private void CheckStatusRent_Tick(object sender, EventArgs e)
-        {
-            operations = AutoFacBuilder.Container.Resolve<RentOperations>();
+        #endregion
 
-            operations.EditRegister();
+        private void DevolutionButton_Click(object sender, EventArgs e)
+        {
+            rentOperations.RegisterDevolution();
         }
     }
 }
