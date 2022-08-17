@@ -3,7 +3,6 @@ using MovieRental.Application.EmployeModule;
 using MovieRental.Application.MovieModule;
 using MovieRental.Application.RentModule;
 using MoviesRental.Domain.RentModule;
-using MoviesRental.WindowsApp.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MoviesRental.WindowsApp.Features.RentModule
 {
-    public class RentOperations : IRegister
+    public class RentOperations : IRegisterRent
     {
         private RentAppService rentAppService = null;
 
@@ -25,6 +24,8 @@ namespace MoviesRental.WindowsApp.Features.RentModule
         private RentTable rentTable = null;
 
         public List<Rent> rentList;
+
+        public string registerType = null;
 
         public RentOperations(RentAppService appService, ClientAppService clientAppService, EmployeAppService employeAppService, MovieAppService movieAppService)
         {
@@ -130,38 +131,32 @@ namespace MoviesRental.WindowsApp.Features.RentModule
             }
         }
 
-        public void EditRegister()
+        public void RegisterDevolution()
         {
             int id = rentTable.GetIdSelected();
 
             if (id == 0)
             {
-                EditStatusRegister();
+                MessageBox.Show("Select a rent to register the devolution", "Rent devolution",
+                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
 
             Rent rentSelected = rentAppService.SelectRentId(id);
 
-            RentForm form = new RentForm(employeeAppService, movieAppService, clientAppService);
+            RentForm form = new RentForm(movieAppService, clientAppService, rentAppService, registerType = "Devolution");
+
             form.Rent = rentSelected;
 
-            form.DesableTableMovies();
+            form.DevolutionScreen();
 
             form.ShowDialog();
 
             if (form.DialogResult == DialogResult.OK)
             {
-                string result = rentAppService.EditRent(id, form.Rent);
-
-                if (result == "Is_Valid")
-                {
-                    rentTable.UpdateRegisters();
-                    MainForm.instance.UpdateFooter($"Rent: [{form.Rent.EmployeName}] edited with success");
-                }
-                else
-                {
-                    MainForm.instance.UpdateFooter(result);
-                }
+                rentAppService.DeleteRent(form.Rent.Id);
+                rentTable.UpdateRegisters();
+                MainForm.instance.UpdateFooter($"Rent: [{form.Rent.EmployeName}] completed");
             }
         }
 
@@ -181,7 +176,9 @@ namespace MoviesRental.WindowsApp.Features.RentModule
 
         public void InsertNewRegister()
         {
-            RentForm form = new RentForm(employeeAppService, movieAppService, clientAppService);
+            RentForm form = new RentForm(movieAppService, clientAppService, rentAppService, registerType = "Insert");
+
+            form.NewRentScreen();
 
             if (form.ShowDialog() == DialogResult.OK)
             {

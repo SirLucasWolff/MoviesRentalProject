@@ -49,6 +49,8 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.AddButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.DevolutionButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.EditButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.DeleteButton = new System.Windows.Forms.ToolStripButton();
@@ -202,6 +204,8 @@
             this.toolStripSeparator1,
             this.AddButton,
             this.toolStripSeparator2,
+            this.DevolutionButton,
+            this.toolStripSeparator6,
             this.EditButton,
             this.toolStripSeparator3,
             this.DeleteButton,
@@ -241,6 +245,22 @@
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 39);
+            // 
+            // DevolutionButton
+            // 
+            this.DevolutionButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.DevolutionButton.Image = global::MoviesRental.WindowsApp.Properties.Resources.Devolution_Button;
+            this.DevolutionButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.DevolutionButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.DevolutionButton.Name = "DevolutionButton";
+            this.DevolutionButton.Size = new System.Drawing.Size(36, 36);
+            this.DevolutionButton.Text = "Register the devolution";
+            this.DevolutionButton.Click += new System.EventHandler(this.DevolutionButton_Click);
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 39);
             // 
             // EditButton
             // 
@@ -300,7 +320,7 @@
             this.FilterButton.MergeIndex = -10;
             this.FilterButton.Name = "FilterButton";
             this.FilterButton.Size = new System.Drawing.Size(36, 36);
-            this.FilterButton.Text = "FilterButton";
+            this.FilterButton.Text = "Filter";
             this.FilterButton.Click += new System.EventHandler(this.FilterButton_Click);
             // 
             // MainPanel
@@ -380,5 +400,7 @@
         private ToolStripSeparator toolStripSeparator5;
         private ToolStripButton FilterButton;
         private System.Windows.Forms.Timer CheckStatusRent;
+        private ToolStripSeparator toolStripSeparator6;
+        private ToolStripButton DevolutionButton;
     }
 }
