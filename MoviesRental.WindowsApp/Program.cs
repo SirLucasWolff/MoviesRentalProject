@@ -1,3 +1,6 @@
+using MoviesRental.Domain.EmployeeModule;
+using MoviesRental.Infra.ORM;
+
 namespace MoviesRental.WindowsApp
 {
     internal static class Program

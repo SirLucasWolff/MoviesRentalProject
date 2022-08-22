@@ -112,7 +112,7 @@ namespace MoviesRental.Infra.SQL.EmployeeModule
             string password = ((string)reader["PASSWORD"]);
             string accessKey = ((string)reader["ACCESSKEY"]);
 
-            Employee employee = new Employee(id, email, employeeName, password, accessKey);
+            Employee employee = new Employee(email, employeeName, password, accessKey);
 
             employee.Id = id;
 

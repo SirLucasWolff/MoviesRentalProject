@@ -82,9 +82,6 @@ namespace MoviesRental.WindowsApp.Features.ClientModule
 
         private void EnterButton_Click(object sender, EventArgs e)
         {
-            Random rnd = new Random();
-            int id = rnd.Next();
-
             string name = TextName.Text;
 
             int telephone = Convert.ToInt32(TextTelephone.Text);
@@ -93,7 +90,7 @@ namespace MoviesRental.WindowsApp.Features.ClientModule
 
             DateTime bornDate = Convert.ToDateTime(AgeDatePicker.Text);
 
-            Client = new Client(id, name, telephone, address, bornDate);
+            Client = new Client(name, telephone, address, bornDate);
         }
 
         #endregion

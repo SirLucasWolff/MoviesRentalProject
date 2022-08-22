@@ -118,9 +118,6 @@ namespace MoviesRental.WindowsApp.Features.MovieModule
 
         private void EnterButtonMovie_Click(object sender, EventArgs e)
         {
-            Random rnd = new Random();
-            int id = rnd.Next();
-
             string name = TextMovieName.Text;
 
             string category = TextBoxCategories.Text;
@@ -129,7 +126,7 @@ namespace MoviesRental.WindowsApp.Features.MovieModule
 
             DateTime releaseDate = Convert.ToDateTime(ReleaseDatePicker.Text);
 
-            Movie = new Movie(id, name, category, classification, releaseDate);
+            Movie = new Movie(name, category, classification, releaseDate);
         }
 
         private void ClearCategoriesButton_Click(object sender, EventArgs e)

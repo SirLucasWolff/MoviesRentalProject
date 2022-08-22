@@ -111,7 +111,7 @@ namespace MoviesRental.Infra.SQL.ClientModule
             string address = ((string)reader["ADDRESS"]);
             DateTime ageDate = Convert.ToDateTime(reader["BORNDATE"]);
 
-            Client client = new Client(id,clientName, telephone, address, ageDate);
+            Client client = new Client(clientName, telephone, address, ageDate);
 
             client.Id = id;
 

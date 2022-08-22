@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MoviesRental.Domain.Shared;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace MoviesRental.Domain.ClientModule
 {
-    public class Client
+    public class Client :BaseEntity <int>
     {
-        public int Id { get; set; }
-
         public string? ClientName { get; set; }
 
         public int Telephone { get; set; }
@@ -18,9 +17,8 @@ namespace MoviesRental.Domain.ClientModule
         
         public DateTime? BornDate { get; set; }
 
-        public Client(int id,string? clientName, int telephone, string address, DateTime bornDate)
+        public Client(string? clientName, int telephone, string address, DateTime bornDate)
         {
-            this.Id = id;
             ClientName = clientName;
             Telephone = telephone;
             Address = address;

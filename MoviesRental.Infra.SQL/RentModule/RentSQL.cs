@@ -192,7 +192,7 @@ namespace MoviesRental.Infra.SQL.RentModule
             Byte[] statusImagem = (Byte[])reader["STATUSIMAGE"];
             string status = ((string)reader["STATUS"]);
 
-            Rent rent = new Rent(id, employeeName, moviesQuantity, movieName, clientName, rentalDate, returnDate,dayValue,movieValue, price, statusImagem, status);
+            Rent rent = new Rent(employeeName, moviesQuantity, movieName, clientName, rentalDate, returnDate,dayValue,movieValue, price, statusImagem, status);
 
             rent.Id = id;
 

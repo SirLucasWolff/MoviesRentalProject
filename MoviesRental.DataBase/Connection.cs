@@ -13,7 +13,7 @@ namespace MoviesRental.DataBase
         {
             string? ConnectionString;
 
-            ConnectionString = @"Data Source=LUCASWOLFF\SQLEXPRESS;Initial Catalog=MoviesRentalDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            ConnectionString = @"Data Source=LAPTOP-B893FLT6\SQLEXPRESS;Initial Catalog=MoviesRentalDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
             SqlConnection? cnn;
 

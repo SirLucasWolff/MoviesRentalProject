@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MoviesRental.Domain.Shared;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace MoviesRental.Domain.MovieModule
 {
-    public class Movie
+    public class Movie: BaseEntity<int>
     {
-        public int Id { get; set; }
-
         public string? Name { get; set; }
 
         public string? Category { get; set; }
@@ -18,9 +17,8 @@ namespace MoviesRental.Domain.MovieModule
 
         public DateTime? ReleaseDate { get; set; } 
 
-        public Movie(int id, string? name, string category, string classification, DateTime releaseDate)
+        public Movie(string? name, string category, string classification, DateTime releaseDate)
         {
-            this.Id = id;
             Name = name;
             Category = category;
             Classification = classification;

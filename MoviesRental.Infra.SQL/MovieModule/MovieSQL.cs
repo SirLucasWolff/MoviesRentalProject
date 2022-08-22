@@ -130,7 +130,7 @@ namespace MoviesRental.Infra.SQL.MovieModule
             string classification = ((string)reader["CLASSIFICATION"]);
             DateTime releaseDate = ((DateTime)reader["RELEASEDATE"]);
 
-            Movie movie = new Movie(id, movieName,category,classification, releaseDate);
+            Movie movie = new Movie(movieName,category,classification, releaseDate);
 
             movie.Id = id;
 
