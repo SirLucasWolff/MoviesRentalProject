@@ -398,9 +398,6 @@ namespace MoviesRental.WindowsApp.Features.RentModule
                 return;
             }
 
-            Random random = new Random();
-            int id = random.Next();
-
             string employee = CurrentAccount.EmployeeName;
 
             int movieQuantity = Convert.ToInt32(MoviesValue.Text);
@@ -425,7 +422,7 @@ namespace MoviesRental.WindowsApp.Features.RentModule
 
             string status = "Active";
 
-            Rent = new Rent(id, employee, movieQuantity, movieName, client, rentaDate, returnDate, dayValue, movieValue, totalValue, statusImage, status);
+            Rent = new Rent(employee, movieQuantity, movieName, client, rentaDate, returnDate, dayValue, movieValue, totalValue, statusImage, status);
         }
 
         public void AddButton_Click(object sender, EventArgs e)

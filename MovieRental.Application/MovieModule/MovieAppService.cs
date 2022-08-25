@@ -22,7 +22,7 @@ namespace MovieRental.Application.MovieModule
 
             try
             {
-                movieRepository.AddMovie(movie);
+                movieRepository.InsertNew(movie);
             }
             catch (Exception ex)
             {
@@ -39,7 +39,7 @@ namespace MovieRental.Application.MovieModule
             try
             {
                 movie.Id = id;
-                movieRepository.EditMovie(id, movie);
+                movieRepository.Edit(id, movie);
             }
             catch (Exception ex)
             {
@@ -53,7 +53,7 @@ namespace MovieRental.Application.MovieModule
         {
             try
             {
-                movieRepository.DeleteMovie(id);
+                movieRepository.Delete(id);
             }
             catch (Exception ex)
             {
@@ -67,7 +67,7 @@ namespace MovieRental.Application.MovieModule
         {
             try
             {
-                Movie movieSelected = movieRepository.GetById(id);
+                Movie movieSelected = movieRepository.SelectById(id);
                 return movieSelected;
             }
             catch (Exception ex)
@@ -106,7 +106,7 @@ namespace MovieRental.Application.MovieModule
         {
             try
             {
-                List<Movie> allMoviesSelected = movieRepository.GetAll();
+                List<Movie> allMoviesSelected = movieRepository.SelectAll();
                 return allMoviesSelected;
             }
             catch (Exception ex)

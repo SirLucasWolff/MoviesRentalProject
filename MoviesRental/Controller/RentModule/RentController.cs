@@ -66,6 +66,8 @@ namespace RentalMovies.Controller.RentModule
                     WHERE 
                         ID = @ID";
 
+        public ConvertToDelegate<Rent> RentConvert { get; private set; }
+
         public void AddRent(Rent rent)
         {
             Console.Clear();
@@ -323,25 +325,30 @@ namespace RentalMovies.Controller.RentModule
             return DataBaseController.GetId(SqlSelectId, RentConvert, AddParameters("ID", id));
         }
 
-        private Rent RentConvert(IDataReader reader)
-        {
-            int id = Convert.ToInt32(reader["ID"]);
-            string employeName = ((string)reader["EmployeName"]);
-            int quantity = ((int)reader["MoviesQuantity"]);
-            string movieName = ((string)reader["MovieName"]);
-            string clientName = ((string)reader["ClientName"]);
-            DateTime rentalDate = Convert.ToDateTime(reader["RentalDate"]);
-            DateTime returnDate = Convert.ToDateTime(reader["ReturnDate"]);
-            int price = ((int)reader["TOTALPRICE"]);
+        //private Rent RentConvert(IDataReader reader)
+        //{
+        //    //int id = Convert.ToInt32(reader["ID"]);
+        //    //string employeName = ((string)reader["EmployeName"]);
+        //    //int quantity = ((int)reader["MoviesQuantity"]);
+        //    //string movieName = ((string)reader["MovieName"]);
+        //    //string clientName = ((string)reader["ClientName"]);
+        //    //DateTime rentalDate = Convert.ToDateTime(reader["RentalDate"]);
+        //    //DateTime returnDate = Convert.ToDateTime(reader["ReturnDate"]);
+        //    //int price = ((int)reader["TOTALPRICE"]);
 
-            Rent rent = new Rent(id,employeName,quantity, movieName, clientName, rentalDate, returnDate,price);
+        //    ////Rent rent = new(id,employeName,quantity, movieName, clientName, rentalDate, returnDate,price);
 
-            rent.Id = id;
+        //    //rent.Id = id;
 
-            return rent;
-        }
+        //    //return rent;
+        //}
 
         public List<Rent> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Rent> GetByStatus(string status)
         {
             throw new NotImplementedException();
         }

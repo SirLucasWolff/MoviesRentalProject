@@ -6,16 +6,8 @@ using System.Threading.Tasks;
 
 namespace MoviesRental.Domain.EmployeeModule
 {
-    public interface EmployeeRepository
+    public interface EmployeeRepository: IRepository<Employee, int>, IReadOnlyRepository<Employee, int>
     {
-        Employee GetById(int id);
-
-        void AddEmployee(Employee employee);
-
-        void DeleteEmployee(int id);
-
-        void EditEmployee(int id,Employee employee);
-
-        List<Employee> GetAll();
+        public bool ExistEmployeeWithTheName(int id, string name);
     }
 }

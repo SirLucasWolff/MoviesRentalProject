@@ -59,7 +59,7 @@ namespace MoviesRental.WindowsApp.Features.EmployeeModule
 
         private string VerifyIfAlreadyExistAccessKey()
         {
-            employees = employeeSQL.GetAll();
+            employees = employeeSQL.SelectAll();
 
             foreach (var item in employees)
             {
@@ -75,7 +75,7 @@ namespace MoviesRental.WindowsApp.Features.EmployeeModule
 
         private void EmailValidation()
         {
-            employees = employeeSQL.GetAll();
+            employees = employeeSQL.SelectAll();
 
             foreach (var item in employees)
             {
@@ -107,9 +107,6 @@ namespace MoviesRental.WindowsApp.Features.EmployeeModule
 
         private void EnterButtonEmployee_Click(object sender, EventArgs e)
         {
-            Random rnd = new Random();
-            int id = rnd.Next();
-
             string email = TextEmail.Text;
 
             string name = TextEmployeeName.Text;
@@ -118,7 +115,7 @@ namespace MoviesRental.WindowsApp.Features.EmployeeModule
 
             string accessKey = VerifyIfAlreadyExistAccessKey();
 
-            Employee = new Employee(id, email, name, password, accessKey);
+            Employee = new Employee(email, name, password, accessKey);
 
             EmailValidation();
         }

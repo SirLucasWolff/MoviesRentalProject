@@ -52,6 +52,8 @@ namespace RentalMovies.Controller.MovieModule
           
                         FROM MOVIEDB";
 
+        public ConvertToDelegate<Movie> MovieConvert { get; private set; }
+
         public void AddMovie(Movie movie)
         {
             Console.Clear();
@@ -127,17 +129,17 @@ namespace RentalMovies.Controller.MovieModule
             return parameters;
         }
 
-        private Movie MovieConvert(IDataReader reader)
-        {
-            int id = Convert.ToInt32(reader["ID"]);
-            string movieName = ((string)reader["MOVIENAME"]);
+        //private Movie MovieConvert(IDataReader reader)
+        //{
+        //    int id = Convert.ToInt32(reader["ID"]);
+        //    string movieName = ((string)reader["MOVIENAME"]);
 
-            Movie movie = new Movie(id, movieName);
+        //    Movie movie = new Movie(id, movieName);
 
-            movie.Id = id;
+        //    movie.Id = id;
 
-            return movie;
-        }
+        //    return movie;
+        //}
 
         private Dictionary<string, object> AddParameters(string v, object id)
         {
@@ -162,6 +164,16 @@ namespace RentalMovies.Controller.MovieModule
             }
 
             return false;
+        }
+
+        public List<Movie> GetByReference(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Movie> GetByName(string name)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,11 +1,10 @@
 using Autofac;
-using MovieRental.Application.ClientModule;
-using MoviesRental.Infra.SQL.ClientModule;
 using MoviesRental.WindowsApp.Features.AccountModule;
 using MoviesRental.WindowsApp.Features.ClientModule;
 using MoviesRental.WindowsApp.Features.EmployeeModule;
 using MoviesRental.WindowsApp.Features.MovieModule;
 using MoviesRental.WindowsApp.Features.RentModule;
+using MoviesRental.WindowsApp.Features.SettingsModule;
 using MoviesRental.WindowsApp.Shared;
 
 namespace MoviesRental.WindowsApp
@@ -296,6 +295,11 @@ namespace MoviesRental.WindowsApp
 
         #region ButtonsClick
 
+        private void DevolutionButton_Click(object sender, EventArgs e)
+        {
+            rentOperations.RegisterDevolution();
+        }
+
         private void AddButton_Click(object sender, EventArgs e)
         {
             if (statusOperation == "Operation")
@@ -328,11 +332,14 @@ namespace MoviesRental.WindowsApp
             filterRentForm.ShowDialog();
         }
 
+
         #endregion
 
-        private void DevolutionButton_Click(object sender, EventArgs e)
+        private void FrameworkMenuItem_Click(object sender, EventArgs e)
         {
-            rentOperations.RegisterDevolution();
+            FrameworkSettingsForm frameworkSettingsForm = new FrameworkSettingsForm();
+
+            frameworkSettingsForm.ShowDialog();
         }
     }
 }

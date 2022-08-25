@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MoviesRental.Domain.Shared;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace MoviesRental.Domain.EmployeeModule
 {
-    public class Employee
+    public class Employee: BaseEntity<int>
     {
-        public int Id { get; set; }
-
         public string? Email { get; set; }
 
         public string? Name { get; set; }
@@ -18,9 +17,8 @@ namespace MoviesRental.Domain.EmployeeModule
 
         public string? AccessKey { get; set; }
 
-        public Employee (int id, string? email, string? name, string? password, string? accessKey)
+        public Employee (string? email, string? name, string? password, string? accessKey)
         {
-            this.Id = id;
             Email = email;
             Name = name;
             Password = password;

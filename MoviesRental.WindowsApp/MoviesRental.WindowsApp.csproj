@@ -11,10 +11,15 @@
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.0.0" />
     <PackageReference Include="FluentEmail.Smtp" Version="3.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\MovieRental.Application\MovieRental.Application.csproj" />
+    <ProjectReference Include="..\MoviesRental.Infra.ORM\MoviesRental.Infra.ORM.csproj" />
     <ProjectReference Include="..\MoviesRental.Infra.SQL\MoviesRental.Infra.SQL.csproj" />
   </ItemGroup>
 

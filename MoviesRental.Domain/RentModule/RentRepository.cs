@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MoviesRental.Domain.MovieModule;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,18 +7,8 @@ using System.Threading.Tasks;
 
 namespace MoviesRental.Domain.RentModule
 {
-    public interface RentRepository
+    public interface RentRepository : IRepository<Rent, int>, IReadOnlyRepository<Rent, int>
     {
-        Rent GetById(int id);
-
-        List<Rent> GetByStatus(string status);
-
-        void AddRent(Rent rent);
-
-        void DeleteRent(int id);
-
-        void EditRent(int id,Rent rent);
-
-        List<Rent> GetAll();
+        public bool ExistRentWithTheName(int id, string name);
     }
 }

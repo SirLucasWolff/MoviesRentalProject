@@ -1,5 +1,5 @@
-﻿using MoviesRental.DataBase;
-using MoviesRental.Domain.EmployeeModule;
+﻿using MoviesRental.Domain.EmployeeModule;
+using MoviesRental.Infra.SQL;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -14,14 +14,14 @@ namespace MoviesRental.Infra.SQL.EmployeeModule
         public string SqlInsert = @"INSERT INTO EmployeeDB
                     (
                         [Email],
-                        [EmployeeName],
+                        [Name],
                         [Password],
                         [AccessKey]
                     )
                     VALUES
                     (
                         @Email,
-                        @EmployeeName,
+                        @Name,
                         @Password,
                         @AccessKey
                     )";
@@ -33,7 +33,7 @@ namespace MoviesRental.Infra.SQL.EmployeeModule
         public string SqlEdit = @"UPDATE EmployeeDB
                     SET
                         [Email] = @Email,
-                        [EmployeeName] = @EmployeeName,
+                        [Name] = @Name,
                         [Password] = @Password,
                         [AccessKey] = @AccessKey
                     WHERE 
@@ -42,7 +42,7 @@ namespace MoviesRental.Infra.SQL.EmployeeModule
         public string SqlSelectId = @"SELECT
                         [ID],
                         [Email],
-                        [EMPLOYEENAME],
+                        [NAME],
                         [PASSWORD],
                         [ACCESSKEY]
 	                FROM
@@ -54,15 +54,23 @@ namespace MoviesRental.Infra.SQL.EmployeeModule
         @"SELECT
                         [ID],
                         [Email],
-                        [EMPLOYEENAME],
+                        [NAME],
                         [PASSWORD],
                         [ACCESSKEY]
           
                         FROM EmployeeDB";
 
-        public void AddEmployee(Employee employee)
+        public bool InsertNew(Employee employee)
         {
-            DataBaseController.DataBase(SqlInsert, GetParametersEmployees(employee));
+            try
+            {
+                DataBaseController.DataBase(SqlInsert, GetParametersEmployees(employee));
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }         
         }
 
         private Dictionary<string, object> GetParametersEmployees(Employee employee)
@@ -71,7 +79,7 @@ namespace MoviesRental.Infra.SQL.EmployeeModule
 
             parameters.Add("ID", employee.Id);
             parameters.Add("EMAIL", employee.Email);
-            parameters.Add("EMPLOYEENAME", employee.Name);
+            parameters.Add("NAME", employee.Name);
             parameters.Add("PASSWORD", employee.Password);
             parameters.Add("ACCESSKEY", employee.AccessKey);
 
@@ -79,9 +87,17 @@ namespace MoviesRental.Infra.SQL.EmployeeModule
         }
     
 
-        public void DeleteEmployee(int id)
+        public bool Delete(int id)
         {
-            DataBaseController.DataBase(SqlDelete, AddParameters("ID", id));
+            try
+            {
+                DataBaseController.DataBase(SqlDelete, AddParameters("ID", id));
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         private Dictionary<string, object> AddParameters(string v, int id)
@@ -89,17 +105,25 @@ namespace MoviesRental.Infra.SQL.EmployeeModule
             return new Dictionary<string, object>() { { v, id } };
         }
 
-        public void EditEmployee(int id, Employee employee)
+        public bool Edit(int id, Employee employee)
         {
-            DataBaseController.DataBase(SqlEdit, GetParametersEmployees(employee));
+            try
+            {
+                DataBaseController.DataBase(SqlEdit, GetParametersEmployees(employee));
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            } 
         }
 
-        public List<Employee> GetAll()
+        public List<Employee> SelectAll()
         {
             return DataBaseController.GetAll(SqlSelectAll, EmployeeConvert);
         }
 
-        public Employee GetById(int id)
+        public Employee SelectById(int id)
         {
             return DataBaseController.GetId(SqlSelectId, EmployeeConvert, AddParameters("ID", id));
         }
@@ -108,16 +132,25 @@ namespace MoviesRental.Infra.SQL.EmployeeModule
         {
             int id = Convert.ToInt32(reader["ID"]);
             string email = ((string)reader["EMAIL"]);
-            string employeeName = ((string)reader["EMPLOYEENAME"]);
+            string employeeName = ((string)reader["NAME"]);
             string password = ((string)reader["PASSWORD"]);
             string accessKey = ((string)reader["ACCESSKEY"]);
 
-            Employee employee = new Employee(id, email, employeeName, password, accessKey);
+            Employee employee = new Employee(email, employeeName, password, accessKey);
 
             employee.Id = id;
 
             return employee;
         }
 
+        public bool ExistEmployeeWithTheName(int id, string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Exist(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

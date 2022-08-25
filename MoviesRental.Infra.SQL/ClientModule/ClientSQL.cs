@@ -1,5 +1,6 @@
-﻿using MoviesRental.DataBase;
+﻿using MoviesRental.Domain;
 using MoviesRental.Domain.ClientModule;
+using MoviesRental.Infra.SQL;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -60,14 +61,30 @@ namespace MoviesRental.Infra.SQL.ClientModule
           
                         FROM ClientDB";
 
-        public void AddClient(Client client)
+        public bool InsertNew(Client client)
         {
-           DataBaseController.DataBase(SqlInsert, GetParametersClients(client));
+            try
+            {
+                DataBaseController.DataBase(SqlInsert, GetParametersClients(client));
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }         
         }
 
-        public void DeleteClient(int id)
+        public bool Delete(int id)
         {
-            DataBaseController.DataBase(SqlDelete, AddParameters("ID", id));
+            try
+            {
+                DataBaseController.DataBase(SqlDelete, AddParameters("ID", id));
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }          
         }
 
         private Dictionary<string, object> AddParameters(string v, int id)
@@ -75,9 +92,17 @@ namespace MoviesRental.Infra.SQL.ClientModule
             return new Dictionary<string, object>() { { v, id } };
         }
 
-        public void EditClient(int id, Client client)
+        public bool Edit(int id, Client client)
         {
-            DataBaseController.DataBase(SqlEdit, GetParametersClients(client));
+            try
+            {
+                DataBaseController.DataBase(SqlEdit, GetParametersClients(client));
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }     
         }
 
         private Dictionary<string, object> GetParametersClients(Client client)
@@ -93,12 +118,12 @@ namespace MoviesRental.Infra.SQL.ClientModule
             return parameters;
         }
 
-        public List<Client> GetAll()
+        public List<Client> SelectAll()
         {
             return DataBaseController.GetAll(SqlSelectAll, ClientConvert);
         }
 
-        public Client GetById(int id)
+        public Client SelectById(int id)
         {
             return DataBaseController.GetId(SqlSelectId, ClientConvert, AddParameters("ID", id));
         }
@@ -111,11 +136,21 @@ namespace MoviesRental.Infra.SQL.ClientModule
             string address = ((string)reader["ADDRESS"]);
             DateTime ageDate = Convert.ToDateTime(reader["BORNDATE"]);
 
-            Client client = new Client(id,clientName, telephone, address, ageDate);
+            Client client = new Client(clientName, telephone, address, ageDate);
 
             client.Id = id;
 
             return client;
+        }
+
+        public bool ExistClientWithTheName(int id, string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Exist(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -5,13 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using MoviesRental.Domain.Shared;
 
 namespace MoviesRental.Domain.RentModule
 {
-    public class Rent
+    public class Rent: BaseEntity<int>
     {
-        public int Id { get; set; }
-
         public string? EmployeName { get; set; }
 
         public int? MoviesQuantity { get; set; }
@@ -34,9 +33,8 @@ namespace MoviesRental.Domain.RentModule
 
         public string? Status { get; set; }
 
-        public Rent (int id, string? employeName, int? moviesQuantity, string movieName, string? clientName, DateTime rentalDate, DateTime returnDate, int dayValue, int movieValue, int? totalPrice, Byte[] statusImage, string? status)
+        public Rent (string? employeName, int? moviesQuantity, string movieName, string? clientName, DateTime rentalDate, DateTime returnDate, int dayValue, int movieValue, int? totalPrice, Byte[] statusImage, string? status)
         {
-            Id = id;
             EmployeName = employeName;
             MoviesQuantity = moviesQuantity;
             ClientName = clientName;
