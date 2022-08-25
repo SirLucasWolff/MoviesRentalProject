@@ -1,8 +1,8 @@
 ﻿using MovieRental.Application.MovieModule;
-using MoviesRental.DataBase;
 using MoviesRental.Domain.MovieModule;
 using MoviesRental.Domain.RentModule;
 using MoviesRental.Infra.SQL.MovieModule;
+using MoviesRental.Infra.SQL;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -117,9 +117,17 @@ namespace MoviesRental.Infra.SQL.RentModule
                     WHERE 
                         STATUS = @STATUS";
 
-        public void AddRent(Rent rent)
+        public bool InsertNew(Rent rent)
         {
-            DataBaseController.DataBase(SqlInsert, GetParametersRent(rent));
+            try
+            {
+                DataBaseController.DataBase(SqlInsert, GetParametersRent(rent));
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }  
         }
 
         private Dictionary<string, object> GetParametersRent(Rent rent)
@@ -142,9 +150,17 @@ namespace MoviesRental.Infra.SQL.RentModule
             return parameters;
         }
 
-        public void DeleteRent(int id)
+        public bool Delete(int id)
         {
-            DataBaseController.DataBase(SqlDelete, AddParameters("ID", id));
+            try
+            {
+                DataBaseController.DataBase(SqlDelete, AddParameters("ID", id));
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }     
         }
 
         private Dictionary<string, object> AddParameters(string v, int id)
@@ -157,17 +173,25 @@ namespace MoviesRental.Infra.SQL.RentModule
             return new Dictionary<string, object>() { { v, status } };
         }
 
-        public void EditRent(int id, Rent rent)
+        public bool Edit(int id, Rent rent)
         {
-            DataBaseController.DataBase(SqlEdit, GetParametersRent(rent));
+            try
+            {
+                DataBaseController.DataBase(SqlEdit, GetParametersRent(rent));
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }     
         }
 
-        public List<Rent> GetAll()
+        public List<Rent> SelectAll()
         {
             return DataBaseController.GetAll(SqlSelectAll, RentConvert);
         }
 
-        public Rent GetById(int id)
+        public Rent SelectById(int id)
         {
             return DataBaseController.GetId(SqlSelectId, RentConvert, AddParameters("ID", id));
         }
@@ -197,6 +221,16 @@ namespace MoviesRental.Infra.SQL.RentModule
             rent.Id = id;
 
             return rent;
+        }
+
+        public bool ExistRentWithTheName(int id, string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Exist(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

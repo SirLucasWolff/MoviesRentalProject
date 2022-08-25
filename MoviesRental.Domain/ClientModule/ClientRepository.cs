@@ -6,16 +6,8 @@ using System.Threading.Tasks;
 
 namespace MoviesRental.Domain.ClientModule
 {
-    public interface ClientRepository
+    public interface ClientRepository: IRepository<Client, int>, IReadOnlyRepository<Client, int>
     {
-        Client GetById(int id);
-
-        void AddClient(Client client);
-
-        void DeleteClient(int id);
-
-        void EditClient(int id, Client client);
-
-        List<Client> GetAll();
+        public bool ExistClientWithTheName(int id, string name);
     }
 }

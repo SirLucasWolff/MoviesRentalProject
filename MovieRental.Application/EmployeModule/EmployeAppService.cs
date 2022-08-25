@@ -19,7 +19,7 @@ namespace MovieRental.Application.EmployeModule
             {
                 try
                 {
-                    employeRepository.AddEmployee(employe);
+                    employeRepository.InsertNew(employe);
                 }
                 catch (Exception ex)
                 {
@@ -34,7 +34,7 @@ namespace MovieRental.Application.EmployeModule
         {
             try
             {
-                employeRepository.DeleteEmployee(id);
+                employeRepository.Delete(id);
             }
             catch (Exception ex)
             {
@@ -53,7 +53,7 @@ namespace MovieRental.Application.EmployeModule
                 try
                 {
                     employe.Id = id;
-                    employeRepository.EditEmployee(id, employe);
+                    employeRepository.Edit(id, employe);
                 }
                 catch (Exception ex)
                 {
@@ -68,7 +68,7 @@ namespace MovieRental.Application.EmployeModule
         {
             try
             {
-                Employee employeeSelected = employeRepository.GetById(id);
+                Employee employeeSelected = employeRepository.SelectById(id);
                 return employeeSelected;
             }
             catch (Exception ex)
@@ -81,7 +81,7 @@ namespace MovieRental.Application.EmployeModule
         {
             try
             {
-                List<Employee> allEmployeesSelected = employeRepository.GetAll();
+                List<Employee> allEmployeesSelected = employeRepository.SelectAll();
                 return allEmployeesSelected;
             }
             catch (Exception ex)

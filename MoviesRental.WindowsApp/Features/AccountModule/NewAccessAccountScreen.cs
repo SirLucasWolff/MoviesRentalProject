@@ -47,7 +47,7 @@ namespace MoviesRental.WindowsApp.Features.AccountModule
 
         private void EnterButton_Click(object sender, EventArgs e)
         {
-            employees = employeeSQL.GetAll();
+            employees = employeeSQL.SelectAll();
 
             foreach (var item in employees)
             {

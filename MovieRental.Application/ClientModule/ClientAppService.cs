@@ -22,7 +22,7 @@ namespace MovieRental.Application.ClientModule
 
             try
             {
-                clientRepository.AddClient(client);
+                clientRepository.InsertNew(client);
             }
             catch (Exception ex)
             {
@@ -39,7 +39,7 @@ namespace MovieRental.Application.ClientModule
             try
             {
                 client.Id = id;
-                clientRepository.EditClient(id,client);
+                clientRepository.Edit(id,client);
             }
             catch (Exception ex)
             {
@@ -53,7 +53,7 @@ namespace MovieRental.Application.ClientModule
         {
             try
             {
-                clientRepository.DeleteClient(id);
+                clientRepository.Delete(id);
             }
             catch (Exception ex)
             {
@@ -67,7 +67,7 @@ namespace MovieRental.Application.ClientModule
         {
             try
             {
-                Client clientSelected = clientRepository.GetById(id);
+                Client clientSelected = clientRepository.SelectById(id);
                 return clientSelected;
             }
             catch (Exception ex)
@@ -80,7 +80,7 @@ namespace MovieRental.Application.ClientModule
         {
             try
             {
-                List<Client> allClientsSelected = clientRepository.GetAll();
+                List<Client> allClientsSelected = clientRepository.SelectAll();
                 return allClientsSelected;
             }
             catch (Exception ex)

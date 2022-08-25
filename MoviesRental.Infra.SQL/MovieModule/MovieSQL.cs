@@ -1,5 +1,5 @@
-﻿using MoviesRental.DataBase;
-using MoviesRental.Domain.MovieModule;
+﻿using MoviesRental.Domain.MovieModule;
+using MoviesRental.Infra.SQL;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -64,9 +64,17 @@ namespace MoviesRental.Infra.SQL.MovieModule
 
         public string SelectByName = @"SELECT * FROM MovieDB WHERE MovieName = @MovieName";
 
-        public void AddMovie(Movie movie)
+        public bool InsertNew(Movie movie)
         {
-            DataBaseController.DataBase(SqlInsert, GetParametersMovies(movie));
+            try
+            {
+                DataBaseController.DataBase(SqlInsert, GetParametersMovies(movie));
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }    
         }
 
         private Dictionary<string, object> GetParametersMovies(Movie movie)
@@ -82,9 +90,17 @@ namespace MoviesRental.Infra.SQL.MovieModule
             return parameters;
         }
 
-        public void DeleteMovie(int id)
+        public bool Delete(int id)
         {
-            DataBaseController.DataBase(SqlDelete, AddParameters("ID", id));
+            try
+            {
+                DataBaseController.DataBase(SqlDelete, AddParameters("ID", id));
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }  
         }
 
         private Dictionary<string, object> AddParameters(string v, int id)
@@ -92,17 +108,25 @@ namespace MoviesRental.Infra.SQL.MovieModule
             return new Dictionary<string, object>() { { v, id } };
         }
 
-        public void EditMovie(int id, Movie movie)
+        public bool Edit(int id, Movie movie)
         {
-            DataBaseController.DataBase(SqlEdit, GetParametersMovies(movie));
+            try
+            {
+                DataBaseController.DataBase(SqlEdit, GetParametersMovies(movie));
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }  
         }
 
-        public List<Movie> GetAll()
+        public List<Movie> SelectAll()
         {
             return DataBaseController.GetAll(SqlSelectAll, MovieConvert);
         }
 
-        public Movie GetById(int id)
+        public Movie SelectById(int id)
         {
             return DataBaseController.GetId(SqlSelectId, MovieConvert, AddParameters("ID", id));
         }
@@ -135,6 +159,16 @@ namespace MoviesRental.Infra.SQL.MovieModule
             movie.Id = id;
 
             return movie;
+        }
+
+        public bool ExistMovieWithTheName(int id, string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Exist(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -29,6 +29,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoviesRental.Infra.SQL", "M
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoviesRental.Infra.ORM", "MoviesRental.Infra.ORM\MoviesRental.Infra.ORM.csproj", "{6205DC47-281C-4082-B1CB-5E29B3C0EC32}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoviesRental.DataBuilderTest", "MoviesRental.DataBuilderTest\MoviesRental.DataBuilderTest.csproj", "{439E37E2-5302-4B57-9913-EFE14AB661A9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoviesRental.ORMTest", "MoviesRental.ORMTest\MoviesRental.ORMTest.csproj", "{FD07E723-BD02-4FB0-8093-13731569AD61}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +63,14 @@ Global
 		{6205DC47-281C-4082-B1CB-5E29B3C0EC32}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6205DC47-281C-4082-B1CB-5E29B3C0EC32}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6205DC47-281C-4082-B1CB-5E29B3C0EC32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{439E37E2-5302-4B57-9913-EFE14AB661A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{439E37E2-5302-4B57-9913-EFE14AB661A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{439E37E2-5302-4B57-9913-EFE14AB661A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{439E37E2-5302-4B57-9913-EFE14AB661A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD07E723-BD02-4FB0-8093-13731569AD61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD07E723-BD02-4FB0-8093-13731569AD61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD07E723-BD02-4FB0-8093-13731569AD61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD07E723-BD02-4FB0-8093-13731569AD61}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -71,6 +83,8 @@ Global
 		{E269466C-6023-47FF-ACA4-D401A9AB9C2C} = {288F30C6-9CA3-4A1F-A6CC-4C8C94801E58}
 		{F9CDB7F5-D3E6-4653-B346-2E41FAA48A81} = {E269466C-6023-47FF-ACA4-D401A9AB9C2C}
 		{6205DC47-281C-4082-B1CB-5E29B3C0EC32} = {E269466C-6023-47FF-ACA4-D401A9AB9C2C}
+		{439E37E2-5302-4B57-9913-EFE14AB661A9} = {A549E454-1A3E-4F89-A4D7-7D757BA267AA}
+		{FD07E723-BD02-4FB0-8093-13731569AD61} = {A549E454-1A3E-4F89-A4D7-7D757BA267AA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5C033C60-765F-4CEC-A92B-E86E899DCAD4}

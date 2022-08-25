@@ -59,7 +59,7 @@ namespace MoviesRental.WindowsApp.Features.EmployeeModule
 
         private string VerifyIfAlreadyExistAccessKey()
         {
-            employees = employeeSQL.GetAll();
+            employees = employeeSQL.SelectAll();
 
             foreach (var item in employees)
             {
@@ -75,7 +75,7 @@ namespace MoviesRental.WindowsApp.Features.EmployeeModule
 
         private void EmailValidation()
         {
-            employees = employeeSQL.GetAll();
+            employees = employeeSQL.SelectAll();
 
             foreach (var item in employees)
             {

@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Microsoft.Win32;
 using MovieRental.Application.ClientModule;
 using MovieRental.Application.EmployeModule;
 using MovieRental.Application.MovieModule;
@@ -7,6 +8,11 @@ using MoviesRental.Domain.ClientModule;
 using MoviesRental.Domain.EmployeeModule;
 using MoviesRental.Domain.MovieModule;
 using MoviesRental.Domain.RentModule;
+using MoviesRental.Infra.ORM;
+using MoviesRental.Infra.ORM.ClientModule;
+using MoviesRental.Infra.ORM.EmployeeModule;
+using MoviesRental.Infra.ORM.MovieModule;
+using MoviesRental.Infra.ORM.RentModule;
 using MoviesRental.Infra.SQL.ClientModule;
 using MoviesRental.Infra.SQL.EmployeeModule;
 using MoviesRental.Infra.SQL.MovieModule;
@@ -30,13 +36,35 @@ namespace MoviesRental.WindowsApp.Shared
         {
             var Containerbuilder = new ContainerBuilder();
 
-            RegisterSql(Containerbuilder);
+            RegistryKey registryKey = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Movies Rental Project");
+
+            string pathName = (string)registryKey.GetValue("FrameworkType");
+
+            if (pathName == "EntityFramework")
+            {
+                Containerbuilder.RegisterType<MoviesRentalDbContext>().InstancePerLifetimeScope();
+
+                RegisterORM(Containerbuilder);
+            }
+            else
+                RegisterSql(Containerbuilder);
 
             RegistrarAppService(Containerbuilder);
 
             RegistraOperacoes(Containerbuilder);
 
             Container = Containerbuilder.Build();
+        }
+
+        private static void RegisterORM(ContainerBuilder containerBuilder)
+        {
+            containerBuilder.RegisterType<ClientOrmDAO>().As<ClientRepository>().InstancePerDependency();
+
+            containerBuilder.RegisterType<EmployeeOrmDAO>().As<EmployeeRepository>().InstancePerDependency();
+
+            containerBuilder.RegisterType<MovieOrmDAO>().As<MovieRepository>().InstancePerDependency();
+
+            containerBuilder.RegisterType<RentOrmDAO>().As<RentRepository>().InstancePerDependency();
         }
 
         private static void RegisterSql(ContainerBuilder containerbuilder)

@@ -8,8 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Data;
+using MoviesRental.DataBase;
 
-namespace MoviesRental.DataBase
+namespace MoviesRental.Infra.SQL
 {
     public delegate T ConvertToDelegate<T>(IDataReader reader);
     public static class DataBaseController
@@ -59,7 +60,7 @@ namespace MoviesRental.DataBase
             catch { }
         }
 
-        public static void DataBase(string commandText, Dictionary<string, object> parameters)
+        public static void DataBase(string commandText, Dictionary<string, object> parameters = null)
         {
             SqlCommand cmd = new SqlCommand();
 
