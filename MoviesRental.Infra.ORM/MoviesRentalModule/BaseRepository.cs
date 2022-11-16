@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MoviesRental.Domain;
+using MoviesRental.Domain.ClientModule;
 using MoviesRental.Domain.Shared;
+using MoviesRental.Infra.SQL.ClientModule;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,15 +18,21 @@ namespace MoviesRental.Infra.ORM.MoviesRentalModule
         private MoviesRentalDbContext moviesRentalDbContext;
         private readonly DbSet<TEntity> dbSet;
 
+        public List<Client> getClientsToMigration = new List<Client>();
+
+        ClientSQL clientSQL;
+
         public BaseRepository(MoviesRentalDbContext moviesRentalDbContext)
         {
+            clientSQL = new ClientSQL();
             this.moviesRentalDbContext = moviesRentalDbContext;
             this.dbSet = moviesRentalDbContext.Set<TEntity>();
+            getClientsToMigration = clientSQL.SelectAll();
         }
 
         public bool Delete(int id)
         {
-            TEntity baseEntityToRemove = null;
+            TEntity baseEntityToRemove;
             try
             {
                 baseEntityToRemove = SelectById(id);

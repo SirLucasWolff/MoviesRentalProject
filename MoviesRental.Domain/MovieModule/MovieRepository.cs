@@ -13,6 +13,8 @@ namespace MoviesRental.Domain.MovieModule
 
         List<Movie> GetByReference(string name);
 
-        List<Movie> GetByName(string name);
+        List<Movie> GetListByName(string name);
+
+        Movie GetByName(string name);
     }
 }

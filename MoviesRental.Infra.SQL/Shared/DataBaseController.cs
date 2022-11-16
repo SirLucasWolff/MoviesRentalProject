@@ -75,6 +75,21 @@ namespace MoviesRental.Infra.SQL
             connection.SqlServerConnection().Close();
         }
 
+        public static void DataBaseMigration(string commandText, Dictionary<string, object> parameters = null)
+        {
+            SqlCommand cmd = new SqlCommand();
+
+            cmd.Connection = connection.SqlServerConnection();
+
+            cmd.CommandText = commandText;
+            cmd.Connection = connection.SqlServerConnection();
+            cmd.SetParameters(parameters);
+
+            cmd.ExecuteNonQuery();
+
+            connection.SqlServerConnection().Close();
+        }
+
         private static void SetParameters(this IDbCommand command, Dictionary<string, object> parameters)
         {
             if (parameters == null || parameters.Count == 0)

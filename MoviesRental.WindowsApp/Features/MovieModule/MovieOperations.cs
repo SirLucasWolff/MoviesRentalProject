@@ -1,9 +1,18 @@
-﻿using MovieRental.Application.MovieModule;
+﻿using Autofac;
+using MovieRental.Application.MovieModule;
+using MoviesRental.Domain.ClientModule;
+using MoviesRental.Domain.EmployeeModule;
 using MoviesRental.Domain.MovieModule;
+using MoviesRental.Domain.Shared;
+using MoviesRental.Infra.ORM;
+using MoviesRental.Infra.SQL;
+using MoviesRental.Infra.SQL.MovieModule;
 using MoviesRental.WindowsApp.Shared;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,13 +20,26 @@ namespace MoviesRental.WindowsApp.Features.MovieModule
 {
     public class MovieOperations : IRegister
     {
-        private MovieAppService appService = null;
-        private MovieTable movieTable = null;
+        private MovieAppService appService;
+
+        private MovieTable movieTable;
+
+        public static MovieOperations instance;
+
+        public static List<Movie> moviesToMigrate = new List<Movie>();
 
         public MovieOperations (MovieAppService appService)
         {
+            instance = this;
             this.appService = appService;
             movieTable = new MovieTable(appService);
+        }
+
+        public void GetList()
+        {
+            List<Movie> movies = appService.SelectAllMovies();
+
+            moviesToMigrate.AddRange(movies);
         }
 
         public void DeleteRegister()
@@ -110,6 +132,45 @@ namespace MoviesRental.WindowsApp.Features.MovieModule
                     MainForm.instance.UpdateFooter(result);
                 }
             }
+        }
+
+        public void MigrateRegister()
+        {
+            foreach (Movie movieToMigrate in moviesToMigrate)
+            {
+                Movie? movieToEdit = appService.SelectMovieByName(movieToMigrate);
+
+                movieToMigrate.Id = 0;
+
+                string? getResult = ValidateMigrate(movieToMigrate);
+
+                if (getResult == "InsertingWhileMigrate")
+                    appService.InsertNewMovie(movieToMigrate);
+
+                if (getResult == "EditingWhileMigrate" && movieToEdit != null)
+                    appService.EditMovie(movieToEdit.Id, movieToMigrate);
+            }
+        }
+
+        private string? ValidateMigrate(Movie movie)
+        {
+            List<Movie> allMovies = appService.SelectAllMovies();
+
+            if (allMovies.Count == 0)
+                return "InsertingWhileMigrate";
+
+            bool name = allMovies.Exists(d => d.Name == movie.Name);
+            bool category = allMovies.Exists(d => d.Category == movie.Category);
+            bool classification = allMovies.Exists(d => d.Classification == movie.Classification);
+            bool releaseDate = allMovies.Exists(d => d.ReleaseDate == movie.ReleaseDate);
+
+            if (!name && !category && !classification && !releaseDate)
+                return "InsertingWhileMigrate";
+
+            if (name || category || classification || releaseDate)
+                return "EditingWhileMigrate";
+
+            return null;
         }
     }
 }

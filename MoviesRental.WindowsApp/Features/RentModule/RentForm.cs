@@ -37,14 +37,14 @@ namespace MoviesRental.WindowsApp.Features.RentModule
 
         public string statusApp { get; set; }
 
-        public RentForm(MovieAppService movieAppService, ClientAppService clientAppService, RentAppService rentAppService, string status)
+        public RentForm(MovieAppService movieAppService, ClientAppService clientAppService, RentAppService rentAppService, string status, string clientName)
         {
             statusApp = status;
             this.movieAppService = movieAppService;
             this.clientAppService = clientAppService;
             this.rentAppService = rentAppService;
             InitializeComponent();
-            SupplyClients();
+            SupplyClients(clientName);
 
             this.allMovies = GetAllMovies();
 
@@ -270,7 +270,7 @@ namespace MoviesRental.WindowsApp.Features.RentModule
             return colunas;
         }
 
-        private void SupplyClients()
+        private void SupplyClients(string clientName)
         {
             ClientSelector.Items.Clear();
 
@@ -282,8 +282,9 @@ namespace MoviesRental.WindowsApp.Features.RentModule
             {
                 ClientSelector.Items.Add(item.ClientName);
             }
-            if (clients.Count > 0)
-                ClientSelector.SelectedIndex = 0;
+
+            if (clientName != null)
+                ClientSelector.Text = clientName;
         }
 
         byte[] ConvertImageToBinary(Image img)
@@ -431,7 +432,7 @@ namespace MoviesRental.WindowsApp.Features.RentModule
 
             if (name != null)
             {
-                List<Movie> movies = movieAppService.SelectMovieName(name);
+                List<Movie> movies = movieAppService.SelectListByMovieName(name);
 
                 foreach (var item in movies)
                 {

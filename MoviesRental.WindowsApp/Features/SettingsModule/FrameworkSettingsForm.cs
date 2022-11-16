@@ -1,13 +1,4 @@
-﻿using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using MoviesRental.Domain.Shared;
 
 namespace MoviesRental.WindowsApp.Features.SettingsModule
 {
@@ -24,10 +15,10 @@ namespace MoviesRental.WindowsApp.Features.SettingsModule
         {
             if (getKey != null)
             {
-                RegisterKey(getKey);
+                MainForm.instance.MigrationDatabase(getKey);
 
                 Application.Restart();
-            }   
+            }
         }
 
         private void SQLServerRB_MouseClick(object sender, MouseEventArgs e)
@@ -40,10 +31,12 @@ namespace MoviesRental.WindowsApp.Features.SettingsModule
             getKey = "EntityFramework";
         }
 
-        public void RegisterKey(string framework)
+        private void FrameworkSettingsForm_Load(object sender, EventArgs e)
         {
-            RegistryKey smb = Registry.LocalMachine.CreateSubKey("SOFTWARE\\Movies Rental Project");
-            smb.SetValue("FrameworkType", framework, RegistryValueKind.String);
+            if (FrameworkConfiguration.FrameworkTypeRead() == "SQLServer")
+                SQLServerRB.Checked = true;
+            else
+                EntityFrameworkRB.Checked = true;
         }
     }
 }

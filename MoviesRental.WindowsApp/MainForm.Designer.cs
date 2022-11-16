@@ -29,10 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.StatusFooter = new System.Windows.Forms.StatusStrip();
             this.StatusText = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.AccessMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.RegistersMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -72,12 +70,10 @@
             this.StatusFooter.BackColor = System.Drawing.SystemColors.Control;
             this.StatusFooter.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.StatusFooter.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.StatusText,
-            this.toolStripDropDownButton1});
-            this.StatusFooter.Location = new System.Drawing.Point(0, 921);
+            this.StatusText});
+            this.StatusFooter.Location = new System.Drawing.Point(0, 682);
             this.StatusFooter.Name = "StatusFooter";
-            this.StatusFooter.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
-            this.StatusFooter.Size = new System.Drawing.Size(1407, 22);
+            this.StatusFooter.Size = new System.Drawing.Size(1231, 22);
             this.StatusFooter.TabIndex = 0;
             this.StatusFooter.Text = "statusStrip1";
             // 
@@ -85,19 +81,7 @@
             // 
             this.StatusText.BackColor = System.Drawing.Color.Snow;
             this.StatusText.Name = "StatusText";
-            this.StatusText.Size = new System.Drawing.Size(0, 16);
-            // 
-            // toolStripDropDownButton1
-            // 
-            this.toolStripDropDownButton1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
-            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripDropDownButton1.Margin = new System.Windows.Forms.Padding(-1);
-            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            this.toolStripDropDownButton1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.toolStripDropDownButton1.Size = new System.Drawing.Size(34, 24);
-            this.toolStripDropDownButton1.Text = "toolStripDropDownButton1";
+            this.StatusText.Size = new System.Drawing.Size(0, 17);
             // 
             // menuStrip1
             // 
@@ -110,8 +94,7 @@
             this.RentsMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(7, 3, 0, 3);
-            this.menuStrip1.Size = new System.Drawing.Size(1407, 33);
+            this.menuStrip1.Size = new System.Drawing.Size(1231, 26);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -119,7 +102,7 @@
             // 
             this.AccessMenuItem.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.AccessMenuItem.Name = "AccessMenuItem";
-            this.AccessMenuItem.Size = new System.Drawing.Size(76, 27);
+            this.AccessMenuItem.Size = new System.Drawing.Size(61, 22);
             this.AccessMenuItem.Text = "Access";
             this.AccessMenuItem.Click += new System.EventHandler(this.AccessMenuItem_Click);
             // 
@@ -131,27 +114,27 @@
             this.ClientOption});
             this.RegistersMenuItem.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.RegistersMenuItem.Name = "RegistersMenuItem";
-            this.RegistersMenuItem.Size = new System.Drawing.Size(94, 27);
+            this.RegistersMenuItem.Size = new System.Drawing.Size(77, 22);
             this.RegistersMenuItem.Text = "Registers";
             // 
             // EmployeeOption
             // 
             this.EmployeeOption.Name = "EmployeeOption";
-            this.EmployeeOption.Size = new System.Drawing.Size(169, 28);
+            this.EmployeeOption.Size = new System.Drawing.Size(138, 22);
             this.EmployeeOption.Text = "Employee";
             this.EmployeeOption.Click += new System.EventHandler(this.EmployeeOption_Click);
             // 
             // MovieOption
             // 
             this.MovieOption.Name = "MovieOption";
-            this.MovieOption.Size = new System.Drawing.Size(169, 28);
+            this.MovieOption.Size = new System.Drawing.Size(138, 22);
             this.MovieOption.Text = "Movie";
             this.MovieOption.Click += new System.EventHandler(this.MovieOption_Click);
             // 
             // ClientOption
             // 
             this.ClientOption.Name = "ClientOption";
-            this.ClientOption.Size = new System.Drawing.Size(169, 28);
+            this.ClientOption.Size = new System.Drawing.Size(138, 22);
             this.ClientOption.Text = "Client";
             this.ClientOption.Click += new System.EventHandler(this.ClientOption_Click);
             // 
@@ -164,25 +147,25 @@
             this.FrameworkMenuItem});
             this.SettingsMenuItem.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.SettingsMenuItem.Name = "SettingsMenuItem";
-            this.SettingsMenuItem.Size = new System.Drawing.Size(85, 27);
+            this.SettingsMenuItem.Size = new System.Drawing.Size(69, 22);
             this.SettingsMenuItem.Text = "Settings";
             // 
             // languageToolStripMenuItem
             // 
             this.languageToolStripMenuItem.Name = "languageToolStripMenuItem";
-            this.languageToolStripMenuItem.Size = new System.Drawing.Size(258, 28);
+            this.languageToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
             this.languageToolStripMenuItem.Text = "Language";
             // 
             // dataBaseConnectionToolStripMenuItem
             // 
             this.dataBaseConnectionToolStripMenuItem.Name = "dataBaseConnectionToolStripMenuItem";
-            this.dataBaseConnectionToolStripMenuItem.Size = new System.Drawing.Size(258, 28);
+            this.dataBaseConnectionToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
             this.dataBaseConnectionToolStripMenuItem.Text = "DataBase Connection";
             // 
             // FrameworkMenuItem
             // 
             this.FrameworkMenuItem.Name = "FrameworkMenuItem";
-            this.FrameworkMenuItem.Size = new System.Drawing.Size(258, 28);
+            this.FrameworkMenuItem.Size = new System.Drawing.Size(206, 22);
             this.FrameworkMenuItem.Text = "Framework";
             this.FrameworkMenuItem.Click += new System.EventHandler(this.FrameworkMenuItem_Click);
             // 
@@ -190,7 +173,7 @@
             // 
             this.RentsMenuItem.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.RentsMenuItem.Name = "RentsMenuItem";
-            this.RentsMenuItem.Size = new System.Drawing.Size(67, 27);
+            this.RentsMenuItem.Size = new System.Drawing.Size(55, 22);
             this.RentsMenuItem.Text = "Rents";
             this.RentsMenuItem.Click += new System.EventHandler(this.RentsMenuItem_Click);
             // 
@@ -200,10 +183,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.PanelHeader.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.PanelHeader.Controls.Add(this.toolStrip1);
-            this.PanelHeader.Location = new System.Drawing.Point(0, 39);
-            this.PanelHeader.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.PanelHeader.Location = new System.Drawing.Point(0, 29);
             this.PanelHeader.Name = "PanelHeader";
-            this.PanelHeader.Size = new System.Drawing.Size(1407, 53);
+            this.PanelHeader.Size = new System.Drawing.Size(1231, 51);
             this.PanelHeader.TabIndex = 2;
             // 
             // toolStrip1
@@ -230,7 +212,7 @@
             this.FilterButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(158, 39);
+            this.toolStrip1.Size = new System.Drawing.Size(138, 39);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -264,6 +246,7 @@
             // DevolutionButton
             // 
             this.DevolutionButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.DevolutionButton.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.DevolutionButton.Image = global::MoviesRental.WindowsApp.Properties.Resources.Devolution_Button;
             this.DevolutionButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.DevolutionButton.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -345,10 +328,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.MainPanel.BackColor = System.Drawing.Color.SlateBlue;
             this.MainPanel.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.MainPanel.Location = new System.Drawing.Point(0, 92);
-            this.MainPanel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.MainPanel.Location = new System.Drawing.Point(0, 71);
             this.MainPanel.Name = "MainPanel";
-            this.MainPanel.Size = new System.Drawing.Size(1407, 817);
+            this.MainPanel.Size = new System.Drawing.Size(1231, 608);
             this.MainPanel.TabIndex = 3;
             // 
             // CheckStatusRent
@@ -359,16 +341,15 @@
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SlateBlue;
-            this.ClientSize = new System.Drawing.Size(1407, 943);
+            this.ClientSize = new System.Drawing.Size(1231, 704);
             this.Controls.Add(this.MainPanel);
             this.Controls.Add(this.PanelHeader);
             this.Controls.Add(this.StatusFooter);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MdiChildrenMinimizedAnchorBottom = false;
             this.MinimizeBox = false;
             this.Name = "MainForm";
@@ -406,7 +387,6 @@
         private ToolStripButton DeleteButton;
         private Panel MainPanel;
         public ToolStripStatusLabel StatusText;
-        private ToolStripDropDownButton toolStripDropDownButton1;
         private ToolStripMenuItem AccessMenuItem;
         private ToolStripMenuItem SettingsMenuItem;
         private ToolStripMenuItem languageToolStripMenuItem;

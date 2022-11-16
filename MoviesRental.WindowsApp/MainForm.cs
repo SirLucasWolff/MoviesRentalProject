@@ -1,4 +1,12 @@
 using Autofac;
+using Microsoft.EntityFrameworkCore.Migrations.Operations;
+using MovieRental.Application.ClientModule;
+using MoviesRental.Domain.ClientModule;
+using MoviesRental.Domain.EmployeeModule;
+using MoviesRental.Domain.MovieModule;
+using MoviesRental.Domain.RentModule;
+using MoviesRental.Domain.Shared;
+using MoviesRental.Infra.SQL;
 using MoviesRental.WindowsApp.Features.AccountModule;
 using MoviesRental.WindowsApp.Features.ClientModule;
 using MoviesRental.WindowsApp.Features.EmployeeModule;
@@ -27,13 +35,48 @@ namespace MoviesRental.WindowsApp
             PanelHeader.Visible = false;
             RentsMenuItem.Enabled = false;
             RegistersMenuItem.Enabled = false;
+            AccountButton.Text = "Enter with account";
         }
 
         #region CodeMethods
 
+        public void MigrationDatabase(string Key)
+         {
+            operations = new AutoFacBuilder().Container.Resolve<EmployeeOperations>();
+            EmployeeOperations.instance.GetList();
+
+            operations = new AutoFacBuilder().Container.Resolve<ClientOperations>();
+            ClientOperations.instance.GetList();
+
+            operations = new AutoFacBuilder().Container.Resolve<MovieOperations>();
+            MovieOperations.instance.GetList();
+
+            rentOperations = new AutoFacBuilder().Container.Resolve<RentOperations>();
+            RentOperations.instance.GetList();
+
+            FrameworkConfiguration.ChangeFrameworkType(Key);
+
+            operations = new AutoFacBuilder().Container.Resolve<EmployeeOperations>();
+            operations.MigrateRegister();
+
+            operations = new AutoFacBuilder().Container.Resolve<ClientOperations>();
+            operations.MigrateRegister();
+
+            operations = new AutoFacBuilder().Container.Resolve<MovieOperations>();
+            operations.MigrateRegister();
+
+            rentOperations = new AutoFacBuilder().Container.Resolve<RentOperations>();
+            rentOperations.MigrateRegister();
+        }
+
+        public void ChangeAccountName()
+        {
+            AccountButton.Text = CurrentAccount.EmployeeName;
+        }
+
         private void CheckStatusRent_Tick(object sender, EventArgs e)
         {
-            rentOperations = AutoFacBuilder.Container.Resolve<RentOperations>();
+            rentOperations = new AutoFacBuilder().Container.Resolve<RentOperations>();
 
             rentOperations.EditStatusRegister();
         }
@@ -218,7 +261,7 @@ namespace MoviesRental.WindowsApp
 
             UpdateFooter(configuration.KindRegister);
 
-            operations = AutoFacBuilder.Container.Resolve<ClientOperations>();
+            operations = new AutoFacBuilder().Container.Resolve<ClientOperations>();
 
             ConfigPanelRegisters(operations);
         }
@@ -237,7 +280,7 @@ namespace MoviesRental.WindowsApp
 
             UpdateFooter(configuration.KindRegister);
 
-            operations = AutoFacBuilder.Container.Resolve<EmployeeOperations>();
+            operations = new AutoFacBuilder().Container.Resolve<EmployeeOperations>();
 
             ConfigPanelRegisters(operations);
         }
@@ -256,7 +299,7 @@ namespace MoviesRental.WindowsApp
 
             UpdateFooter(configuration.KindRegister);
 
-            operations = AutoFacBuilder.Container.Resolve<MovieOperations>();
+            operations = new AutoFacBuilder().Container.Resolve<MovieOperations>();
 
             ConfigPanelRegisters(operations);
         }
@@ -277,7 +320,7 @@ namespace MoviesRental.WindowsApp
 
             UpdateFooter(configuration.KindRegister);
 
-            rentOperations = AutoFacBuilder.Container.Resolve<RentOperations>();
+            rentOperations = new AutoFacBuilder().Container.Resolve<RentOperations>();
 
             ConfigPanelRentRegisters(rentOperations);
         }
@@ -294,6 +337,13 @@ namespace MoviesRental.WindowsApp
         #endregion
 
         #region ButtonsClick
+
+        private void FrameworkMenuItem_Click(object sender, EventArgs e)
+        {
+            FrameworkSettingsForm frameworkSettingsForm = new FrameworkSettingsForm();
+
+            frameworkSettingsForm.ShowDialog();
+        }
 
         private void DevolutionButton_Click(object sender, EventArgs e)
         {
@@ -333,13 +383,6 @@ namespace MoviesRental.WindowsApp
         }
 
 
-        #endregion
-
-        private void FrameworkMenuItem_Click(object sender, EventArgs e)
-        {
-            FrameworkSettingsForm frameworkSettingsForm = new FrameworkSettingsForm();
-
-            frameworkSettingsForm.ShowDialog();
-        }
+        #endregion    
     }
 }

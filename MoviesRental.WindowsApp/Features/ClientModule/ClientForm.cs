@@ -43,7 +43,7 @@ namespace MoviesRental.WindowsApp.Features.ClientModule
         {
             try
             {
-                if (TextName.Text.Length >= 5 && TextTelephone.Text.Length == 8 && TextAddress.Text.Length >= 5 && GetTotalYears() > 10)
+                if (TextName.Text.Length >= 1 && TextTelephone.Text.Length >= 1 && TextAddress.Text.Length >= 1 && GetTotalYears() > 10)
                 {
                     EnterButton.Enabled = true;
                 }

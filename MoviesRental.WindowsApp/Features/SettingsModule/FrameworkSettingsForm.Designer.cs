@@ -40,9 +40,9 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Calibri", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(116, 9);
+            this.label3.Location = new System.Drawing.Point(102, 7);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(288, 41);
+            this.label3.Size = new System.Drawing.Size(228, 33);
             this.label3.TabIndex = 27;
             this.label3.Text = "Framework settings";
             // 
@@ -50,10 +50,9 @@
             // 
             this.SQLServerRB.AutoSize = true;
             this.SQLServerRB.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.SQLServerRB.Location = new System.Drawing.Point(117, 93);
-            this.SQLServerRB.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.SQLServerRB.Location = new System.Drawing.Point(102, 70);
             this.SQLServerRB.Name = "SQLServerRB";
-            this.SQLServerRB.Size = new System.Drawing.Size(111, 27);
+            this.SQLServerRB.Size = new System.Drawing.Size(89, 22);
             this.SQLServerRB.TabIndex = 52;
             this.SQLServerRB.TabStop = true;
             this.SQLServerRB.Text = "SQLServer";
@@ -64,10 +63,9 @@
             // 
             this.EntityFrameworkRB.AutoSize = true;
             this.EntityFrameworkRB.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.EntityFrameworkRB.Location = new System.Drawing.Point(244, 93);
-            this.EntityFrameworkRB.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.EntityFrameworkRB.Location = new System.Drawing.Point(214, 70);
             this.EntityFrameworkRB.Name = "EntityFrameworkRB";
-            this.EntityFrameworkRB.Size = new System.Drawing.Size(169, 27);
+            this.EntityFrameworkRB.Size = new System.Drawing.Size(134, 22);
             this.EntityFrameworkRB.TabIndex = 51;
             this.EntityFrameworkRB.TabStop = true;
             this.EntityFrameworkRB.Text = "Entity Framework";
@@ -78,18 +76,18 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Calibri", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(25, 172);
+            this.label1.Location = new System.Drawing.Point(22, 129);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(481, 22);
+            this.label1.Size = new System.Drawing.Size(408, 18);
             this.label1.TabIndex = 53;
             this.label1.Text = "When the framework is changed the application will be restarted";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(25, 124);
+            this.label2.Location = new System.Drawing.Point(22, 93);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(477, 20);
+            this.label2.Size = new System.Drawing.Size(397, 15);
             this.label2.TabIndex = 54;
             this.label2.Text = "______________________________________________________________________________";
             // 
@@ -99,10 +97,9 @@
             this.EnterButton.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.EnterButton.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.EnterButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.EnterButton.Location = new System.Drawing.Point(204, 233);
-            this.EnterButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.EnterButton.Location = new System.Drawing.Point(178, 175);
             this.EnterButton.Name = "EnterButton";
-            this.EnterButton.Size = new System.Drawing.Size(118, 51);
+            this.EnterButton.Size = new System.Drawing.Size(103, 38);
             this.EnterButton.TabIndex = 55;
             this.EnterButton.Text = "Enter";
             this.EnterButton.UseVisualStyleBackColor = false;
@@ -110,19 +107,21 @@
             // 
             // FrameworkSettingsForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(524, 303);
+            this.ClientSize = new System.Drawing.Size(458, 227);
             this.Controls.Add(this.EnterButton);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.SQLServerRB);
             this.Controls.Add(this.EntityFrameworkRB);
             this.Controls.Add(this.label3);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "FrameworkSettingsForm";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Load += new System.EventHandler(this.FrameworkSettingsForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

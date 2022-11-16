@@ -13,14 +13,14 @@ namespace MoviesRental.Infra.SQL.MovieModule
     {
         public string SqlInsert = @"INSERT INTO MovieDB
                     (
-                        [MovieName],
+                        [Name],
                         [Category],
                         [Classification],
                         [ReleaseDate]
                     )
                     VALUES
                     (
-                        @MovieName,
+                        @Name,
                         @Category,
                         @Classification,
                         @ReleaseDate
@@ -32,7 +32,7 @@ namespace MoviesRental.Infra.SQL.MovieModule
 
         public string SqlEdit = @"UPDATE MovieDB
                     SET
-                        [MovieName] = @MovieName,
+                        [Name] = @Name,
                         [Category] = @Category,
                         [Classification] = @Classification,
                         [ReleaseDate] = @ReleaseDate 
@@ -41,7 +41,7 @@ namespace MoviesRental.Infra.SQL.MovieModule
 
         public string SqlSelectId = @"SELECT
                         [ID],
-                        [MOVIENAME],
+                        [NAME],
                         [CATEGORY],
                         [CLASSIFICATION],
                         [RELEASEDATE]
@@ -50,19 +50,19 @@ namespace MoviesRental.Infra.SQL.MovieModule
                     WHERE 
                         ID = @ID";
         
-        public string SqlSelectAll =
+        public static string SqlSelectAll =
         @"SELECT
                         [ID],
-                        [MOVIENAME],
+                        [NAME],
                         [CATEGORY],
                         [CLASSIFICATION],
                         [RELEASEDATE]
           
                         FROM MovieDB";
 
-        public string SelectSearch = @"SELECT * FROM MovieDB WHERE MovieName LIKE @MovieName";
+        public string SelectSearch = @"SELECT * FROM MovieDB WHERE Name LIKE @Name";
 
-        public string SelectByName = @"SELECT * FROM MovieDB WHERE MovieName = @MovieName";
+        public string SelectByName = @"SELECT * FROM MovieDB WHERE Name = @Name";
 
         public bool InsertNew(Movie movie)
         {
@@ -77,12 +77,12 @@ namespace MoviesRental.Infra.SQL.MovieModule
             }    
         }
 
-        private Dictionary<string, object> GetParametersMovies(Movie movie)
+        static Dictionary<string, object> GetParametersMovies(Movie movie)
         {
             var parameters = new Dictionary<string, object>();
 
             parameters.Add("ID", movie.Id);
-            parameters.Add("MOVIENAME", movie.Name);
+            parameters.Add("NAME", movie.Name);
             parameters.Add("CATEGORY", movie.Category);
             parameters.Add("CLASSIFICATION", movie.Classification);
             parameters.Add("RELEASEDATE", movie.ReleaseDate);
@@ -133,12 +133,17 @@ namespace MoviesRental.Infra.SQL.MovieModule
 
         public List<Movie> GetByReference(string name)
         {
-            return DataBaseController.GetAll(SelectSearch, MovieConvert, AddParametersByName("MOVIENAME",name));
+            return DataBaseController.GetAll(SelectSearch, MovieConvert, AddParametersByName("NAME",name));
         }
 
-        public List<Movie> GetByName(string name)
+        public List<Movie> GetListByName(string name)
         {
-            return DataBaseController.GetAll(SelectByName, MovieConvert, AddParametersByName("MOVIENAME", name));
+            return DataBaseController.GetAll(SelectByName, MovieConvert, AddParametersByName("NAME", name));
+        }
+
+        public Movie GetByName(string name)
+        {
+            return DataBaseController.GetId(SelectByName, MovieConvert, AddParametersByName("NAME", name));
         }
 
         private Dictionary<string, object> AddParametersByName(string v2, string name)
@@ -146,10 +151,10 @@ namespace MoviesRental.Infra.SQL.MovieModule
             return new Dictionary<string, object>() { { v2, name} };
         }
 
-        private Movie MovieConvert(IDataReader reader)
+        public Movie MovieConvert(IDataReader reader)
         {
             int id = Convert.ToInt32(reader["ID"]);
-            string movieName = ((string)reader["MOVIENAME"]);
+            string movieName = ((string)reader["NAME"]);
             string category = ((string)reader["CATEGORY"]);
             string classification = ((string)reader["CLASSIFICATION"]);
             DateTime releaseDate = ((DateTime)reader["RELEASEDATE"]);

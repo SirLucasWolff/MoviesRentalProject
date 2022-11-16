@@ -51,7 +51,7 @@ namespace MoviesRental.WindowsApp.Features.EmployeeModule
 
         private void VerifyTextsToAbleEnterButton()
         {
-            if (TextEmail.Text.Length >= 5 && TextEmployeeName.Text.Length >= 2 && TextPassword.Text.Length >= 5 && EmployeeStatusText.Text == "The email format is correct")
+            if (TextEmail.Text.Length >= 1 && TextEmployeeName.Text.Length >= 1 && TextPassword.Text.Length >= 1 && EmployeeStatusText.Text == "The email format is correct")
             {
                 EnterButtonEmployee.Enabled = true;
             }
