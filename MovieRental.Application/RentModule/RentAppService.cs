@@ -1,4 +1,5 @@
-﻿using MoviesRental.Domain.RentModule;
+﻿using MoviesRental.Domain.MovieModule;
+using MoviesRental.Domain.RentModule;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -69,6 +70,55 @@ namespace MovieRental.Application.RentModule
             {
                 Rent rentSelected = rentRepository.SelectById(id);
                 return rentSelected;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public Rent? SelectRentByName(Rent rent)
+        {
+            try
+            {
+                Rent? rentSelected;
+
+                rentSelected = rentRepository.SelectAll().Find(x => x.EmployeName == rent.EmployeName);
+                rentSelected = rentRepository.SelectAll().Find(x => x.MoviesQuantity == rent.MoviesQuantity);
+                rentSelected = rentRepository.SelectAll().Find(x => x.MovieName == rent.MovieName);
+                rentSelected = rentRepository.SelectAll().Find(x => x.ClientName == rent.ClientName);
+                rentSelected = rentRepository.SelectAll().Find(x => x.RentalDate == rent.RentalDate);
+                rentSelected = rentRepository.SelectAll().Find(x => x.ReturnDate == rent.ReturnDate);
+                rentSelected = rentRepository.SelectAll().Find(x => x.DayValue == rent.DayValue);
+                rentSelected = rentRepository.SelectAll().Find(x => x.MovieValue == rent.MovieValue);
+                rentSelected = rentRepository.SelectAll().Find(x => x.TotalPrice == rent.TotalPrice);
+                rentSelected = rentRepository.SelectAll().Find(x => x.StatusImage == rent.StatusImage);
+                rentSelected = rentRepository.SelectAll().Find(x => x.Status == rent.Status);
+
+                if (rentSelected == null)
+                    return null;
+
+                bool employeeName = rentSelected.EmployeName == rent.EmployeName;
+                bool moviesQuantity = rentSelected.MoviesQuantity == rent.MoviesQuantity;
+                bool movieName = rentSelected.MovieName == rent.MovieName;
+                bool clientName = rentSelected.ClientName == rent.ClientName;
+                bool rentalDate = rentSelected.RentalDate == rent.RentalDate;
+                bool returnDate = rentSelected.ReturnDate == rent.ReturnDate;
+                bool dayValue = rentSelected.DayValue == rent.DayValue;
+                bool movieValue = rentSelected.MovieValue == rent.MovieValue;
+                bool totalPrice = rentSelected.TotalPrice == rent.TotalPrice;
+                bool statusImage = rentSelected.StatusImage == rent.StatusImage;
+                bool status = rentSelected.Status == rent.Status;
+
+                if (employeeName && moviesQuantity && movieName && clientName && rentalDate && returnDate && dayValue
+                    && movieValue && totalPrice && statusImage && status)
+                    return null;
+
+                if (employeeName || moviesQuantity || movieName || clientName || rentalDate || returnDate || dayValue
+                    || movieValue || totalPrice || statusImage || status)
+                    return rentSelected;
+
+                return null;
             }
             catch (Exception ex)
             {

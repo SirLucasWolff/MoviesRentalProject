@@ -56,13 +56,13 @@ namespace MoviesRental.WindowsApp.Features.AccountModule
                     MainForm.instance.ShowMenuStripOptions();
                     AccountForm.instance.CloseForm();
                     CurrentAccount.EmployeeName = item.Name;
+                    MainForm.instance.ChangeAccountName();
                     return;
                 }
                 else
                 {
                     AccessStatus.Text = "The account cannot be connected because there is a wrong register";
-                }
-                    
+                }                    
             }
         }
 
@@ -86,7 +86,5 @@ namespace MoviesRental.WindowsApp.Features.AccountModule
         }
 
         #endregion
-
-
     }
 }

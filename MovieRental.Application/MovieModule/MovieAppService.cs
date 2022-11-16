@@ -1,7 +1,9 @@
 ﻿using MoviesRental.Domain.MovieModule;
+using MoviesRental.Domain.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,7 +13,7 @@ namespace MovieRental.Application.MovieModule
     {
         MovieRepository movieRepository;
 
-        public MovieAppService (MovieRepository movieRepository)
+        public MovieAppService(MovieRepository movieRepository)
         {
             this.movieRepository = movieRepository;
         }
@@ -89,12 +91,45 @@ namespace MovieRental.Application.MovieModule
             }
         }
 
-        public List<Movie> SelectMovieName(string name)
+        public List<Movie> SelectListByMovieName(string name)
         {
             try
             {
-                List<Movie> movieSelected = movieRepository.GetByName(name);
+                List<Movie> movieSelected = movieRepository.GetListByName(name);
                 return movieSelected;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public Movie? SelectMovieByName(Movie movie)
+        {
+            try
+            {
+                Movie? movieSelected;
+
+                movieSelected = movieRepository.SelectAll().Find(x => x.Name == movie.Name);
+                movieSelected = movieRepository.SelectAll().Find(x => x.Category == movie.Category);
+                movieSelected = movieRepository.SelectAll().Find(x => x.Classification == movie.Classification);
+                movieSelected = movieRepository.SelectAll().Find(x => x.ReleaseDate == movie.ReleaseDate);
+
+                if (movieSelected == null)
+                    return null;
+
+                bool name = movieSelected.Name == movie.Name;
+                bool category = movieSelected.Category == movie.Category;
+                bool classification = movieSelected.Classification == movie.Classification;
+                bool releaseDate = movieSelected.ReleaseDate == movie.ReleaseDate;
+
+                if (name && category && classification && releaseDate)
+                    return null;
+
+                if (name || category || classification || releaseDate)
+                    return movieSelected;
+
+                return null;
             }
             catch (Exception ex)
             {

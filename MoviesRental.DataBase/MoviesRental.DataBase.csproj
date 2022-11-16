@@ -16,4 +16,8 @@
     <Folder Include="DB\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MoviesRental.Domain\MoviesRental.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

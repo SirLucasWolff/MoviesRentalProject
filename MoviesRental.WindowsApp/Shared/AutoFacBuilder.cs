@@ -8,6 +8,7 @@ using MoviesRental.Domain.ClientModule;
 using MoviesRental.Domain.EmployeeModule;
 using MoviesRental.Domain.MovieModule;
 using MoviesRental.Domain.RentModule;
+using MoviesRental.Domain.Shared;
 using MoviesRental.Infra.ORM;
 using MoviesRental.Infra.ORM.ClientModule;
 using MoviesRental.Infra.ORM.EmployeeModule;
@@ -21,26 +22,18 @@ using MoviesRental.WindowsApp.Features.ClientModule;
 using MoviesRental.WindowsApp.Features.EmployeeModule;
 using MoviesRental.WindowsApp.Features.MovieModule;
 using MoviesRental.WindowsApp.Features.RentModule;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MoviesRental.WindowsApp.Shared
 {
-    public static class AutoFacBuilder
+    public class AutoFacBuilder
     {
-        public static IContainer Container { get; set; }
-        static AutoFacBuilder()
+        public IContainer Container { get; set; }
+
+        public AutoFacBuilder()
         {
             var Containerbuilder = new ContainerBuilder();
 
-            RegistryKey registryKey = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Movies Rental Project");
-
-            string pathName = (string)registryKey.GetValue("FrameworkType");
-
-            if (pathName == "EntityFramework")
+            if (FrameworkConfiguration.FrameworkTypeRead() == "EntityFramework")
             {
                 Containerbuilder.RegisterType<MoviesRentalDbContext>().InstancePerLifetimeScope();
 

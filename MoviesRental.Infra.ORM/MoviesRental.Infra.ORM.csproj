@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MoviesRental.Domain\MoviesRental.Domain.csproj" />
+    <ProjectReference Include="..\MoviesRental.Infra.SQL\MoviesRental.Infra.SQL.csproj" />
   </ItemGroup>
 
 </Project>

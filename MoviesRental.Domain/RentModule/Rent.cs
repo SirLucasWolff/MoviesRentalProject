@@ -19,7 +19,7 @@ namespace MoviesRental.Domain.RentModule
 
         public string? ClientName { get; set; }
 
-        public DateTime RentalDate { get; set; }
+        public DateTime? RentalDate { get; set; }
 
         public DateTime ReturnDate { get; set; }
 

@@ -30,14 +30,67 @@ namespace MoviesRental.Infra.ORM.MovieModule
             }
         }
 
-        public List<Movie> GetByName(string name)
+        public List<Movie> GetListByName(string name)
         {
-            throw new NotImplementedException();
+            List<Movie> MovieList = moviesRentalDbContext.MovieDB.ToList();
+
+            List<Movie> MoviesByName = new List<Movie>();
+
+            foreach (var Movie in MovieList)
+            {
+                if (Movie.Name == name)
+                    MoviesByName.Add(Movie);
+            }
+
+            return MoviesByName;
         }
 
         public List<Movie> GetByReference(string name)
         {
-            throw new NotImplementedException();
+            try
+            {
+                char[] delimeters = new char[] { '%' };
+
+                var nameFormated = name.Split(delimeters);
+
+                string getNewName = null;
+
+                foreach (var item in nameFormated)
+                {
+                    if (item != "")
+                        getNewName = item;
+                }
+
+                List<Movie> movieSelected = moviesRentalDbContext.MovieDB.ToList();
+
+                if (getNewName == null)
+                    return movieSelected;
+
+                bool result = false;
+
+                List<Movie> returMovies = new List<Movie>();
+
+                foreach (var movie in movieSelected)
+                {
+                    result = movie.Name.ToLower().Contains(getNewName);
+
+                    if (result != false)
+                        returMovies.Add(movie);
+                }
+
+                return returMovies;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public Movie GetByName(string name)
+        {
+            Movie MovieList = moviesRentalDbContext.MovieDB.ToList().Find(x => x.Name == name);
+
+            return MovieList;
         }
     }
 }
