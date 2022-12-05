@@ -15,6 +15,8 @@ namespace MoviesRental.Domain.MovieModule
 
         public string? Classification { get; set; }
 
+        public bool? IsAvailable { get; set; }
+
         public DateTime? ReleaseDate { get; set; } 
 
         public Movie(string? name, string category, string classification, DateTime releaseDate)
@@ -23,6 +25,7 @@ namespace MoviesRental.Domain.MovieModule
             Category = category;
             Classification = classification;
             ReleaseDate = releaseDate;
+            IsAvailable = false;
         }
 
         public Movie() { }

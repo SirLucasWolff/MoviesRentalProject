@@ -21,6 +21,7 @@ namespace MoviesRental.Infra.ORM.MovieModule
             builder.Property(p => p.Category).HasColumnType("NVARCHAR(100)");
             builder.Property(p => p.Classification).HasColumnType("NVARCHAR(50)");
             builder.Property(p => p.ReleaseDate).HasColumnType("DATE");
+            builder.Property(p => p.IsAvailable).HasDefaultValue(false);
         }
     }
 }

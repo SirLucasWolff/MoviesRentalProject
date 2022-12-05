@@ -17,7 +17,7 @@ namespace MoviesRental.Infra.ORM.ClientModule
 
             builder.HasKey(p => p.Id);
 
-            builder.Property(p => p.ClientName).HasMaxLength(60);
+            builder.Property(p => p.ClientName).HasMaxLength(70);
             builder.Property(p => p.Telephone).HasColumnType("INT");
             builder.Property(p => p.Address).HasColumnType("NVARCHAR(100)");
             builder.Property(p => p.BornDate).HasColumnType("DATE");
