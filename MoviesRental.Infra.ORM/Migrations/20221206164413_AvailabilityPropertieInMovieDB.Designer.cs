@@ -12,8 +12,8 @@ using MoviesRental.Infra.ORM;
 namespace MoviesRental.Infra.ORM.Migrations
 {
     [DbContext(typeof(MoviesRentalDbContext))]
-    [Migration("20221124180933_add-column-IsAvailable")]
-    partial class addcolumnIsAvailable
+    [Migration("20221206164413_AvailabilityPropertieInMovieDB")]
+    partial class AvailabilityPropertieInMovieDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -39,8 +39,8 @@ namespace MoviesRental.Infra.ORM.Migrations
                         .HasColumnType("DATE");
 
                     b.Property<string>("ClientName")
-                        .HasMaxLength(60)
-                        .HasColumnType("nvarchar(60)");
+                        .HasMaxLength(70)
+                        .HasColumnType("nvarchar(70)");
 
                     b.Property<int>("Telephone")
                         .HasColumnType("INT");
@@ -83,16 +83,17 @@ namespace MoviesRental.Infra.ORM.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<bool?>("Availability")
+                        .HasColumnType("BIT");
+
+                    b.Property<string>("AvailabilityMessage")
+                        .HasColumnType("NVARCHAR(50)");
+
                     b.Property<string>("Category")
                         .HasColumnType("NVARCHAR(100)");
 
                     b.Property<string>("Classification")
                         .HasColumnType("NVARCHAR(50)");
-
-                    b.Property<bool?>("IsAvailable")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
 
                     b.Property<string>("Name")
                         .HasColumnType("NVARCHAR(60)");

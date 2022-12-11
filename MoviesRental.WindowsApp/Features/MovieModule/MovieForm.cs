@@ -39,6 +39,14 @@ namespace MoviesRental.WindowsApp.Features.MovieModule
             }
         }
 
+        public string GetAvailabilityMessage(bool availability)
+        {
+            if (availability)
+                return "Available";
+            else
+                return "Located";
+        }
+
         #region CodeMethods
 
         private void SupplySelectors()
@@ -126,7 +134,11 @@ namespace MoviesRental.WindowsApp.Features.MovieModule
 
             DateTime releaseDate = Convert.ToDateTime(ReleaseDatePicker.Text);
 
-            Movie = new Movie(name, category, classification, releaseDate);
+            bool availability = true;
+
+            string availabiltyMessage = GetAvailabilityMessage(availability);
+
+            Movie = new Movie(name, category, classification, releaseDate, availability, availabiltyMessage);
         }
 
         private void ClearCategoriesButton_Click(object sender, EventArgs e)

@@ -34,6 +34,8 @@ namespace MoviesRental.WindowsApp.Features.MovieModule
                 new DataGridViewTextBoxColumn { DataPropertyName = "Name", HeaderText = "Name"},
 
                 new DataGridViewTextBoxColumn { DataPropertyName = "Classification", HeaderText = "Classification"},
+
+                 new DataGridViewTextBoxColumn { DataPropertyName = "AvailabilityMessage", HeaderText = "Availability"},
             };
 
             return colunas;

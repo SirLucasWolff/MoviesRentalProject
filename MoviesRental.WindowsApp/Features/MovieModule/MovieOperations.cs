@@ -24,7 +24,7 @@ namespace MoviesRental.WindowsApp.Features.MovieModule
 
         private MovieTable movieTable;
 
-        public static MovieOperations instance;
+        public static MovieOperations? instance;
 
         public static List<Movie> moviesToMigrate = new List<Movie>();
 

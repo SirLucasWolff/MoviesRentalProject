@@ -15,17 +15,20 @@ namespace MoviesRental.Domain.MovieModule
 
         public string? Classification { get; set; }
 
-        public bool? IsAvailable { get; set; }
+        public bool? Availability { get; set; }
+
+        public string? AvailabilityMessage { get; set; }
 
         public DateTime? ReleaseDate { get; set; } 
 
-        public Movie(string? name, string category, string classification, DateTime releaseDate)
+        public Movie(string? name, string category, string classification, DateTime releaseDate, bool availability, string? availabilityMessage)
         {
             Name = name;
             Category = category;
             Classification = classification;
             ReleaseDate = releaseDate;
-            IsAvailable = false;
+            Availability = availability;
+            AvailabilityMessage = availabilityMessage;
         }
 
         public Movie() { }

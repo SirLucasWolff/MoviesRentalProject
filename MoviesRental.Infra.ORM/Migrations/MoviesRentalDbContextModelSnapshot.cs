@@ -81,16 +81,17 @@ namespace MoviesRental.Infra.ORM.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<bool?>("Availability")
+                        .HasColumnType("BIT");
+
+                    b.Property<string>("AvailabilityMessage")
+                        .HasColumnType("NVARCHAR(50)");
+
                     b.Property<string>("Category")
                         .HasColumnType("NVARCHAR(100)");
 
                     b.Property<string>("Classification")
                         .HasColumnType("NVARCHAR(50)");
-
-                    b.Property<bool?>("IsAvailable")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
 
                     b.Property<string>("Name")
                         .HasColumnType("NVARCHAR(60)");
