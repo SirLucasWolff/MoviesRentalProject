@@ -16,14 +16,18 @@ namespace MoviesRental.Infra.SQL.MovieModule
                         [Name],
                         [Category],
                         [Classification],
-                        [ReleaseDate]
+                        [ReleaseDate],
+                        [Availability],
+                        [AvailabilityMessage]
                     )
                     VALUES
                     (
                         @Name,
                         @Category,
                         @Classification,
-                        @ReleaseDate
+                        @ReleaseDate,
+                        @Availability,
+                        @AvailabilityMessage
                     )";
 
         public string SqlSelect = @"SELECT * FROM MovieDB";
@@ -35,7 +39,9 @@ namespace MoviesRental.Infra.SQL.MovieModule
                         [Name] = @Name,
                         [Category] = @Category,
                         [Classification] = @Classification,
-                        [ReleaseDate] = @ReleaseDate 
+                        [ReleaseDate] = @ReleaseDate,
+                        [Availability] = @Availability,
+                        [AvailabilityMessage] = @AvailabilityMessage
                     WHERE 
                         ID = @ID";
 
@@ -44,7 +50,9 @@ namespace MoviesRental.Infra.SQL.MovieModule
                         [NAME],
                         [CATEGORY],
                         [CLASSIFICATION],
-                        [RELEASEDATE]
+                        [RELEASEDATE],
+                        [AVAILABILITY],
+                        [AVAILABILITYMESSAGE]
 	                FROM
                         MovieDB
                     WHERE 
@@ -56,7 +64,9 @@ namespace MoviesRental.Infra.SQL.MovieModule
                         [NAME],
                         [CATEGORY],
                         [CLASSIFICATION],
-                        [RELEASEDATE]
+                        [RELEASEDATE],
+                        [AVAILABILITY],
+                        [AVAILABILITYMESSAGE]
           
                         FROM MovieDB";
 
@@ -86,6 +96,8 @@ namespace MoviesRental.Infra.SQL.MovieModule
             parameters.Add("CATEGORY", movie.Category);
             parameters.Add("CLASSIFICATION", movie.Classification);
             parameters.Add("RELEASEDATE", movie.ReleaseDate);
+            parameters.Add("AVAILABILITY", movie.Availability);
+            parameters.Add("AVAILABILITYMESSAGE", movie.AvailabilityMessage);
 
             return parameters;
         }
@@ -158,8 +170,10 @@ namespace MoviesRental.Infra.SQL.MovieModule
             string category = ((string)reader["CATEGORY"]);
             string classification = ((string)reader["CLASSIFICATION"]);
             DateTime releaseDate = ((DateTime)reader["RELEASEDATE"]);
+            bool availability = ((bool)reader["AVAILABILITY"]);
+            string availabilityMessage = ((string)reader["AVAILABILITYMESSAGE"]);
 
-            Movie movie = new Movie(movieName,category,classification, releaseDate);
+            Movie movie = new Movie(movieName,category,classification, releaseDate, availability, availabilityMessage);
 
             movie.Id = id;
 
