@@ -44,7 +44,7 @@ namespace MoviesRental.WindowsApp.Features.MovieModule
             if (availability)
                 return "Available";
             else
-                return "Located";
+                return "Rented";
         }
 
         #region CodeMethods
@@ -130,7 +130,7 @@ namespace MoviesRental.WindowsApp.Features.MovieModule
 
             string category = TextBoxCategories.Text;
 
-            string classification = ClassificationSelector.Text;
+            string classification = ClassificationSelector.Text.Remove(ClassificationSelector.Text.Length - 1);
 
             DateTime releaseDate = Convert.ToDateTime(ReleaseDatePicker.Text);
 
