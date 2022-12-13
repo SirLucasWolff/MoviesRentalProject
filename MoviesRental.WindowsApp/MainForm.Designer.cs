@@ -58,11 +58,14 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.FilterButton = new System.Windows.Forms.ToolStripButton();
             this.MainPanel = new System.Windows.Forms.Panel();
+            this.LogoPictureBox = new System.Windows.Forms.PictureBox();
             this.CheckStatusRent = new System.Windows.Forms.Timer(this.components);
             this.StatusFooter.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.PanelHeader.SuspendLayout();
             this.toolStrip1.SuspendLayout();
+            this.MainPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.LogoPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // StatusFooter
@@ -327,11 +330,25 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.MainPanel.BackColor = System.Drawing.Color.SlateBlue;
+            this.MainPanel.Controls.Add(this.LogoPictureBox);
             this.MainPanel.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.MainPanel.Location = new System.Drawing.Point(0, 71);
             this.MainPanel.Name = "MainPanel";
             this.MainPanel.Size = new System.Drawing.Size(1231, 608);
             this.MainPanel.TabIndex = 3;
+            // 
+            // LogoPictureBox
+            // 
+            this.LogoPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.LogoPictureBox.Image = global::MoviesRental.WindowsApp.Properties.Resources.Logo_project;
+            this.LogoPictureBox.Location = new System.Drawing.Point(151, 42);
+            this.LogoPictureBox.Name = "LogoPictureBox";
+            this.LogoPictureBox.Size = new System.Drawing.Size(724, 397);
+            this.LogoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.LogoPictureBox.TabIndex = 0;
+            this.LogoPictureBox.TabStop = false;
             // 
             // CheckStatusRent
             // 
@@ -363,6 +380,8 @@
             this.PanelHeader.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            this.MainPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.LogoPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -400,5 +419,6 @@
         private ToolStripSeparator toolStripSeparator6;
         private ToolStripButton DevolutionButton;
         private ToolStripMenuItem FrameworkMenuItem;
+        private PictureBox LogoPictureBox;
     }
 }

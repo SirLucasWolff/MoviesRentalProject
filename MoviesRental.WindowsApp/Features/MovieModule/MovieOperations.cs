@@ -46,14 +46,20 @@ namespace MoviesRental.WindowsApp.Features.MovieModule
         {
             int id = movieTable.GetIdSelected();
 
+            Movie movieSelected = appService.SelectMovieId(id);
+
             if (id == 0)
             {
                 MessageBox.Show("Select a movie to delete", "Movie deleting",
                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
-
-            Movie movieSelected = appService.SelectMovieId(id);
+            else if (movieSelected.Availability == false)
+            {
+                MessageBox.Show("The movie can't be removed because it's rented", "Movie deleting",
+                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
 
             if (MessageBox.Show($"Do you have sure about to delete: [{movieSelected.Name}] ?",
                 "Movie deleting", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
@@ -74,14 +80,20 @@ namespace MoviesRental.WindowsApp.Features.MovieModule
         {
             int id = movieTable.GetIdSelected();
 
+            Movie movieSelected = appService.SelectMovieId(id);
+
             if (id == 0)
             {
                 MessageBox.Show("Select a movie to edit", "Movie editing",
                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
-
-            Movie movieSelected = appService.SelectMovieId(id);
+            else if (movieSelected.Availability == false)
+            {
+                MessageBox.Show("The movie is rented", "Movie editing",
+                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
 
             MovieForm form = new MovieForm();
             form.Movie = movieSelected;

@@ -229,8 +229,17 @@ namespace MoviesRental.WindowsApp.Features.RentModule
 
         private List<Movie>? GetAllMovies()
         {
+            List<Movie> allMovies= new List<Movie>();
+
             List<Movie> movies = movieAppService.SelectAllMovies();
-            return movies;
+
+            foreach (Movie movie in movies) 
+            {
+                if (movie.Availability == true)
+                    allMovies.Add(movie);
+            }
+
+            return allMovies;
         }
 
         private List<string> BuildTheStringMoviesToList()
@@ -296,12 +305,34 @@ namespace MoviesRental.WindowsApp.Features.RentModule
             }
         }
 
+        private void ChangeMovieStatus()
+        {
+            foreach (var item in moviesSelected)
+            {
+                Movie movieToEditTheAvailabilityStatus = item;
+
+                movieToEditTheAvailabilityStatus.Availability = true;
+
+                movieToEditTheAvailabilityStatus.AvailabilityMessage = "Available";
+
+                movieAppService.EditMovie(item.Id, movieToEditTheAvailabilityStatus);
+            }
+        }
+
         private string GetMoviesName()
         {
             string movieName = "";
 
             foreach (var item in GetAllMoviesAdded)
             {
+                Movie movieToEditTheAvailabilityStatus = item;
+
+                movieToEditTheAvailabilityStatus.Availability = false;
+
+                movieToEditTheAvailabilityStatus.AvailabilityMessage = "Rented";
+
+                movieAppService.EditMovie(item.Id,movieToEditTheAvailabilityStatus);
+
                 movieName += item.Name;
                 movieName += ",";
             }
@@ -396,6 +427,8 @@ namespace MoviesRental.WindowsApp.Features.RentModule
         {
             if (statusApp == "Devolution")
             {
+                ChangeMovieStatus();
+
                 return;
             }
 

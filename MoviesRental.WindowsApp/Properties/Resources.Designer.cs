@@ -173,6 +173,16 @@ namespace MoviesRental.WindowsApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Logo_project {
+            get {
+                object obj = ResourceManager.GetObject("Logo project", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Movie_icon {
             get {
                 object obj = ResourceManager.GetObject("Movie icon", resourceCulture);
@@ -206,16 +216,6 @@ namespace MoviesRental.WindowsApp.Properties {
         internal static System.Drawing.Bitmap Show_password_button {
             get {
                 object obj = ResourceManager.GetObject("Show password button", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Snapshot_1 {
-            get {
-                object obj = ResourceManager.GetObject("Snapshot_1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
