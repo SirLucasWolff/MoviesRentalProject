@@ -31,7 +31,7 @@ namespace MoviesRental.WindowsApp.Features.AccountModule
 
         private void VerifyTextsToAbleEnterButton()
         {
-            if (TextEmail.Text.Length >= 5 && TextPassword.Text.Length >= 2 && TextPassword.Text.Length >= 5 || AccessKeyText.Text.Length >= 4)
+            if (TextEmail.Text.Length >= 0 && TextPassword.Text.Length >= 0 && TextPassword.Text.Length >= 0 || AccessKeyText.Text.Length >= 0)
             {
                 EnterButton.Enabled = true;
             }
@@ -57,6 +57,7 @@ namespace MoviesRental.WindowsApp.Features.AccountModule
                     AccountForm.instance.CloseForm();
                     CurrentAccount.EmployeeName = item.Name;
                     MainForm.instance.ChangeAccountName();
+                    MainForm.instance.ShowAccountDashboard();
                     return;
                 }
                 else

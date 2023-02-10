@@ -57,8 +57,11 @@
             this.AccountButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.FilterButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
+            this.RefreshButton = new System.Windows.Forms.ToolStripButton();
             this.MainPanel = new System.Windows.Forms.Panel();
             this.LogoPictureBox = new System.Windows.Forms.PictureBox();
+            this.DashboardPanel = new System.Windows.Forms.Panel();
             this.CheckStatusRent = new System.Windows.Forms.Timer(this.components);
             this.StatusFooter.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -212,7 +215,9 @@
             this.toolStripSeparator4,
             this.AccountButton,
             this.toolStripSeparator5,
-            this.FilterButton});
+            this.FilterButton,
+            this.toolStripSeparator7,
+            this.RefreshButton});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(138, 39);
@@ -324,6 +329,24 @@
             this.FilterButton.Text = "Filter";
             this.FilterButton.Click += new System.EventHandler(this.FilterButton_Click);
             // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 6);
+            // 
+            // RefreshButton
+            // 
+            this.RefreshButton.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.RefreshButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.RefreshButton.Image = global::MoviesRental.WindowsApp.Properties.Resources.Refresh_icon;
+            this.RefreshButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.RefreshButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.RefreshButton.Name = "RefreshButton";
+            this.RefreshButton.Size = new System.Drawing.Size(36, 36);
+            this.RefreshButton.Text = "Refresh";
+            this.RefreshButton.ToolTipText = "Refresh";
+            this.RefreshButton.Click += new System.EventHandler(this.RefreshButton_Click);
+            // 
             // MainPanel
             // 
             this.MainPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -331,6 +354,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.MainPanel.BackColor = System.Drawing.Color.SlateBlue;
             this.MainPanel.Controls.Add(this.LogoPictureBox);
+            this.MainPanel.Controls.Add(this.DashboardPanel);
             this.MainPanel.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.MainPanel.Location = new System.Drawing.Point(0, 71);
             this.MainPanel.Name = "MainPanel";
@@ -350,11 +374,19 @@
             this.LogoPictureBox.TabIndex = 0;
             this.LogoPictureBox.TabStop = false;
             // 
+            // DashboardPanel
+            // 
+            this.DashboardPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.DashboardPanel.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.DashboardPanel.Location = new System.Drawing.Point(244, 122);
+            this.DashboardPanel.Name = "DashboardPanel";
+            this.DashboardPanel.Size = new System.Drawing.Size(746, 233);
+            this.DashboardPanel.TabIndex = 1;
+            // 
             // CheckStatusRent
             // 
             this.CheckStatusRent.Enabled = true;
             this.CheckStatusRent.Interval = 100000;
-            this.CheckStatusRent.Tick += new System.EventHandler(this.CheckStatusRent_Tick);
             // 
             // MainForm
             // 
@@ -420,5 +452,8 @@
         private ToolStripButton DevolutionButton;
         private ToolStripMenuItem FrameworkMenuItem;
         private PictureBox LogoPictureBox;
+        private Panel DashboardPanel;
+        private ToolStripSeparator toolStripSeparator7;
+        private ToolStripButton RefreshButton;
     }
 }

@@ -434,7 +434,7 @@ namespace MoviesRental.WindowsApp.Features.RentModule
 
             string employee = CurrentAccount.EmployeeName;
 
-            int movieQuantity = Convert.ToInt32(MoviesValue.Text);
+            int movieQuantity = Convert.ToInt32(MoviesQuantity.Text);
 
             string movieName = GetMoviesName();
 
