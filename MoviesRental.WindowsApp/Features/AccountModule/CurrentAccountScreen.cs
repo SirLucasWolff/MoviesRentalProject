@@ -28,6 +28,10 @@ namespace MoviesRental.WindowsApp.Features.AccountModule
             AccountForm.instance.CloseForm();
 
             MainForm.instance.DontShowMenuStripOptions();
+
+            MainForm.instance.HideAccountDashboard();
+
+            MainForm.instance.ChangeAccountName();
         }
     }
 }

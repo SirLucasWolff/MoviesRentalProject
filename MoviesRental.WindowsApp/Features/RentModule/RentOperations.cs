@@ -137,7 +137,7 @@ namespace MoviesRental.WindowsApp.Features.RentModule
                         rentTable.UpdateRegisters();
                     }
 
-                    if (GetDaysQuantity(item.ReturnDate) < 1 && item.Status == "Near return" && item.Status != "Pending")
+                    if (GetDaysQuantity(item.ReturnDate) < 0 && item.Status == "Near return" && item.Status != "Pending")
                     {
                         item.Status = "Pending";
                         string path = @"D:/Movies Rental Project/Status images/Red Status.PNG";
@@ -250,6 +250,13 @@ namespace MoviesRental.WindowsApp.Features.RentModule
                 return "EditingWhileMigrate";
 
             return null;
+        }
+
+        public List<Rent> DashboardRents()
+        {
+            List<Rent> rents = rentAppService.SelectAllRents();
+
+            return rents;
         }
     }
 }

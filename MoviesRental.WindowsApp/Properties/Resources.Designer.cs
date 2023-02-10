@@ -193,6 +193,26 @@ namespace MoviesRental.WindowsApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Refresh_icon {
+            get {
+                object obj = ResourceManager.GetObject("Refresh icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Refresh_icon_black_edition {
+            get {
+                object obj = ResourceManager.GetObject("Refresh icon black edition", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Search_button {
             get {
                 object obj = ResourceManager.GetObject("Search button", resourceCulture);

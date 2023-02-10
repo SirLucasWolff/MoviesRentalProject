@@ -19,7 +19,7 @@ namespace MoviesRental.WindowsApp
 {
     public partial class MainForm : Form
     {
-        public static MainForm instance;
+        public static MainForm? instance;
 
         private IRegister operations;
 
@@ -36,12 +36,36 @@ namespace MoviesRental.WindowsApp
             RentsMenuItem.Enabled = false;
             RegistersMenuItem.Enabled = false;
             AccountButton.Text = "Enter with account";
+            DashboardPanel.Visible = false;
         }
 
         #region CodeMethods
 
+        public void ShowAccountDashboard()
+        {
+            DashboardPanel.Visible = true;
+
+            Dashboard dashboard = new Dashboard();
+
+            MainPanel.Controls.Add(DashboardPanel);
+
+            DashboardPanel.Controls.Add(dashboard);
+        }
+
+        public void HideAccountDashboard()
+        {
+            DashboardPanel.Visible = false;
+        }
+
+        public List<Rent> DashboardRents()
+        {
+            rentOperations = new AutoFacBuilder().Container.Resolve<RentOperations>();
+
+            return RentOperations.instance.DashboardRents();
+        }
+
         public void MigrationDatabase(string Key)
-         {
+        {
             operations = new AutoFacBuilder().Container.Resolve<EmployeeOperations>();
             EmployeeOperations.instance.GetList();
 
@@ -71,14 +95,10 @@ namespace MoviesRental.WindowsApp
 
         public void ChangeAccountName()
         {
-            AccountButton.Text = CurrentAccount.EmployeeName;
-        }
-
-        private void CheckStatusRent_Tick(object sender, EventArgs e)
-        {
-            rentOperations = new AutoFacBuilder().Container.Resolve<RentOperations>();
-
-            rentOperations.EditStatusRegister();
+            if (CurrentAccount.EmployeeName != null)
+                AccountButton.Text = CurrentAccount.EmployeeName;
+            else
+                AccountButton.Text = "Enter with account";
         }
 
         public void UpdateFooter(string message)
@@ -175,6 +195,10 @@ namespace MoviesRental.WindowsApp
             toolStripSeparator6.Visible = false;
 
             RegisterSelectedText.Visible = false;
+
+            toolStripSeparator7.Visible = false;
+
+            RefreshButton.Visible = false;
         }
 
         public void RegistersButtons()
@@ -199,6 +223,8 @@ namespace MoviesRental.WindowsApp
 
             DeleteButton.Enabled = true;
 
+            RefreshButton.Visible = false;
+
             toolStripSeparator1.Visible = true;
 
             toolStripSeparator2.Visible = true;
@@ -210,6 +236,8 @@ namespace MoviesRental.WindowsApp
             toolStripSeparator5.Visible = false;
 
             toolStripSeparator6.Visible = false;
+
+            toolStripSeparator7.Visible = false;
         }
 
         public void RentsButtons()
@@ -226,6 +254,8 @@ namespace MoviesRental.WindowsApp
 
             FilterButton.Visible = true;
 
+            RefreshButton.Visible = true;
+
             DevolutionButton.Visible = true;
 
             toolStripSeparator1.Visible = true;
@@ -239,6 +269,8 @@ namespace MoviesRental.WindowsApp
             toolStripSeparator5.Visible = false;
 
             toolStripSeparator6.Visible = false;
+
+            toolStripSeparator7.Visible = true;
 
             EditButton.Visible = false;
         }
@@ -331,7 +363,18 @@ namespace MoviesRental.WindowsApp
 
             AccessButtons();
 
+            LogoPictureBox.Visible = false;
+
             MainPanel.Controls.Clear();
+
+            if (CurrentAccount.EmployeeName != null)
+            {
+                Dashboard dashboard = new Dashboard();
+
+                MainPanel.Controls.Add(DashboardPanel);
+
+                DashboardPanel.Controls.Add(dashboard);
+            }
         }
 
         #endregion
@@ -382,7 +425,15 @@ namespace MoviesRental.WindowsApp
             filterRentForm.ShowDialog();
         }
 
+        private void RefreshButton_Click(object sender, EventArgs e)
+        {
+            rentOperations = new AutoFacBuilder().Container.Resolve<RentOperations>();
 
-        #endregion    
+            rentOperations.EditStatusRegister();
+
+            ConfigPanelRentRegisters(rentOperations);
+        }
+
+        #endregion
     }
 }
