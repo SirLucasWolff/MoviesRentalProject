@@ -1,18 +1,13 @@
 ﻿using FluentEmail.Core;
 using FluentEmail.Smtp;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MoviesRental.WindowsApp.Shared
 {
     public class EmailConnection
     {
-        public async void SendEmailOffline(string CurrentEmail)
+        public async void SendEmailOffline(string CurrentEmail, string name, string accessKey)
         {
             var sender = new SmtpSender(() => new SmtpClient("localhost")
             {
@@ -26,9 +21,56 @@ namespace MoviesRental.WindowsApp.Shared
             var email = await Email
                 .From(emailAddress: "mvsrntl@gmail.com")
                 .To(emailAddress: CurrentEmail)
-                .Subject(subject: "Drugs")
-                .Body(body: "Thanks for buiyng our products")
+                .Subject(subject: name)
+                .Body(body: accessKey)
                 .SendAsync();
+        }
+
+        public void SendEmailCached()
+        {
+            DirectoryInfo directoryInfo = new DirectoryInfo("C:\\Email");
+
+            FileInfo[] TXTFiles = directoryInfo.GetFiles("*.eml");
+
+            if (TXTFiles.Length != 0)
+            {
+                foreach (FileInfo TXTFile in TXTFiles) 
+                {
+                    FileStream fileStream = File.Open("C:\\Email\\" + TXTFile.Name, FileMode.Open, FileAccess.ReadWrite);
+
+                    var mailMessage = MsgReader.Mime.Message.Load(fileStream);
+
+                    string accessKey = System.Text.Encoding.Default.GetString(mailMessage.MessagePart.Body);
+
+                    SendEmailOnline(mailMessage.Headers.To[0].ToString(),mailMessage.Headers.Subject,accessKey);
+
+                    fileStream.Close();
+
+                    FileInfo fileInfo = TXTFile;
+
+                    fileInfo.Delete();
+                }
+            }
+        }
+
+        public bool isConnected()
+        {
+            try
+            {
+                string myAddress = "www.google.com";
+                IPAddress[] addresslist = Dns.GetHostAddresses(myAddress);
+
+                if (addresslist[0].ToString().Length > 6)
+                {
+                    return true;
+                }
+                else
+                    return false;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public bool EmailFormatValidation(string email)
@@ -44,31 +86,35 @@ namespace MoviesRental.WindowsApp.Shared
             }
         }
 
-        //Google no longer makes this option.
-
-        public bool SendEmailOnline(string email, string name)
+        public bool SendEmailOnline(string email, string name, string accessKey)
         {
             try
             {
-                MailMessage mailMessage = new MailMessage("mvsrntl@gmail.com", email);
-                mailMessage.Subject = $"Welcome {name} to Movies Rental application";
-                mailMessage.IsBodyHtml = true;
-                mailMessage.Body = "Welcome";
-                mailMessage.SubjectEncoding = Encoding.UTF8;
-                mailMessage.BodyEncoding = Encoding.UTF8;
-                SmtpClient smtpClient = new SmtpClient("mvsrntl@gmail.com", 587);
-                smtpClient.UseDefaultCredentials = false;
-                smtpClient.Credentials = new NetworkCredential("mvsrntl@gmail.com", "Lucas0158");
-                smtpClient.EnableSsl = true;
-                smtpClient.Send(mailMessage);
+                string fromMail = "mvsrntl@gmail.com";
+                string fromPassword = "qqvlkywlkyciohfu";
+
+                MailMessage message = new MailMessage();
+                message.From = new MailAddress(fromMail);
+                message.Subject = $"Welcome {name}";
+                message.To.Add(new MailAddress(email));
+                message.Body = $"<html><body> Use your access key to access the application: {accessKey} </body></html>";
+                message.IsBodyHtml = true;
+
+                SmtpClient smtpClient = new SmtpClient("smtp.gmail.com")
+                {
+                    Port = 587,
+                    Credentials = new NetworkCredential(fromMail, fromPassword),
+                    EnableSsl = true,
+
+                };
+
+                smtpClient.Send(message);
                 return true;
             }
             catch(Exception ex)
             {
                 return false;
             }
-
-            return false;
         }
     }
 }

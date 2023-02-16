@@ -1,16 +1,6 @@
-﻿using MovieRental.Application.EmployeModule;
-using MoviesRental.Domain.EmployeeModule;
+﻿using MoviesRental.Domain.EmployeeModule;
 using MoviesRental.Infra.SQL.EmployeeModule;
 using MoviesRental.WindowsApp.Shared;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace MoviesRental.WindowsApp.Features.EmployeeModule
 {
@@ -64,16 +54,13 @@ namespace MoviesRental.WindowsApp.Features.EmployeeModule
             foreach (var item in employees)
             {
                 if (item.Name == TextEmployeeName.Text)
-                {
                     return item.AccessKey;
-                }
-                
             }
 
             return GenerateRandomAccessKey();
         }
 
-        private void EmailValidation()
+        private void EmailValidation(string email, string name, string accessKey)
         {
             employees = employeeSQL.SelectAll();
 
@@ -85,7 +72,10 @@ namespace MoviesRental.WindowsApp.Features.EmployeeModule
                 }
             }
 
-            emailConnection.SendEmailOffline(TextEmail.Text);
+            if (emailConnection.isConnected())
+                emailConnection.SendEmailOnline(email, name, accessKey);
+            else
+                emailConnection.SendEmailOffline(email, name, accessKey);
         }
 
         private string GenerateRandomAccessKey()
@@ -117,7 +107,7 @@ namespace MoviesRental.WindowsApp.Features.EmployeeModule
 
             Employee = new Employee(email, name, password, accessKey);
 
-            EmailValidation();
+            EmailValidation(email, name, accessKey);
         }
 
         private void ShowPasswordButton_Click(object sender, EventArgs e)
