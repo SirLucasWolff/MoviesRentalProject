@@ -1,13 +1,6 @@
-﻿using Microsoft.Win32;
-using MoviesRental.Domain.Shared;
-using System;
-using System.Collections.Generic;
+﻿using MoviesRental.Domain.Shared;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace MoviesRental.DataBase
 {
