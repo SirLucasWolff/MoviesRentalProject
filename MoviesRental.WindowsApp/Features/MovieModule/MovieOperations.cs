@@ -1,20 +1,6 @@
-﻿using Autofac;
-using MovieRental.Application.MovieModule;
-using MoviesRental.Domain.ClientModule;
-using MoviesRental.Domain.EmployeeModule;
+﻿using MovieRental.Application.MovieModule;
 using MoviesRental.Domain.MovieModule;
-using MoviesRental.Domain.Shared;
-using MoviesRental.Infra.ORM;
-using MoviesRental.Infra.SQL;
-using MoviesRental.Infra.SQL.MovieModule;
 using MoviesRental.WindowsApp.Shared;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MoviesRental.WindowsApp.Features.MovieModule
 {
@@ -28,7 +14,7 @@ namespace MoviesRental.WindowsApp.Features.MovieModule
 
         public static List<Movie> moviesToMigrate = new List<Movie>();
 
-        public MovieOperations (MovieAppService appService)
+        public MovieOperations(MovieAppService appService)
         {
             instance = this;
             this.appService = appService;
@@ -100,6 +86,10 @@ namespace MoviesRental.WindowsApp.Features.MovieModule
             form.ShowDialog();
             if (form.DialogResult == DialogResult.OK)
             {
+                string getCategory = form.Movie.Category.Remove(form.Movie.Category.Length - 1);
+
+                form.Movie.Category = getCategory;
+
                 string result = appService.EditMovie(id, form.Movie);
 
                 if (result == "Is_Valid")
@@ -132,6 +122,10 @@ namespace MoviesRental.WindowsApp.Features.MovieModule
 
             if (movieForm.ShowDialog() == DialogResult.OK)
             {
+                string getCategory = movieForm.Movie.Category.Remove(movieForm.Movie.Category.Length -1);
+
+                movieForm.Movie.Category = getCategory;
+
                 string result = appService.InsertNewMovie(movieForm.Movie);
 
                 if (result == "Is_Valid")

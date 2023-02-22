@@ -21,8 +21,6 @@ namespace MoviesRental.WindowsApp.Features.MovieModule
             EnterButtonMovie.Enabled = false;
         }
 
-        //Should build the properties using the domain class of form.
-
         private Movie movie;
 
         public Movie Movie
@@ -52,19 +50,22 @@ namespace MoviesRental.WindowsApp.Features.MovieModule
         private void SupplySelectors()
         {
             CategorySelector.Text = "Select one";
-            CategorySelector.Items.Add("Drama");
-            CategorySelector.Items.Add("Comedy");
-            CategorySelector.Items.Add("Sci-Fi");
-            CategorySelector.Items.Add("Action");
             CategorySelector.Items.Add("Adventure");
+            CategorySelector.Items.Add("Animation");
+            CategorySelector.Items.Add("Action");
+            CategorySelector.Items.Add("Comedy");
             CategorySelector.Items.Add("Crime");
+            CategorySelector.Items.Add("Documentary");
+            CategorySelector.Items.Add("Drama");
             CategorySelector.Items.Add("Fantasy");
             CategorySelector.Items.Add("History");
             CategorySelector.Items.Add("Horror");
             CategorySelector.Items.Add("Musical");
             CategorySelector.Items.Add("Mistery");
-            CategorySelector.Items.Add("Romance");
             CategorySelector.Items.Add("Mistery");
+            CategorySelector.Items.Add("Romance");
+            CategorySelector.Items.Add("Real facts");
+            CategorySelector.Items.Add("Sci-Fi");
             CategorySelector.Items.Add("War");
 
             ClassificationSelector.Text = "Select one";
@@ -94,6 +95,14 @@ namespace MoviesRental.WindowsApp.Features.MovieModule
         #endregion
 
         #region Events
+
+        private void MovieForm_Load(object sender, EventArgs e)
+        {
+            if (TextBoxCategories.TextLength != 0 && TextBoxCategories.Text.EndsWith(",") == false)
+            {
+                TextBoxCategories.Text += ",";
+            }
+        }
 
         private void CategorySelector_SelectedValueChanged(object sender, EventArgs e)
         {
@@ -130,7 +139,7 @@ namespace MoviesRental.WindowsApp.Features.MovieModule
 
             string category = TextBoxCategories.Text;
 
-            string classification = ClassificationSelector.Text.Remove(ClassificationSelector.Text.Length - 1);
+            string classification = ClassificationSelector.Text;  //.Remove(ClassificationSelector.Text.Length - 1);
 
             DateTime releaseDate = Convert.ToDateTime(ReleaseDatePicker.Text);
 
@@ -146,9 +155,10 @@ namespace MoviesRental.WindowsApp.Features.MovieModule
             TextBoxCategories.Clear();
         }
 
-        #endregion
 
-        
+
+
+        #endregion
 
         
     }
