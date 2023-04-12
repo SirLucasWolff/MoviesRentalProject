@@ -32,7 +32,7 @@ namespace MoviesRental.WindowsApp.Features.EmployeeModule
             {
                 Add = "Add a new employee",
                 Edit = "Edit a employee",
-                Delete = "Delete a employee",
+                Delete = "Delete your account",
             };
         }
     }

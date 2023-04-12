@@ -49,11 +49,13 @@ namespace MoviesRental.WindowsApp.Features.RentModule
             rentList = new List<Rent>();
         }
 
-        public void GetList()
+        public List<Rent> GetList()
         {
             List<Rent> rents = rentAppService.SelectAllRents();
 
             rentsToMigrate.AddRange(rents);
+
+            return rents;
         }
 
         public void DeleteRegister()
