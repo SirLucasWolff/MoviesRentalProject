@@ -1,11 +1,5 @@
-﻿using MoviesRental.Domain.EmployeeModule;
-using MoviesRental.Domain.MovieModule;
+﻿using MoviesRental.Domain.MovieModule;
 using MoviesRental.Infra.ORM.MoviesRentalModule;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MoviesRental.Infra.ORM.MovieModule
 {

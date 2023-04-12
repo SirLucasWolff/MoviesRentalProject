@@ -1,12 +1,7 @@
 using Autofac;
-using Microsoft.EntityFrameworkCore.Migrations.Operations;
-using MovieRental.Application.ClientModule;
-using MoviesRental.Domain.ClientModule;
 using MoviesRental.Domain.EmployeeModule;
-using MoviesRental.Domain.MovieModule;
 using MoviesRental.Domain.RentModule;
 using MoviesRental.Domain.Shared;
-using MoviesRental.Infra.SQL;
 using MoviesRental.WindowsApp.Features.AccountModule;
 using MoviesRental.WindowsApp.Features.ClientModule;
 using MoviesRental.WindowsApp.Features.EmployeeModule;
@@ -64,6 +59,21 @@ namespace MoviesRental.WindowsApp
             return RentOperations.instance.DashboardRents();
         }
 
+        public Employee GetEmployee(string emailText)
+        {
+            operations = new AutoFacBuilder().Container.Resolve<EmployeeOperations>();
+
+            List<Employee> employeesList = EmployeeOperations.instance.GetAllEmployees();
+
+            foreach (Employee employee in employeesList) 
+            {
+                if (employee.Email == emailText)
+                    return EmployeeOperations.instance.GetEmployeeSelected(employee.Id);
+            }
+
+            return null;
+        }
+
         public void MigrationDatabase(string Key)
         {
             operations = new AutoFacBuilder().Container.Resolve<EmployeeOperations>();
@@ -91,6 +101,13 @@ namespace MoviesRental.WindowsApp
 
             rentOperations = new AutoFacBuilder().Container.Resolve<RentOperations>();
             rentOperations.MigrateRegister();
+        }
+
+        public List<Rent> GetAllRents()
+        {
+            rentOperations = new AutoFacBuilder().Container.Resolve<RentOperations>();
+
+            return RentOperations.instance.GetList();
         }
 
         public void ChangeAccountName()
@@ -329,7 +346,7 @@ namespace MoviesRental.WindowsApp
 
             ConfigToolBox(configuration);
 
-            UpdateFooter(configuration.KindRegister);
+            UpdateFooter(configuration.KindRegister); 
 
             operations = new AutoFacBuilder().Container.Resolve<MovieOperations>();
 
@@ -355,6 +372,13 @@ namespace MoviesRental.WindowsApp
             rentOperations = new AutoFacBuilder().Container.Resolve<RentOperations>();
 
             ConfigPanelRentRegisters(rentOperations);
+        }
+
+        public void ChangeToAccessRegister()
+        {
+            MainPanel.Controls.Clear();
+
+            PanelHeader.Visible = false;
         }
 
         private void AccessMenuItem_Click(object sender, EventArgs e)

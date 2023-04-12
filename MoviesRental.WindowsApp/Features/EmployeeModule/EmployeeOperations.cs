@@ -1,15 +1,8 @@
 ﻿using MovieRental.Application.EmployeModule;
 using MoviesRental.Domain.EmployeeModule;
-using MoviesRental.Domain.MovieModule;
-using MoviesRental.Domain.Shared;
-using MoviesRental.Infra.SQL;
+using MoviesRental.Domain.RentModule;
+using MoviesRental.WindowsApp.Features.AccountModule;
 using MoviesRental.WindowsApp.Shared;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MoviesRental.WindowsApp.Features.EmployeeModule
 {
@@ -39,24 +32,32 @@ namespace MoviesRental.WindowsApp.Features.EmployeeModule
 
         public void DeleteRegister()
         {
-            int id = employeeTable.GetIdSelected();
+            List<Employee> employeesList = appService.SelectAllEmployees();
 
-            if (id == 0)
+            Employee employeeSelected = new Employee();
+
+            foreach (Employee employee in employeesList)
             {
-                MessageBox.Show("Select a employee to delete", "Employee deleting",
-                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return;
+                if (employee.Name == CurrentAccount.EmployeeName)
+                    employeeSelected = appService.SelectEmployeeId(employee.Id);
             }
 
-            Employee employeeSelected = appService.SelectEmployeeId(id);
-
-            if (MessageBox.Show($"Do you have sure about to delete: [{employeeSelected.Name}] ?",
+            if (MessageBox.Show($"Do you have sure about to delete: [{employeeSelected.Name}] ? You will be disconected!",
                 "Employee deleting", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
             {
-                if (appService.DeleteEmployee(id))
+                if (appService.DeleteEmployee(employeeSelected.Id))
                 {
                     employeeTable.UpdateRegisters();
+
                     MainForm.instance.UpdateFooter($"Employee: [{employeeSelected.Name}] deleted with success");
+
+                    CurrentAccount.EmployeeName = null;
+
+                    MainForm.instance.DontShowMenuStripOptions();
+
+                    MainForm.instance.ChangeAccountName();
+
+                    MainForm.instance.ChangeToAccessRegister();
                 }
                 else
                 {
@@ -78,12 +79,31 @@ namespace MoviesRental.WindowsApp.Features.EmployeeModule
 
             Employee employeeSelected = appService.SelectEmployeeId(id);
 
+            if (employeeSelected.Name != CurrentAccount.EmployeeName)
+            {
+                MessageBox.Show("You can't edit another employee", "Employee editing",
+                   MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            string oldName = employeeSelected.Name;
+
             EmployeeForm employee = new EmployeeForm();
             employee.Employee = employeeSelected;
             employee.ShowDialog();
             if (employee.DialogResult == DialogResult.OK)
             {
                 string result = appService.EditEmployee(id, employee.Employee);
+
+                List<Rent> allRents = MainForm.instance.GetAllRents();
+
+                foreach (Rent rents in allRents)
+                {
+                    if (rents.EmployeName == oldName)
+                    {
+
+                    }
+                }
 
                 if (result == "Is_Valid")
                 {
@@ -171,6 +191,20 @@ namespace MoviesRental.WindowsApp.Features.EmployeeModule
         UserControl IRegister.GetTableFiltered(string filter)
         {
             throw new NotImplementedException();
+        }
+
+        public Employee GetEmployeeSelected(int id)
+        {
+            Employee employee = appService.SelectEmployeeId(id);
+
+            return employee;
+        }
+
+        public List<Employee> GetAllEmployees()
+        {
+            List<Employee> employee = appService.SelectAllEmployees();
+
+            return employee;
         }
     }
 }

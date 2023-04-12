@@ -1,4 +1,5 @@
-﻿using MoviesRental.Domain.EmployeeModule;
+﻿using MoviesRental.DataBase;
+using MoviesRental.Domain.EmployeeModule;
 using MoviesRental.Infra.SQL.EmployeeModule;
 using MoviesRental.WindowsApp.Shared;
 using System;
@@ -87,5 +88,24 @@ namespace MoviesRental.WindowsApp.Features.AccountModule
         }
 
         #endregion
+
+        private void ForgottenPasswordLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (TextEmail.Text == string.Empty)
+                AccessStatus.Text = "Input the email to retrieve your password and access key";
+            else
+            {
+                Employee employee = MainForm.instance.GetEmployee(TextEmail.Text);
+
+                if (employee != null)
+                {
+                    new EmailConnection().SendEmailOnline(employee.Email, employee.Name, employee.AccessKey + $" and your password: {employee.Password}");
+
+                    MessageBox.Show($"Mail sent to {TextEmail.Text} with your password and access key");
+                }
+                else
+                    AccessStatus.Text = "This account doesn't exist, try again";
+            }
+        }
     }
 }

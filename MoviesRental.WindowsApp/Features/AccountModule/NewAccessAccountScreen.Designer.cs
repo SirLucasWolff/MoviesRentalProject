@@ -33,7 +33,7 @@
             this.TextEmail = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.ForgottenPasswordLink = new System.Windows.Forms.LinkLabel();
             this.label4 = new System.Windows.Forms.Label();
             this.AccessKeyText = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -93,16 +93,17 @@
             this.label3.TabIndex = 4;
             this.label3.Text = "Email:";
             // 
-            // linkLabel1
+            // ForgottenPasswordLink
             // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.LinkColor = System.Drawing.Color.Black;
-            this.linkLabel1.Location = new System.Drawing.Point(122, 144);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(115, 15);
-            this.linkLabel1.TabIndex = 8;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Forgot my password";
+            this.ForgottenPasswordLink.AutoSize = true;
+            this.ForgottenPasswordLink.LinkColor = System.Drawing.Color.Black;
+            this.ForgottenPasswordLink.Location = new System.Drawing.Point(122, 144);
+            this.ForgottenPasswordLink.Name = "ForgottenPasswordLink";
+            this.ForgottenPasswordLink.Size = new System.Drawing.Size(115, 15);
+            this.ForgottenPasswordLink.TabIndex = 8;
+            this.ForgottenPasswordLink.TabStop = true;
+            this.ForgottenPasswordLink.Text = "Forgot my password";
+            this.ForgottenPasswordLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.ForgottenPasswordLink_LinkClicked);
             // 
             // label4
             // 
@@ -175,7 +176,7 @@
             this.Controls.Add(this.AccessKeyText);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.linkLabel1);
+            this.Controls.Add(this.ForgottenPasswordLink);
             this.Controls.Add(this.TextPassword);
             this.Controls.Add(this.TextEmail);
             this.Controls.Add(this.label2);
@@ -197,7 +198,7 @@
         private TextBox TextEmail;
         private Label label2;
         private Label label3;
-        private LinkLabel linkLabel1;
+        private LinkLabel ForgottenPasswordLink;
         private Label label4;
         private TextBox AccessKeyText;
         private Label label5;
