@@ -1,7 +1,6 @@
 ﻿using MovieRental.Application.EmployeModule;
 using MoviesRental.Domain.EmployeeModule;
 using MoviesRental.Domain.RentModule;
-using MoviesRental.WindowsApp.Features.AccountModule;
 using MoviesRental.WindowsApp.Shared;
 
 namespace MoviesRental.WindowsApp.Features.EmployeeModule
@@ -86,35 +85,44 @@ namespace MoviesRental.WindowsApp.Features.EmployeeModule
                 return;
             }
 
-            string oldName = employeeSelected.Name;
+            EmployeeForm employee = new EmployeeForm(false);
 
-            EmployeeForm employee = new EmployeeForm();
             employee.Employee = employeeSelected;
-            employee.ShowDialog();
-            if (employee.DialogResult == DialogResult.OK)
+
+            bool datasRequiredIsNull;
+
+            do
             {
-                string result = appService.EditEmployee(id, employee.Employee);
+                employee.ShowDialog();
 
-                List<Rent> allRents = MainForm.instance.GetAllRents();
+                if (employee.DialogResult != DialogResult.OK) return;
 
-                foreach (Rent rents in allRents)
+                datasRequiredIsNull = String.IsNullOrEmpty(employee.Employee.Name)
+                                     | String.IsNullOrEmpty(employee.Employee.Email)
+                                     | String.IsNullOrEmpty(employee.Employee.Password);
+
+                if (datasRequiredIsNull)
                 {
-                    if (rents.EmployeName == oldName)
-                    {
-
-                    }
-                }
-
-                if (result == "Is_Valid")
-                {
-                    employeeTable.UpdateRegisters();
-                    MainForm.instance.UpdateFooter($"Employee: [{employee.Employee.Name}] edited with success");
-                }
-                else
-                {
-                    MainForm.instance.UpdateFooter(result);
+                    MessageBox.Show("There are empty informations", "Employee form",
+                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
             }
+            while (datasRequiredIsNull);
+
+            string result = appService.EditEmployee(id, employee.Employee);
+
+            if (result == "Is_Valid")
+            {
+                CurrentAccount.EmployeeName = employee.Employee.Name;
+                employeeTable.UpdateRegisters();
+                MainForm.instance.UpdateFooter($"Employee: [{employee.Employee.Name}] edited with success");
+                MainForm.instance.ChangeAccountName();
+            }
+            else
+            {
+                MainForm.instance.UpdateFooter(result);
+            }
+
         }
 
         public UserControl GetTable()
@@ -131,21 +139,38 @@ namespace MoviesRental.WindowsApp.Features.EmployeeModule
 
         public void InsertNewRegister()
         {
-            EmployeeForm employeeForm = new EmployeeForm();
+            EmployeeForm employeeForm = new EmployeeForm(true);
 
-            if (employeeForm.ShowDialog() == DialogResult.OK)
+            bool datasRequiredIsNull;
+
+            do
             {
-                string result = appService.InsertNewEmploye(employeeForm.Employee);
+                employeeForm.ShowDialog();
 
-                if (result == "Is_Valid")
+                if (employeeForm.DialogResult != DialogResult.OK) return;
+
+                datasRequiredIsNull = String.IsNullOrEmpty(employeeForm.Employee.Name)
+                                     | String.IsNullOrEmpty(employeeForm.Employee.Email)
+                                     | String.IsNullOrEmpty(employeeForm.Employee.Password);
+
+                if (datasRequiredIsNull)
                 {
-                    employeeTable.UpdateRegisters();
-                    MainForm.instance.UpdateFooter($"Employee {employeeForm.Employee.Name} inserted with success");
+                    MessageBox.Show("There are empty informations", "Employee form",
+                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
-                else
-                {
-                    MainForm.instance.UpdateFooter(result);
-                }
+            }
+            while (datasRequiredIsNull);
+
+            string result = appService.InsertNewEmploye(employeeForm.Employee);
+
+            if (result == "Is_Valid")
+            {
+                employeeTable.UpdateRegisters();
+                MainForm.instance.UpdateFooter($"Employee {employeeForm.Employee.Name} inserted with success");
+            }
+            else
+            {
+                MainForm.instance.UpdateFooter(result);
             }
         }
 

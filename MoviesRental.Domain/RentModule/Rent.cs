@@ -11,7 +11,7 @@ namespace MoviesRental.Domain.RentModule
 {
     public class Rent: BaseEntity<int>
     {
-        public string? EmployeName { get; set; }
+        public string? EmployeeName { get; set; }
 
         public int? MoviesQuantity { get; set; }
 
@@ -35,7 +35,7 @@ namespace MoviesRental.Domain.RentModule
 
         public Rent (string? employeName, int? moviesQuantity, string movieName, string? clientName, DateTime rentalDate, DateTime returnDate, int dayValue, int movieValue, int? totalPrice, Byte[] statusImage, string? status)
         {
-            EmployeName = employeName;
+            EmployeeName = employeName;
             MoviesQuantity = moviesQuantity;
             ClientName = clientName;
             MovieName = movieName;
@@ -52,7 +52,7 @@ namespace MoviesRental.Domain.RentModule
         {
             string ValidationResult = "";
 
-            if (string.IsNullOrEmpty(EmployeName))
+            if (string.IsNullOrEmpty(EmployeeName))
                 ValidationResult = "The employee name cannot be null";
 
             if (MoviesQuantity == 0)

@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MoviesRental.Domain.RentModule;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MoviesRental.Infra.ORM.RentModule
 {
@@ -17,7 +12,7 @@ namespace MoviesRental.Infra.ORM.RentModule
 
             builder.HasKey(p => p.Id);
 
-            builder.Property(p => p.EmployeName).HasColumnType("NVARCHAR(60)");
+            builder.Property(p => p.EmployeeName).HasColumnType("NVARCHAR(60)");
             builder.Property(p => p.MoviesQuantity).HasColumnType("INT");
             builder.Property(p => p.MovieName).HasColumnType("NVARCHAR(200)");
             builder.Property(p => p.ClientName).HasColumnType("NVARCHAR(50)");

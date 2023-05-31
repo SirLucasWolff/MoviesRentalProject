@@ -1,21 +1,10 @@
 ﻿using MovieRental.Application.ClientModule;
-using MovieRental.Application.EmployeModule;
 using MovieRental.Application.MovieModule;
 using MovieRental.Application.RentModule;
 using MoviesRental.Domain.ClientModule;
-using MoviesRental.Domain.EmployeeModule;
 using MoviesRental.Domain.MovieModule;
 using MoviesRental.Domain.RentModule;
 using MoviesRental.WindowsApp.Shared;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace MoviesRental.WindowsApp.Features.RentModule
 {
@@ -37,7 +26,9 @@ namespace MoviesRental.WindowsApp.Features.RentModule
 
         public string statusApp { get; set; }
 
-        public RentForm(MovieAppService movieAppService, ClientAppService clientAppService, RentAppService rentAppService, string status, string clientName)
+        private bool IsAddOperation;
+
+        public RentForm(MovieAppService movieAppService, ClientAppService clientAppService, RentAppService rentAppService, string status, string clientName, bool statusOperation)
         {
             statusApp = status;
             this.movieAppService = movieAppService;
@@ -57,6 +48,7 @@ namespace MoviesRental.WindowsApp.Features.RentModule
             TableMovies.ConfigGridChekered();
             TableMovies.ConfigGridOnlyRead();
             TableMovies.Columns.AddRange(GetColumns());
+            IsAddOperation = statusOperation;
         }
 
         private List<Movie>? GetMoviesSelected()
@@ -229,11 +221,11 @@ namespace MoviesRental.WindowsApp.Features.RentModule
 
         private List<Movie>? GetAllMovies()
         {
-            List<Movie> allMovies= new List<Movie>();
+            List<Movie> allMovies = new List<Movie>();
 
             List<Movie> movies = movieAppService.SelectAllMovies();
 
-            foreach (Movie movie in movies) 
+            foreach (Movie movie in movies)
             {
                 if (movie.Availability == true)
                     allMovies.Add(movie);
@@ -331,7 +323,7 @@ namespace MoviesRental.WindowsApp.Features.RentModule
 
                 movieToEditTheAvailabilityStatus.AvailabilityMessage = "Rented";
 
-                movieAppService.EditMovie(item.Id,movieToEditTheAvailabilityStatus);
+                movieAppService.EditMovie(item.Id, movieToEditTheAvailabilityStatus);
 
                 movieName += item.Name;
                 movieName += ",";
@@ -342,6 +334,12 @@ namespace MoviesRental.WindowsApp.Features.RentModule
 
         private void RentForm_Load(object sender, EventArgs e)
         {
+            if (IsAddOperation == true)
+            {
+                RentalDatePicker.Text = string.Empty;
+                ReturnDatePicker.Text = string.Empty;
+            }
+
             if (statusApp == "Devolution")
                 TableMovies.DataSource = moviesSelected;
             else
@@ -357,7 +355,6 @@ namespace MoviesRental.WindowsApp.Features.RentModule
             int getTotalValue = getMoviesValue + getDaysValue;
 
             TotalValue.Text = getTotalValue.ToString();
-
         }
 
         private string CalculateMoviesValue()
@@ -434,15 +431,24 @@ namespace MoviesRental.WindowsApp.Features.RentModule
 
             string employee = CurrentAccount.EmployeeName;
 
-            int movieQuantity = Convert.ToInt32(MoviesQuantity.Text);
+            int movieQuantity = 0;
+
+            if (!String.IsNullOrEmpty(MoviesQuantity.Text))
+                movieQuantity = Convert.ToInt32(MoviesQuantity.Text);
 
             string movieName = GetMoviesName();
 
             string client = ClientSelector.Text;
 
-            DateTime rentaDate = Convert.ToDateTime(RentalDatePicker.Text);
+            DateTime rentaDate = DateTime.MinValue;
 
-            DateTime returnDate = Convert.ToDateTime(ReturnDatePicker.Text);
+            if (RentalDatePicker.Text != "  /")
+                rentaDate = Convert.ToDateTime(RentalDatePicker.Text);
+
+            DateTime returnDate = DateTime.MinValue;
+
+            if (ReturnDatePicker.Text != "  /")
+                returnDate = Convert.ToDateTime(ReturnDatePicker.Text);
 
             int dayValue = DateValue();
 

@@ -1,6 +1,7 @@
 ﻿using MovieRental.Application.MovieModule;
 using MoviesRental.Domain.MovieModule;
 using MoviesRental.WindowsApp.Shared;
+using System.Windows.Forms;
 
 namespace MoviesRental.WindowsApp.Features.MovieModule
 {
@@ -81,26 +82,46 @@ namespace MoviesRental.WindowsApp.Features.MovieModule
                 return;
             }
 
-            MovieForm form = new MovieForm();
+            MovieForm form = new MovieForm(false);
+
             form.Movie = movieSelected;
-            form.ShowDialog();
-            if (form.DialogResult == DialogResult.OK)
+
+            bool datasRequiredIsNull;
+
+            do
             {
-                string getCategory = form.Movie.Category.Remove(form.Movie.Category.Length - 1);
+                form.ShowDialog();
 
-                form.Movie.Category = getCategory;
+                if (form.DialogResult == DialogResult.Cancel)
+                    return;
 
-                string result = appService.EditMovie(id, form.Movie);
+                datasRequiredIsNull = String.IsNullOrEmpty(form.Movie.Name)
+                                    | String.IsNullOrEmpty(form.Movie.Classification)
+                                    | String.IsNullOrEmpty(form.Movie.Category)
+                                    | form.Movie.ReleaseDate == DateTime.MinValue;
 
-                if (result == "Is_Valid")
+                if (datasRequiredIsNull)
                 {
-                    movieTable.UpdateRegisters();
-                    MainForm.instance.UpdateFooter($"Movie: [{form.Movie.Name}] edited with success");
+                    MessageBox.Show("There are empty informations", "Movie form",
+                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
-                else
-                {
-                    MainForm.instance.UpdateFooter(result);
-                }
+            }
+            while (datasRequiredIsNull);
+
+            string getCategory = form.Movie.Category.Remove(form.Movie.Category.Length - 1);
+
+            form.Movie.Category = getCategory;
+
+            string result = appService.EditMovie(id, form.Movie);
+
+            if (result == "Is_Valid")
+            {
+                movieTable.UpdateRegisters();
+                MainForm.instance.UpdateFooter($"Movie: [{form.Movie.Name}] edited with success");
+            }
+            else
+            {
+                MainForm.instance.UpdateFooter(result);
             }
         }
 
@@ -118,25 +139,44 @@ namespace MoviesRental.WindowsApp.Features.MovieModule
 
         public void InsertNewRegister()
         {
-            MovieForm movieForm = new MovieForm();
+            MovieForm movieForm = new MovieForm(true);
 
-            if (movieForm.ShowDialog() == DialogResult.OK)
+            bool datasRequiredIsNull;
+
+            do
             {
-                string getCategory = movieForm.Movie.Category.Remove(movieForm.Movie.Category.Length -1);
+                movieForm.ShowDialog();
 
-                movieForm.Movie.Category = getCategory;
+                if (movieForm.DialogResult == DialogResult.Cancel)
+                    return;
 
-                string result = appService.InsertNewMovie(movieForm.Movie);
+                datasRequiredIsNull = String.IsNullOrEmpty(movieForm.Movie.Name)
+                                    | String.IsNullOrEmpty(movieForm.Movie.Classification)
+                                    | String.IsNullOrEmpty(movieForm.Movie.Category)
+                                    | movieForm.Movie.ReleaseDate == DateTime.MinValue;
 
-                if (result == "Is_Valid")
+                if (datasRequiredIsNull)
                 {
-                    movieTable.UpdateRegisters();
-                    MainForm.instance.UpdateFooter($"Movie {movieForm.Movie.Name} inserted with success");
+                    MessageBox.Show("There are empty informations", "Movie form",
+                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
-                else
-                {
-                    MainForm.instance.UpdateFooter(result);
-                }
+            }
+            while (datasRequiredIsNull);
+
+            string getCategory = movieForm.Movie.Category.Remove(movieForm.Movie.Category.Length - 1);
+
+            movieForm.Movie.Category = getCategory;
+
+            string result = appService.InsertNewMovie(movieForm.Movie);
+
+            if (result == "Is_Valid")
+            {
+                movieTable.UpdateRegisters();
+                MainForm.instance.UpdateFooter($"Movie {movieForm.Movie.Name} inserted with success");
+            }
+            else
+            {
+                MainForm.instance.UpdateFooter(result);
             }
         }
 

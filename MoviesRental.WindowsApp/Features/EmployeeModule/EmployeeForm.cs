@@ -12,12 +12,14 @@ namespace MoviesRental.WindowsApp.Features.EmployeeModule
 
         List<Employee> employees = new List<Employee>();
 
-        public EmployeeForm()
+        private bool IsAddOperation;
+
+        public EmployeeForm(bool statusOperation)
         {
             InitializeComponent();
-            EnterButtonEmployee.Enabled = false;
             emailConnection = new EmailConnection();
             employeeSQL = new EmployeeSQL();
+            IsAddOperation = statusOperation;
         }
 
         //Should build the properties using the domain class of form.
@@ -38,14 +40,6 @@ namespace MoviesRental.WindowsApp.Features.EmployeeModule
         }
 
         #region CodeMethods
-
-        private void VerifyTextsToAbleEnterButton()
-        {
-            if (TextEmail.Text.Length >= 1 && TextEmployeeName.Text.Length >= 1 && TextPassword.Text.Length >= 1 && EmployeeStatusText.Text == "The email format is correct")
-            {
-                EnterButtonEmployee.Enabled = true;
-            }
-        }
 
         private string VerifyIfAlreadyExistAccessKey()
         {
@@ -136,20 +130,18 @@ namespace MoviesRental.WindowsApp.Features.EmployeeModule
 
             if (EmailValidation == false)
                 EmployeeStatusText.Text = "The email fomat is incorrect";
-
-            VerifyTextsToAbleEnterButton();
-        }
-
-        private void TextEmployeeName_Leave(object sender, EventArgs e)
-        {
-            VerifyTextsToAbleEnterButton();
-        }
-
-        private void TextPassword_Leave(object sender, EventArgs e)
-        {
-            VerifyTextsToAbleEnterButton();
         }
 
         #endregion
+
+        private void EmployeeForm_Load(object sender, EventArgs e)
+        {
+            if (IsAddOperation)
+            {
+                TextEmail.Text = string.Empty;
+                TextPassword.Text = string.Empty;
+                TextName.Text = string.Empty;
+            }
+        }
     }
 }

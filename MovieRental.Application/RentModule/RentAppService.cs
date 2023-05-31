@@ -1,10 +1,4 @@
-﻿using MoviesRental.Domain.MovieModule;
-using MoviesRental.Domain.RentModule;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MoviesRental.Domain.RentModule;
 
 namespace MovieRental.Application.RentModule
 {
@@ -83,7 +77,7 @@ namespace MovieRental.Application.RentModule
             {
                 Rent? rentSelected;
 
-                rentSelected = rentRepository.SelectAll().Find(x => x.EmployeName == rent.EmployeName);
+                rentSelected = rentRepository.SelectAll().Find(x => x.EmployeeName == rent.EmployeeName);
                 rentSelected = rentRepository.SelectAll().Find(x => x.MoviesQuantity == rent.MoviesQuantity);
                 rentSelected = rentRepository.SelectAll().Find(x => x.MovieName == rent.MovieName);
                 rentSelected = rentRepository.SelectAll().Find(x => x.ClientName == rent.ClientName);
@@ -98,7 +92,7 @@ namespace MovieRental.Application.RentModule
                 if (rentSelected == null)
                     return null;
 
-                bool employeeName = rentSelected.EmployeName == rent.EmployeName;
+                bool employeeName = rentSelected.EmployeeName == rent.EmployeeName;
                 bool moviesQuantity = rentSelected.MoviesQuantity == rent.MoviesQuantity;
                 bool movieName = rentSelected.MovieName == rent.MovieName;
                 bool clientName = rentSelected.ClientName == rent.ClientName;

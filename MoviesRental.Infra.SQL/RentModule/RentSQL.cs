@@ -1,15 +1,5 @@
-﻿using MovieRental.Application.MovieModule;
-using MoviesRental.Domain.MovieModule;
-using MoviesRental.Domain.RentModule;
-using MoviesRental.Infra.SQL.MovieModule;
-using MoviesRental.Infra.SQL;
-using System;
-using System.Collections.Generic;
+﻿using MoviesRental.Domain.RentModule;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace MoviesRental.Infra.SQL.RentModule
 {
@@ -17,7 +7,7 @@ namespace MoviesRental.Infra.SQL.RentModule
     {
         public string SqlInsert = @"INSERT INTO RentDB
                     (
-                        [EmployeName],
+                        [EmployeeName],
                         [MoviesQuantity],
                         [MovieName],
                         [ClientName],
@@ -31,7 +21,7 @@ namespace MoviesRental.Infra.SQL.RentModule
                     )
                     VALUES
                     (
-                        @EmployeName,
+                        @EmployeeName,
                         @MoviesQuantity,
                         @MovieName,
                         @ClientName,
@@ -50,7 +40,7 @@ namespace MoviesRental.Infra.SQL.RentModule
 
         public string SqlEdit = @"UPDATE RentDB
                     SET
-                        [EmployeName] = @EmployeName,
+                        [EmployeeName] = @EmployeeName,
                         [MoviesQuantity] = @MoviesQuantity,
                         [MovieName] = @MovieName,
                         [ClientName]= @ClientName,
@@ -66,7 +56,7 @@ namespace MoviesRental.Infra.SQL.RentModule
 
         public string SqlSelectId = @"SELECT
                         [Id],
-                        [EmployeName],
+                        [EmployeeName],
                         [MoviesQuantity],
                         [MovieName],
                         [ClientName],
@@ -85,7 +75,7 @@ namespace MoviesRental.Infra.SQL.RentModule
         public string SqlSelectAll =
         @"SELECT
                         [Id],
-                        [EmployeName],
+                        [EmployeeName],
                         [MoviesQuantity],
                         [MovieName],
                         [ClientName],
@@ -101,7 +91,7 @@ namespace MoviesRental.Infra.SQL.RentModule
 
         public string SqlSelectByStatus = @"SELECT
                         [Id],
-                        [EmployeName],
+                        [EmployeeName],
                         [MoviesQuantity],
                         [MovieName],
                         [ClientName],
@@ -135,7 +125,7 @@ namespace MoviesRental.Infra.SQL.RentModule
             var parameters = new Dictionary<string, object>();
 
             parameters.Add("ID", rent.Id);
-            parameters.Add("EMPLOYENAME", rent.EmployeName);
+            parameters.Add("EMPLOYEENAME", rent.EmployeeName);
             parameters.Add("MOVIESQUANTITY", rent.MoviesQuantity);
             parameters.Add("MOVIENAME", rent.MovieName);
             parameters.Add("CLIENTNAME", rent.ClientName);
@@ -204,7 +194,7 @@ namespace MoviesRental.Infra.SQL.RentModule
         private Rent RentConvert(IDataReader reader)
         {
             int id = Convert.ToInt32(reader["ID"]);
-            string employeeName = ((string)reader["EMPLOYENAME"]);
+            string employeeName = ((string)reader["EMPLOYEENAME"]);
             int moviesQuantity = ((int)reader["MOVIESQUANTITY"]);
             string movieName = ((string)reader["MOVIENAME"]);
             string clientName = ((string)reader["CLIENTNAME"]);

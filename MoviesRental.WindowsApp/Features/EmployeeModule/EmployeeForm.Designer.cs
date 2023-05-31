@@ -115,7 +115,6 @@
             this.TextPassword.PasswordChar = '*';
             this.TextPassword.Size = new System.Drawing.Size(258, 26);
             this.TextPassword.TabIndex = 13;
-            this.TextPassword.Leave += new System.EventHandler(this.TextPassword_Leave);
             // 
             // TextEmployeeName
             // 
@@ -124,7 +123,6 @@
             this.TextEmployeeName.Name = "TextEmployeeName";
             this.TextEmployeeName.Size = new System.Drawing.Size(258, 26);
             this.TextEmployeeName.TabIndex = 12;
-            this.TextEmployeeName.Leave += new System.EventHandler(this.TextEmployeeName_Leave);
             // 
             // label5
             // 
@@ -224,6 +222,7 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Load += new System.EventHandler(this.EmployeeForm_Load);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);

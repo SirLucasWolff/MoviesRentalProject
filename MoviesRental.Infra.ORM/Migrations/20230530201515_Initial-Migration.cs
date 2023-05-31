@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MoviesRental.Infra.ORM.Migrations
 {
-    public partial class Initialize : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,7 +15,7 @@ namespace MoviesRental.Infra.ORM.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ClientName = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: true),
+                    ClientName = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: true),
                     Telephone = table.Column<int>(type: "INT", nullable: false),
                     Address = table.Column<string>(type: "NVARCHAR(100)", nullable: true),
                     BornDate = table.Column<DateTime>(type: "DATE", nullable: true)
@@ -50,6 +50,8 @@ namespace MoviesRental.Infra.ORM.Migrations
                     Name = table.Column<string>(type: "NVARCHAR(60)", nullable: true),
                     Category = table.Column<string>(type: "NVARCHAR(100)", nullable: true),
                     Classification = table.Column<string>(type: "NVARCHAR(50)", nullable: true),
+                    Availability = table.Column<bool>(type: "BIT", nullable: true),
+                    AvailabilityMessage = table.Column<string>(type: "NVARCHAR(50)", nullable: true),
                     ReleaseDate = table.Column<DateTime>(type: "DATE", nullable: true)
                 },
                 constraints: table =>
@@ -63,11 +65,11 @@ namespace MoviesRental.Infra.ORM.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    EmployeName = table.Column<string>(type: "NVARCHAR(60)", nullable: true),
+                    EmployeeName = table.Column<string>(type: "NVARCHAR(60)", nullable: true),
                     MoviesQuantity = table.Column<int>(type: "INT", nullable: true),
                     MovieName = table.Column<string>(type: "NVARCHAR(200)", nullable: false),
                     ClientName = table.Column<string>(type: "NVARCHAR(50)", nullable: true),
-                    RentalDate = table.Column<DateTime>(type: "DATE", nullable: false),
+                    RentalDate = table.Column<DateTime>(type: "DATE", nullable: true),
                     ReturnDate = table.Column<DateTime>(type: "DATE", nullable: false),
                     DayValue = table.Column<int>(type: "INT", nullable: false),
                     MovieValue = table.Column<int>(type: "INT", nullable: false),

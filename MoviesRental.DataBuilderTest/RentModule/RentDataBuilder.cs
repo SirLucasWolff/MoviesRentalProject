@@ -26,7 +26,7 @@ namespace MoviesRental.DataBuilderTest.RentModule
 
         public RentDataBuilder WithEmployeeName(string name)
         {
-            rents.EmployeName = name;
+            rents.EmployeeName = name;
             return this;
         }
 

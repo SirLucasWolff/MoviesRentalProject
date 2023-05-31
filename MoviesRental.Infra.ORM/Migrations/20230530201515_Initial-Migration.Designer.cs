@@ -12,8 +12,8 @@ using MoviesRental.Infra.ORM;
 namespace MoviesRental.Infra.ORM.Migrations
 {
     [DbContext(typeof(MoviesRentalDbContext))]
-    [Migration("20220822225143_Initialize")]
-    partial class Initialize
+    [Migration("20230530201515_Initial-Migration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -39,8 +39,8 @@ namespace MoviesRental.Infra.ORM.Migrations
                         .HasColumnType("DATE");
 
                     b.Property<string>("ClientName")
-                        .HasMaxLength(60)
-                        .HasColumnType("nvarchar(60)");
+                        .HasMaxLength(70)
+                        .HasColumnType("nvarchar(70)");
 
                     b.Property<int>("Telephone")
                         .HasColumnType("INT");
@@ -83,6 +83,12 @@ namespace MoviesRental.Infra.ORM.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<bool?>("Availability")
+                        .HasColumnType("BIT");
+
+                    b.Property<string>("AvailabilityMessage")
+                        .HasColumnType("NVARCHAR(50)");
+
                     b.Property<string>("Category")
                         .HasColumnType("NVARCHAR(100)");
 
@@ -114,7 +120,7 @@ namespace MoviesRental.Infra.ORM.Migrations
                     b.Property<int>("DayValue")
                         .HasColumnType("INT");
 
-                    b.Property<string>("EmployeName")
+                    b.Property<string>("EmployeeName")
                         .HasColumnType("NVARCHAR(60)");
 
                     b.Property<string>("MovieName")
@@ -127,7 +133,7 @@ namespace MoviesRental.Infra.ORM.Migrations
                     b.Property<int?>("MoviesQuantity")
                         .HasColumnType("INT");
 
-                    b.Property<DateTime>("RentalDate")
+                    b.Property<DateTime?>("RentalDate")
                         .HasColumnType("DATE");
 
                     b.Property<DateTime>("ReturnDate")

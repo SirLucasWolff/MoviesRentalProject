@@ -1,24 +1,16 @@
 ﻿using MoviesRental.Domain.MovieModule;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace MoviesRental.WindowsApp.Features.MovieModule
 {
     public partial class MovieForm : Form
     {
-        public MovieForm()
+        private bool IsAddOperation;
+        public MovieForm(bool statusOperation)
         {
             InitializeComponent();
             SupplySelectors();
             TextBoxCategories.Enabled = false;
-            EnterButtonMovie.Enabled = false;
+            IsAddOperation = statusOperation;
         }
 
         private Movie movie;
@@ -75,29 +67,20 @@ namespace MoviesRental.WindowsApp.Features.MovieModule
             ClassificationSelector.Items.Add("18");
         }
 
-        private void VerifyTextsToAbleEnterButton()
-        {
-            try
-            {
-                if (TextMovieName.Text.ToString().Length >= 1 && TextBoxCategories.Text != "Select one" && ClassificationSelector.Text != "Select one" && Convert.ToDateTime(ReleaseDatePicker.Text) < DateTime.Now)
-                {
-                    EnterButtonMovie.Enabled = true;
-                }
-                else
-                {
-                    EnterButtonMovie.Enabled = false;
-                }
-            }
-            catch (Exception ex)
-            { }
-        }
-
         #endregion
 
         #region Events
 
         private void MovieForm_Load(object sender, EventArgs e)
         {
+            if (IsAddOperation == true)
+            {
+                TextMovieName.Text = string.Empty;
+                TextBoxCategories.Text = string.Empty;
+                ClassificationSelector.Text = string.Empty;
+                ReleaseDatePicker.Text = string.Empty;
+            }
+
             if (TextBoxCategories.TextLength != 0 && TextBoxCategories.Text.EndsWith(",") == false)
             {
                 TextBoxCategories.Text += ",";
@@ -107,26 +90,6 @@ namespace MoviesRental.WindowsApp.Features.MovieModule
         private void CategorySelector_SelectedValueChanged(object sender, EventArgs e)
         {
             TextBoxCategories.Text += $"{CategorySelector.Text},";
-        }
-
-        private void TextMovieName_Leave(object sender, EventArgs e)
-        {
-            VerifyTextsToAbleEnterButton();
-        }
-
-        private void ClassificationSelector_Leave(object sender, EventArgs e)
-        {
-            VerifyTextsToAbleEnterButton();
-        }
-
-        private void CategorySelector_Leave(object sender, EventArgs e)
-        {
-            VerifyTextsToAbleEnterButton();
-        }
-
-        private void ReleaseDatePicker_Leave(object sender, EventArgs e)
-        {
-            VerifyTextsToAbleEnterButton();
         }
 
         #endregion
@@ -141,7 +104,10 @@ namespace MoviesRental.WindowsApp.Features.MovieModule
 
             string classification = ClassificationSelector.Text;  //.Remove(ClassificationSelector.Text.Length - 1);
 
-            DateTime releaseDate = Convert.ToDateTime(ReleaseDatePicker.Text);
+            DateTime releaseDate = DateTime.MinValue;
+
+            if (ReleaseDatePicker.Text != "  /  /")
+                releaseDate = Convert.ToDateTime(ReleaseDatePicker.Text);
 
             bool availability = true;
 
@@ -160,6 +126,6 @@ namespace MoviesRental.WindowsApp.Features.MovieModule
 
         #endregion
 
-        
+
     }
 }

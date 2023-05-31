@@ -118,7 +118,7 @@ namespace MoviesRental.Infra.ORM.Migrations
                     b.Property<int>("DayValue")
                         .HasColumnType("INT");
 
-                    b.Property<string>("EmployeName")
+                    b.Property<string>("EmployeeName")
                         .HasColumnType("NVARCHAR(60)");
 
                     b.Property<string>("MovieName")

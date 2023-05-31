@@ -72,7 +72,6 @@
             this.TextName.Name = "TextName";
             this.TextName.Size = new System.Drawing.Size(258, 26);
             this.TextName.TabIndex = 2;
-            this.TextName.Leave += new System.EventHandler(this.TextName_Leave);
             // 
             // TextTelephone
             // 
@@ -81,7 +80,7 @@
             this.TextTelephone.Name = "TextTelephone";
             this.TextTelephone.Size = new System.Drawing.Size(258, 26);
             this.TextTelephone.TabIndex = 3;
-            this.TextTelephone.Leave += new System.EventHandler(this.TextTelephone_Leave);
+            this.TextTelephone.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextTelephone_KeyPress);
             // 
             // EnterButton
             // 
@@ -104,7 +103,6 @@
             this.TextAddress.Name = "TextAddress";
             this.TextAddress.Size = new System.Drawing.Size(258, 26);
             this.TextAddress.TabIndex = 7;
-            this.TextAddress.Leave += new System.EventHandler(this.TextAddress_Leave);
             // 
             // label3
             // 
@@ -137,7 +135,6 @@
             this.AgeDatePicker.Size = new System.Drawing.Size(97, 26);
             this.AgeDatePicker.TabIndex = 9;
             this.AgeDatePicker.ValidatingType = typeof(System.DateTime);
-            this.AgeDatePicker.Leave += new System.EventHandler(this.AgeDatePicker_Leave);
             // 
             // label5
             // 
@@ -186,6 +183,7 @@
             this.Name = "ClientForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Load += new System.EventHandler(this.ClientForm_Load);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);

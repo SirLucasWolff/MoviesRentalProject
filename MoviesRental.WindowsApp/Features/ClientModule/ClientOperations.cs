@@ -1,20 +1,6 @@
-﻿using Autofac;
-using Microsoft.VisualBasic.Devices;
-using Microsoft.Win32;
-using MovieRental.Application.ClientModule;
+﻿using MovieRental.Application.ClientModule;
 using MoviesRental.Domain.ClientModule;
-using MoviesRental.Domain.EmployeeModule;
-using MoviesRental.Domain.MovieModule;
-using MoviesRental.Domain.Shared;
-using MoviesRental.Infra.ORM;
-using MoviesRental.Infra.SQL;
 using MoviesRental.WindowsApp.Shared;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MoviesRental.WindowsApp.Features.ClientModule
 {
@@ -44,21 +30,42 @@ namespace MoviesRental.WindowsApp.Features.ClientModule
 
         public void InsertNewRegister()
         {
-            ClientForm clientForm = new ClientForm();
+            ClientForm clientForm = new ClientForm(true);
 
-            if (clientForm.ShowDialog() == DialogResult.OK)
+            bool datasRequiredIsNull;
+
+            do
             {
-                string result = appService.InsertNewClient(clientForm.Client);
+                clientForm.ShowDialog();
 
-                if (result == "Is_Valid")
+                if (clientForm.DialogResult == DialogResult.Cancel)
+                    return;
+
+                if (clientForm.DialogResult != DialogResult.OK) return;
+
+                datasRequiredIsNull = String.IsNullOrEmpty(clientForm.Client.ClientName)
+                                     | String.IsNullOrEmpty(clientForm.Client.Address)
+                                     | clientForm.Client.Telephone == 0
+                                     | clientForm.Client.BornDate > new DateTime(2012, 4, 16);
+
+                if (datasRequiredIsNull)
                 {
-                    clientTable.UpdateRegisters();
-                    MainForm.instance.UpdateFooter($"Client {clientForm.Client.ClientName} inserted with success");
+                    MessageBox.Show("There are empty informations", "Client form",
+                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
-                else
-                {
-                    MainForm.instance.UpdateFooter(result);
-                }
+
+            } while (datasRequiredIsNull);
+
+            string result = appService.InsertNewClient(clientForm.Client);
+
+            if (result == "Is_Valid")
+            {
+                clientTable.UpdateRegisters();
+                MainForm.instance.UpdateFooter($"Client {clientForm.Client.ClientName} inserted with success");
+            }
+            else
+            {
+                MainForm.instance.UpdateFooter(result);
             }
         }
 
@@ -75,22 +82,41 @@ namespace MoviesRental.WindowsApp.Features.ClientModule
 
             Client clientSelected = appService.SelectClientId(id);
 
-            ClientForm screen = new ClientForm();
-            screen.Client = clientSelected;
-            screen.ShowDialog();
-            if (screen.DialogResult == DialogResult.OK)
-            {
-                string result = appService.EditClient(id, screen.Client);
+            ClientForm screen = new ClientForm(false);
 
-                if (result == "Is_Valid")
+            screen.Client = clientSelected;
+
+            bool datasRequiredIsNull;
+
+            do
+            {
+                screen.ShowDialog();
+
+                if (screen.DialogResult != DialogResult.OK) return;
+
+                datasRequiredIsNull = String.IsNullOrEmpty(screen.Client.ClientName)
+                                     | String.IsNullOrEmpty(screen.Client.Address)
+                                     | screen.Client.Telephone == 0
+                                     | screen.Client.BornDate > new DateTime(2012, 4, 16);
+
+                if (datasRequiredIsNull)
                 {
-                    clientTable.UpdateRegisters();
-                    MainForm.instance.UpdateFooter($"Client: [{screen.Client.ClientName}] edited with success");
+                    MessageBox.Show("There are empty informations", "Client form",
+                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
-                else
-                {
-                    MainForm.instance.UpdateFooter(result);
-                }
+
+            } while (datasRequiredIsNull);
+
+            string result = appService.EditClient(id, screen.Client);
+
+            if (result == "Is_Valid")
+            {
+                clientTable.UpdateRegisters();
+                MainForm.instance.UpdateFooter($"Client: [{screen.Client.ClientName}] edited with success");
+            }
+            else
+            {
+                MainForm.instance.UpdateFooter(result);
             }
         }
 

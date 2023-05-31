@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Microsoft.Win32;
 using MoviesRental.Domain.ClientModule;
 using MoviesRental.Domain.EmployeeModule;
 using MoviesRental.Domain.MovieModule;

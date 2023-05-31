@@ -1,28 +1,21 @@
 ﻿using MoviesRental.Domain.ClientModule;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace MoviesRental.WindowsApp.Features.ClientModule
 {
     public partial class ClientForm : Form
     {
-        public ClientForm()
+        private bool IsAddOperation;
+
+        public ClientForm(bool statusOperation)
         {
             InitializeComponent();
-            EnterButton.Enabled = false;
+            IsAddOperation = statusOperation;
         }
 
         //Should build the properties using the domain class of form.
 
         private Client client;
-        
+
         public Client Client
         {
             get { return client; }
@@ -39,27 +32,9 @@ namespace MoviesRental.WindowsApp.Features.ClientModule
 
         #region CodeMethods
 
-        private void VerifyTextsToAbleEnterButton()
-        {
-            try
-            {
-                if (TextName.Text.Length >= 1 && TextTelephone.Text.Length >= 1 && TextAddress.Text.Length >= 1 && GetTotalYears() > 10)
-                {
-                    EnterButton.Enabled = true;
-                }
-                else
-                {
-                    EnterButton.Enabled = false;
-                }
-            }
-            catch (Exception ex)
-            {}
-        }
-
         public int GetTotalYears()
         {
             int age = 0;
-
             try
             {
                 DateTime Byrthday = Convert.ToDateTime(AgeDatePicker.Text);
@@ -71,7 +46,7 @@ namespace MoviesRental.WindowsApp.Features.ClientModule
                     age--;
 
             }
-            catch (Exception ex) { }
+            catch (Exception ex) { throw ex; }
 
             return age;
         }
@@ -84,38 +59,42 @@ namespace MoviesRental.WindowsApp.Features.ClientModule
         {
             string name = TextName.Text;
 
-            int telephone = Convert.ToInt32(TextTelephone.Text);
+            int telephone = 0;
+
+            if (TextTelephone.Text != String.Empty)
+            {
+                telephone = Convert.ToInt32(TextTelephone.Text);
+            }
 
             string address = TextAddress.Text;
 
-            DateTime bornDate = Convert.ToDateTime(AgeDatePicker.Text);
+            DateTime bornDate = DateTime.MinValue;
+
+            if (AgeDatePicker.Text != "  /  /")
+                bornDate = Convert.ToDateTime(AgeDatePicker.Text);
 
             Client = new Client(name, telephone, address, bornDate);
         }
 
         #endregion
 
-        #region LeaveEvents
-
-        private void TextName_Leave(object sender, EventArgs e)
+        private void ClientForm_Load(object sender, EventArgs e)
         {
-            VerifyTextsToAbleEnterButton();
+            if (IsAddOperation == true)
+            {
+                TextAddress.Text = string.Empty;
+                TextTelephone.Text = string.Empty;
+                TextName.Text = string.Empty;
+                AgeDatePicker.Text = string.Empty;
+            }
         }
 
-        private void TextTelephone_Leave(object sender, EventArgs e)
+        private void TextTelephone_KeyPress(object sender, KeyPressEventArgs e)
         {
-            VerifyTextsToAbleEnterButton();
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
         }
-
-        private void TextAddress_Leave(object sender, EventArgs e)
-        {
-            VerifyTextsToAbleEnterButton();
-        }
-        private void AgeDatePicker_Leave(object sender, EventArgs e)
-        {
-            VerifyTextsToAbleEnterButton();
-        }
-
-        #endregion
     }
 }

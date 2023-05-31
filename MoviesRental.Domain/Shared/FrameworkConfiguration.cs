@@ -1,32 +1,35 @@
-﻿using Microsoft.Win32;
+﻿using System.Configuration;
 
 namespace MoviesRental.Domain.Shared
 {
     public class FrameworkConfiguration
     {
-        public static string FrameworkToMigrate;
-
         public static string FrameworkTypeRead()
         {
-            RegistryKey registryKey = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Movies Rental Project");
-
-            string framework = (string)registryKey.GetValue("FrameworkType");
-
-            return framework;
+            return ConfigurationManager.AppSettings["FrameworkType"];
         }
 
         public static void ChangeFrameworkType(string framework)
         {
-            RegistryKey smb = Registry.LocalMachine.CreateSubKey("SOFTWARE\\Movies Rental Project");
-            smb.SetValue("FrameworkType", framework, RegistryValueKind.String);
-        }
+            try
+            {
+               Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 
-        public static void RevertFrameworkToMigration()
-        {
-            if (FrameworkTypeRead() == "SQLServer")
-                ChangeFrameworkType("EntityFramework");
-            else
-                ChangeFrameworkType("SQLServer");
+                if (config.AppSettings.Settings.AllKeys.Contains("FrameworkType"))
+                {
+                    config.AppSettings.Settings["FrameworkType"].Value = framework;
+                }
+                else
+                {
+                    config.AppSettings.Settings.Add("FrameworkType", framework);
+                }
+
+                config.Save(ConfigurationSaveMode.Modified);
+
+                ConfigurationManager.RefreshSection("appSettings");
+            }
+            catch
+            { }
         }
     }
 }

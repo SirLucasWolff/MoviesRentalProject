@@ -66,7 +66,6 @@
             this.TextMovieName.Name = "TextMovieName";
             this.TextMovieName.Size = new System.Drawing.Size(258, 26);
             this.TextMovieName.TabIndex = 17;
-            this.TextMovieName.Leave += new System.EventHandler(this.TextMovieName_Leave);
             // 
             // label5
             // 
@@ -99,7 +98,6 @@
             this.CategorySelector.Size = new System.Drawing.Size(258, 26);
             this.CategorySelector.TabIndex = 20;
             this.CategorySelector.SelectedValueChanged += new System.EventHandler(this.CategorySelector_SelectedValueChanged);
-            this.CategorySelector.Leave += new System.EventHandler(this.CategorySelector_Leave);
             // 
             // ClassificationSelector
             // 
@@ -109,7 +107,6 @@
             this.ClassificationSelector.Name = "ClassificationSelector";
             this.ClassificationSelector.Size = new System.Drawing.Size(258, 26);
             this.ClassificationSelector.TabIndex = 22;
-            this.ClassificationSelector.Leave += new System.EventHandler(this.ClassificationSelector_Leave);
             // 
             // label1
             // 
@@ -152,7 +149,6 @@
             this.ReleaseDatePicker.Size = new System.Drawing.Size(97, 26);
             this.ReleaseDatePicker.TabIndex = 27;
             this.ReleaseDatePicker.ValidatingType = typeof(System.DateTime);
-            this.ReleaseDatePicker.Leave += new System.EventHandler(this.ReleaseDatePicker_Leave);
             // 
             // statusStrip1
             // 
