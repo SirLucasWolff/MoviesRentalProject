@@ -4,6 +4,7 @@ using MovieRental.Application.RentModule;
 using MoviesRental.Domain.ClientModule;
 using MoviesRental.Domain.MovieModule;
 using MoviesRental.Domain.RentModule;
+using MoviesRental.Infra.SQL.MovieModule;
 using MoviesRental.WindowsApp.Shared;
 
 namespace MoviesRental.WindowsApp.Features.RentModule
@@ -216,7 +217,15 @@ namespace MoviesRental.WindowsApp.Features.RentModule
 
             List<Movie> movie = movieAppService.SelectMovieReference(here);
 
-            return movie;
+            List<Movie> allMovies = new List<Movie>();
+
+            foreach (Movie movieSelected in movie)
+            {
+                if (movieSelected.Availability == true)
+                    allMovies.Add(movieSelected);
+            }
+
+            return allMovies;
         }
 
         private List<Movie>? GetAllMovies()

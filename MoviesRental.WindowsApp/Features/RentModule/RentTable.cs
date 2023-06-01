@@ -2,15 +2,6 @@
 using MoviesRental.Domain.RentModule;
 using MoviesRental.Infra.SQL.RentModule;
 using MoviesRental.WindowsApp.Shared;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace MoviesRental.WindowsApp.Features.RentModule
 {
@@ -36,8 +27,6 @@ namespace MoviesRental.WindowsApp.Features.RentModule
             {
                 new DataGridViewTextBoxColumn { DataPropertyName = "Id", HeaderText = "Id"},
 
-                new DataGridViewTextBoxColumn { DataPropertyName = "EmployeName", HeaderText = "Employee"},
-
                 new DataGridViewTextBoxColumn { DataPropertyName = "MoviesQuantity", HeaderText = "Movies quantity"},
 
                 new DataGridViewTextBoxColumn { DataPropertyName = "ClientName", HeaderText = "Client name"},
@@ -54,6 +43,7 @@ namespace MoviesRental.WindowsApp.Features.RentModule
 
             return colunas;
         }
+
         public int GetIdSelected()
         {
             return DataGridRent.SelectId<int>();
