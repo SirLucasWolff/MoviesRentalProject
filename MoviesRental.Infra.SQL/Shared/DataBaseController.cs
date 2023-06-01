@@ -11,47 +11,6 @@ namespace MoviesRental.Infra.SQL
 
         static SqlCommand cmd = new SqlCommand();
 
-        public static string GetTablesSqlServer()
-        {
-            string? Tables = $"CREATE TABLE EMPLOYEDB" +
-                $"(" +
-                $"Name nvarchar(50) NOT NULL," +
-                $"Password nvarchar(50) NOT NULL" +
-                $");" +
-                $"CREATE TABLE MOVIEDB" +
-                $"(" +
-                $"MovieName nvarchar(100) NOT NULL" +
-                $")" +
-                $"CREATE TABLE CLIENTDB" +
-                $"(" +
-                $"ClientName nvarchar(50) NOT NULL," +
-                $"Telephone int NOT NULL" +
-                $")" +
-                $"CREATE TABLE RENTDB" +
-                $"(" +
-                $"EmployerName nvarchar(50) NOT NULL," +
-                $"MovieName nvarchar(100) NOT NULL," +
-                $"ClientName nvarchar(50) NOT NULL" +
-                $");";
-
-            return Tables;
-        }
-
-        public static void CreateTablesSqlServer()
-        {
-            try
-            {
-                cmd.Connection = connection.SqlServerConnection();
-
-                cmd.CommandText = GetTablesSqlServer();
-
-                cmd.ExecuteNonQuery();
-
-                connection.SqlServerConnection().Close();
-            }
-            catch { }
-        }
-
         public static void DataBase(string commandText, Dictionary<string, object> parameters = null)
         {
             SqlCommand cmd = new SqlCommand();

@@ -174,45 +174,6 @@ namespace MoviesRental.WindowsApp.Features.EmployeeModule
             }
         }
 
-        public void MigrateRegister()
-        {
-            foreach (Employee employeeToMigrate in employeesToMigrate)
-            {
-                Employee? employeeToEdit = appService.SelectEmployeeByName(employeeToMigrate);
-
-                employeeToMigrate.Id = 0;
-
-                string? getResult = ValidateMigrate(employeeToMigrate);
-
-                if (getResult == "InsertingWhileMigrate")
-                    appService.InsertNewEmploye(employeeToMigrate);
-
-                if (getResult == "EditingWhileMigrate" && employeeToEdit != null)
-                    appService.EditEmployee(employeeToEdit.Id, employeeToMigrate);
-            }
-        }
-
-        private string? ValidateMigrate(Employee employee)
-        {
-            List<Employee> allEmployees = appService.SelectAllEmployees();
-
-            if (allEmployees.Count == 0)
-                return "InsertingWhileMigrate";
-
-            bool name = allEmployees.Exists(d => d.Name == employee.Name);
-            bool email = allEmployees.Exists(d => d.Email == employee.Email);
-            bool password = allEmployees.Exists(d => d.Password == employee.Password);
-            bool accessKey = allEmployees.Exists(d => d.AccessKey == employee.AccessKey);
-
-            if (!name && !email && !password && !accessKey)
-                return "InsertingWhileMigrate";
-
-            if (name || email || password || accessKey)
-                return "EditingWhileMigrate";
-
-            return null;
-        }
-
         UserControl IRegister.GetTableFiltered(string filter)
         {
             throw new NotImplementedException();

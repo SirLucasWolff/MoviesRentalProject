@@ -14,8 +14,6 @@ namespace MoviesRental.WindowsApp.Features.RentModule
 
         void EditStatusRegister();
 
-        void MigrateRegister();
-
         void DeleteRegister();
 
         UserControl GetTable();

@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MovieRental.Application\MovieRental.Application.csproj" />
     <ProjectReference Include="..\MoviesRental.Domain\MoviesRental.Domain.csproj" />
   </ItemGroup>
 

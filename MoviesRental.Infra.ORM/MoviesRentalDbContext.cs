@@ -4,8 +4,7 @@ using MoviesRental.Domain.ClientModule;
 using MoviesRental.Domain.EmployeeModule;
 using MoviesRental.Domain.MovieModule;
 using MoviesRental.Domain.RentModule;
-using MoviesRental.Domain.Shared;
-using System.Net;
+using System.Configuration;
 
 namespace MoviesRental.Infra.ORM
 {
@@ -23,18 +22,9 @@ namespace MoviesRental.Infra.ORM
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string? databaseType;
-
-            if (FrameworkConfiguration.FrameworkTypeRead() == "SQLServer")
-                databaseType = "DB";
-            else
-                databaseType = "EF";
-
-            string? host;
-
             try
             {
-                optionsBuilder.UseLoggerFactory(ConsoleLoggerFactory).UseSqlServer($@"Data Source={host = Dns.GetHostName()}\SQLEXPRESS;Initial Catalog=MoviesRental{databaseType};Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+                optionsBuilder.UseLoggerFactory(ConsoleLoggerFactory).UseSqlServer(ConfigurationManager.ConnectionStrings["DatabaseConnection"].ToString());
             }
             catch (Exception ex)
             {

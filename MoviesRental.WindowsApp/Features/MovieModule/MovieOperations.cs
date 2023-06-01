@@ -179,44 +179,5 @@ namespace MoviesRental.WindowsApp.Features.MovieModule
                 MainForm.instance.UpdateFooter(result);
             }
         }
-
-        public void MigrateRegister()
-        {
-            foreach (Movie movieToMigrate in moviesToMigrate)
-            {
-                Movie? movieToEdit = appService.SelectMovieByName(movieToMigrate);
-
-                movieToMigrate.Id = 0;
-
-                string? getResult = ValidateMigrate(movieToMigrate);
-
-                if (getResult == "InsertingWhileMigrate")
-                    appService.InsertNewMovie(movieToMigrate);
-
-                if (getResult == "EditingWhileMigrate" && movieToEdit != null)
-                    appService.EditMovie(movieToEdit.Id, movieToMigrate);
-            }
-        }
-
-        private string? ValidateMigrate(Movie movie)
-        {
-            List<Movie> allMovies = appService.SelectAllMovies();
-
-            if (allMovies.Count == 0)
-                return "InsertingWhileMigrate";
-
-            bool name = allMovies.Exists(d => d.Name == movie.Name);
-            bool category = allMovies.Exists(d => d.Category == movie.Category);
-            bool classification = allMovies.Exists(d => d.Classification == movie.Classification);
-            bool releaseDate = allMovies.Exists(d => d.ReleaseDate == movie.ReleaseDate);
-
-            if (!name && !category && !classification && !releaseDate)
-                return "InsertingWhileMigrate";
-
-            if (name || category || classification || releaseDate)
-                return "EditingWhileMigrate";
-
-            return null;
-        }
     }
 }

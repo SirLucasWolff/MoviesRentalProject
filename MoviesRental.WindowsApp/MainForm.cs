@@ -74,35 +74,6 @@ namespace MoviesRental.WindowsApp
             return null;
         }
 
-        public void MigrationDatabase(string Key)
-        {
-            operations = new AutoFacBuilder().Container.Resolve<EmployeeOperations>();
-            EmployeeOperations.instance.GetList();
-
-            operations = new AutoFacBuilder().Container.Resolve<ClientOperations>();
-            ClientOperations.instance.GetList();
-
-            operations = new AutoFacBuilder().Container.Resolve<MovieOperations>();
-            MovieOperations.instance.GetList();
-
-            rentOperations = new AutoFacBuilder().Container.Resolve<RentOperations>();
-            RentOperations.instance.GetList();
-
-            FrameworkConfiguration.ChangeFrameworkType(Key);
-
-            operations = new AutoFacBuilder().Container.Resolve<EmployeeOperations>();
-            operations.MigrateRegister();
-
-            operations = new AutoFacBuilder().Container.Resolve<ClientOperations>();
-            operations.MigrateRegister();
-
-            operations = new AutoFacBuilder().Container.Resolve<MovieOperations>();
-            operations.MigrateRegister();
-
-            rentOperations = new AutoFacBuilder().Container.Resolve<RentOperations>();
-            rentOperations.MigrateRegister();
-        }
-
         public List<Rent> GetAllRents()
         {
             rentOperations = new AutoFacBuilder().Container.Resolve<RentOperations>();

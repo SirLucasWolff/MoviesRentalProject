@@ -12,8 +12,6 @@ namespace MoviesRental.WindowsApp.Shared
 
         void EditRegister();
 
-        void MigrateRegister();
-
         void DeleteRegister();
 
         UserControl GetTable();

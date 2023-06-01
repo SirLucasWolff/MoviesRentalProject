@@ -159,44 +159,5 @@ namespace MoviesRental.WindowsApp.Features.ClientModule
         {
             throw new NotImplementedException();
         }
-
-        public void MigrateRegister()
-        {
-            foreach (Client clientToMigrate in clientsToMigrate)
-            {
-                Client? clientToEdit = appService.SelectClientByName(clientToMigrate);
-
-                clientToMigrate.Id = 0;
-
-                string? getResult = ValidateMigrate(clientToMigrate);
-
-                if (getResult == "InsertingWhileMigrate")
-                    appService.InsertNewClient(clientToMigrate);
-
-                if (getResult == "EditingWhileMigrate" && clientToEdit != null)
-                    appService.EditClient(clientToEdit.Id, clientToMigrate);
-            }
-        }
-
-        private string? ValidateMigrate(Client client)
-        {
-            List<Client> allClients = appService.SelectAllClients();
-
-            if (allClients.Count == 0)
-                return "InsertingWhileMigrate";
-
-            bool name = allClients.Exists(d => d.ClientName == client.ClientName);
-            bool address = allClients.Exists(d => d.Address == client.Address);
-            bool bornDate = allClients.Exists(d => d.BornDate == client.BornDate);
-            bool telephone = allClients.Exists(d => d.Telephone == client.Telephone);
-
-            if (!name && !address && !bornDate && !telephone)
-                return "InsertingWhileMigrate";
-
-            if (name || telephone || address || bornDate)
-                return "EditingWhileMigrate";
-
-            return null;
-        }
     }
 }

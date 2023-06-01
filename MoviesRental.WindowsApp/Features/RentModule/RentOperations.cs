@@ -2,19 +2,7 @@
 using MovieRental.Application.EmployeModule;
 using MovieRental.Application.MovieModule;
 using MovieRental.Application.RentModule;
-using MoviesRental.Domain.EmployeeModule;
-using MoviesRental.Domain.MovieModule;
 using MoviesRental.Domain.RentModule;
-using MoviesRental.Domain.Shared;
-using MoviesRental.Infra.SQL;
-using MoviesRental.WindowsApp.Shared;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MoviesRental.WindowsApp.Features.RentModule
 {
@@ -253,43 +241,6 @@ namespace MoviesRental.WindowsApp.Features.RentModule
             {
                 MainForm.instance.UpdateFooter(result);
             }
-        }
-
-        public void MigrateRegister()
-        {
-            foreach (Rent rentToMigrate in rentsToMigrate)
-            {
-                Rent? rentToEdit = rentAppService.SelectRentByName(rentToMigrate);
-
-                rentToMigrate.Id = 0;
-
-                string? getResult = ValidateMigrate(rentToMigrate);
-
-                if (getResult == "InsertingWhileMigrate")
-                    rentAppService.InsertNewRent(rentToMigrate);
-
-                if (getResult == "EditingWhileMigrate" && rentToEdit != null)
-                    rentAppService.EditRent(rentToEdit.Id, rentToMigrate);
-            }
-        }
-
-        private string? ValidateMigrate(Rent rent)
-        {
-            List<Rent> allRents = rentAppService.SelectAllRents();
-
-            if (allRents.Count == 0)
-                return "InsertingWhileMigrate";
-
-            bool movieName = allRents.Exists(d => d.MovieName == rent.MovieName);
-            bool clientName = allRents.Exists(d => d.ClientName == rent.ClientName);
-
-            if (!movieName && !clientName)
-                return "InsertingWhileMigrate";
-
-            if (movieName || clientName)
-                return "EditingWhileMigrate";
-
-            return null;
         }
 
         public List<Rent> DashboardRents()
