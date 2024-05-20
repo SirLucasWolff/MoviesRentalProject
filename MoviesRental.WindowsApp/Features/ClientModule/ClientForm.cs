@@ -26,7 +26,7 @@ namespace MoviesRental.WindowsApp.Features.ClientModule
                 TextName.Text = client.ClientName;
                 TextTelephone.Text = client.Telephone.ToString();
                 TextAddress.Text = client.Address;
-                AgeDatePicker.Text = client.BornDate.ToString();
+                AgeDatePicker.Text = client.BornDate.Value.Date.ToString("MM/dd/yyyy");
             }
         }
 

@@ -38,8 +38,6 @@
             this.MovieOption = new System.Windows.Forms.ToolStripMenuItem();
             this.ClientOption = new System.Windows.Forms.ToolStripMenuItem();
             this.SettingsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.languageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dataBaseConnectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.FrameworkMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.RentsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PanelHeader = new System.Windows.Forms.Panel();
@@ -148,30 +146,16 @@
             // 
             this.SettingsMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.SettingsMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.languageToolStripMenuItem,
-            this.dataBaseConnectionToolStripMenuItem,
             this.FrameworkMenuItem});
             this.SettingsMenuItem.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.SettingsMenuItem.Name = "SettingsMenuItem";
             this.SettingsMenuItem.Size = new System.Drawing.Size(69, 22);
             this.SettingsMenuItem.Text = "Settings";
             // 
-            // languageToolStripMenuItem
-            // 
-            this.languageToolStripMenuItem.Name = "languageToolStripMenuItem";
-            this.languageToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
-            this.languageToolStripMenuItem.Text = "Language";
-            // 
-            // dataBaseConnectionToolStripMenuItem
-            // 
-            this.dataBaseConnectionToolStripMenuItem.Name = "dataBaseConnectionToolStripMenuItem";
-            this.dataBaseConnectionToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
-            this.dataBaseConnectionToolStripMenuItem.Text = "DataBase Connection";
-            // 
             // FrameworkMenuItem
             // 
             this.FrameworkMenuItem.Name = "FrameworkMenuItem";
-            this.FrameworkMenuItem.Size = new System.Drawing.Size(206, 22);
+            this.FrameworkMenuItem.Size = new System.Drawing.Size(180, 22);
             this.FrameworkMenuItem.Text = "Framework";
             this.FrameworkMenuItem.Click += new System.EventHandler(this.FrameworkMenuItem_Click);
             // 
@@ -440,8 +424,6 @@
         public ToolStripStatusLabel StatusText;
         private ToolStripMenuItem AccessMenuItem;
         private ToolStripMenuItem SettingsMenuItem;
-        private ToolStripMenuItem languageToolStripMenuItem;
-        private ToolStripMenuItem dataBaseConnectionToolStripMenuItem;
         private ToolStripSeparator toolStripSeparator4;
         private ToolStripButton AccountButton;
         private ToolStripMenuItem RentsMenuItem;

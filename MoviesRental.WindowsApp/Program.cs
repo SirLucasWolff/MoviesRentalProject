@@ -1,7 +1,4 @@
-using MoviesRental.Domain.EmployeeModule;
-using MoviesRental.Infra.ORM;
 using MoviesRental.WindowsApp.Shared;
-using System.Net;
 
 namespace MoviesRental.WindowsApp
 {
