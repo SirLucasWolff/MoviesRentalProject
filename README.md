@@ -10,6 +10,9 @@ Sobre a parte técnica do projeto, ele inclui:
 - EntityFramework
 - Linguagem HTML
 
+Siga os passos abaixo para configurar o ambiente e executar em Debug a aplicação
+- 
+
 
 
 
