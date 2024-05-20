@@ -21,6 +21,8 @@ Siga os passos abaixo para configurar o ambiente e executar em Debug a aplica√ß√
  - Email: admin@gmail.com
  - Senha: adminn
 
+_________________________________________________________
+ 
 Movies Rental Project is based on the simulation of a virtual movie rental store, using the project you can see how the whole process of a rental store works, from registering employees and customers to registering movies using the already saved data
 
 As for the technical part of the project, it includes:
