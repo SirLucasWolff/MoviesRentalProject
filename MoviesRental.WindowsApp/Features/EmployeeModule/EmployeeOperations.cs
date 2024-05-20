@@ -1,6 +1,5 @@
 ﻿using MovieRental.Application.EmployeModule;
 using MoviesRental.Domain.EmployeeModule;
-using MoviesRental.Domain.RentModule;
 using MoviesRental.WindowsApp.Shared;
 
 namespace MoviesRental.WindowsApp.Features.EmployeeModule

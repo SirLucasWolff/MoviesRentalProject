@@ -24,7 +24,7 @@ namespace MoviesRental.Infra.ORM
         {
             try
             {
-                optionsBuilder.UseLoggerFactory(ConsoleLoggerFactory).UseSqlServer(ConfigurationManager.ConnectionStrings["DatabaseConnection"].ToString());
+                optionsBuilder.UseLoggerFactory(ConsoleLoggerFactory).UseSqlServer(ConfigurationManager.AppSettings["DatabaseConnection"].ToString());
             }
             catch (Exception ex)
             {

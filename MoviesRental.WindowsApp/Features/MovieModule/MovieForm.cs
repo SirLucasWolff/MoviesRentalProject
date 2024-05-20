@@ -25,7 +25,7 @@ namespace MoviesRental.WindowsApp.Features.MovieModule
                 TextMovieName.Text = movie.Name;
                 TextBoxCategories.Text = movie.Category;
                 ClassificationSelector.Text = movie.Classification;
-                ReleaseDatePicker.Text = movie.ReleaseDate.ToString();
+                ReleaseDatePicker.Text = movie.ReleaseDate.Value.Date.ToString("MM/dd/yyyy");
             }
         }
 
