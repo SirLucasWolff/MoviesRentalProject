@@ -11,7 +11,13 @@ Sobre a parte técnica do projeto, ele inclui:
 - Linguagem HTML
 
 Siga os passos abaixo para configurar o ambiente e executar em Debug a aplicação
-- 
+- Baixe o arquivo MoviesRentalDB.bacpac que está dentro do repositório
+- Incie o Microsoft SQL Server Management Studio
+- Se conecte utilizando a sua conta SQLEXPRESS e o Windows Athenticantion
+- Sob a opção bando de dados selecione a opção para importar um novo banco
+- Durante o processo de configuração desse banco mantenha o nome MoviesRentalDB
+- Depois de finalizado o processo de configuração do banco de dados você já pode baixar ou clonar o repositório e executar a aplicação em Debug
+- Para um primeiro acesso utilize 
 
 
 
